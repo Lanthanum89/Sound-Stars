@@ -22,6 +22,48 @@
   --sans: 'Baloo 2', system-ui, 'Segoe UI', Roboto, sans-serif;
   /* For actual phonics text (graphemes/words), not UI chrome — see Flashcard. */
   --reading: 'Andika', 'Baloo 2', system-ui, sans-serif;
+  --body: 'Nunito', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  /* "Storybook Sky" design tokens — the redesign's fixed palette. Unlike the
+     --accent-* vars above (which still drive the skin picker), these don't
+     vary with the active skin or dark/light mode: the child-facing screens
+     are always this bright, sunny palette by design. */
+  --sky-1: #8fd0ff;
+  --sky-2: #cdedff;
+  --sky-3: #e9f7df;
+  --parent-1: #dceefa;
+  --parent-2: #eaf5fb;
+  --parent-3: #f4f8f2;
+  --gold-1: #ffe594;
+  --gold-2: #ffb01f;
+  --gold-stroke: #f19a0e;
+  --cta-gold-1: #ffd84d;
+  --cta-gold-2: #ffb01f;
+  --cta-gold-shadow: #e09100;
+  --cta-blue-1: #1cade9;
+  --cta-blue-2: #0e97cf;
+  --cta-blue-shadow: #0b7ba8;
+  --green: #5dbb63;
+  --green-shadow: #429248;
+  --coral: #ff7a59;
+  --coral-2: #ff8a73;
+  --coral-shadow: #d85c3e;
+  --yellow-chip: #ffcb2b;
+  --yellow-chip-shadow: #e0a81e;
+  --ink-heading: #0e5c8a;
+  --ink-body: #3f6a88;
+  --ink-body-2: #5a7488;
+  --ink-muted: #9bb4c5;
+  --ink-parent: #294a63;
+  --card-white: #fff;
+  --card-translucent: rgba(255, 255, 255, 0.72);
+  --sparkle-bg: #e4f5e6;
+  --sparkle-text: #2f8a45;
+  --sparkle-border: #bfe6c8;
+  --practice-text: #e07800;
+  --practice-track: #f3e7d2;
+  --practice-fill: #ffb01f;
+  --practice-count: #9a8b63;
 
   /* Unitless line-height (not a percentage): a percentage computes to a fixed
      px value on :root and inherits as that px value into every descendant
@@ -87,4 +129,80 @@ body {
 h1 {
   color: var(--text-h);
   font-weight: 600;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(3deg);
+  }
+}
+
+@keyframes bobB {
+  0%,
+  100% {
+    transform: translateY(0) rotate(4deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(-4deg);
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

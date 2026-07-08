@@ -29,6 +29,16 @@ export function buildTrickyWordDeck(phases: readonly Phase[]): FlashcardItem[] {
     );
 }
 
+const ALL_PHASES: Phase[] = [2, 3, 4, 5];
+
+/** Builds a deck of just the given prompts (graphemes or tricky words) — used
+ * for the parent view's "Practise these together" targeted round. */
+export function buildTargetedDeck(prompts: readonly string[]): FlashcardItem[] {
+  const promptSet = new Set(prompts);
+  const all = [...buildGraphemeDeck(ALL_PHASES), ...buildTrickyWordDeck(ALL_PHASES)];
+  return all.filter((item) => promptSet.has(item.prompt));
+}
+
 export function shuffle<T>(items: readonly T[]): T[] {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i--) {

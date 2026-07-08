@@ -8,9 +8,12 @@ export interface RoundOptions {
   secondsPerCard: number;
   /** Cards to draw from the shuffled pool; omit/undefined for the whole pool. */
   sessionSize?: number;
+  /** Fires for every mark — explicit (button) or implicit (timeout) — with the card it applied to. */
+  onAnswer?: (item: FlashcardItem, correct: boolean) => void;
 }
 
 export function useRound(items: FlashcardItem[], options: RoundOptions) {
+  const { onAnswer } = options;
   const { current, position, total, isComplete, next, restart: restartDeck } = useFlashcardDeck(
     items,
     options.sessionSize,
@@ -33,9 +36,10 @@ export function useRound(items: FlashcardItem[], options: RoundOptions) {
         correct: s.correct + (correct ? 1 : 0),
         incorrect: s.incorrect + (correct ? 0 : 1),
       }));
+      if (current) onAnswer?.(current, correct);
       next();
     },
-    [next],
+    [next, current, onAnswer],
   );
 
   useEffect(() => {
