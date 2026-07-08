@@ -44,6 +44,7 @@ function App() {
         type="button"
         className={styles.themeToggle}
         onClick={toggleTheme}
+        aria-pressed={themeMode === 'dark'}
         aria-label={themeMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       >
         {themeMode === 'dark' ? '☀️' : '🌙'}
@@ -119,10 +120,12 @@ function App() {
             <input
               type="number"
               min={1}
+              step={1}
               placeholder="Custom"
+              aria-label="Custom number of cards"
               value={sessionSize === 'all' ? '' : sessionSize}
               onChange={(e) => {
-                const value = Number(e.target.value);
+                const value = Math.floor(Number(e.target.value));
                 setSessionSize(value > 0 ? value : 'all');
               }}
               className={styles.secondsInput}

@@ -39,6 +39,7 @@
 
 /* Explicit in-app toggle wins over the OS-level preference above. */
 :root[data-theme='light'] {
+  color-scheme: light;
   --text: #7a6f4e;
   --text-h: #1f2430;
   --bg: #fffbef;
@@ -51,6 +52,7 @@
 }
 
 :root[data-theme='dark'] {
+  color-scheme: dark;
   --text: #a8a290;
   --text-h: #f3f4f6;
   --bg: #1c1a12;
