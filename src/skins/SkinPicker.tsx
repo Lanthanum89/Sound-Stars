@@ -7,17 +7,17 @@ export function SkinPicker() {
   return (
     <div className={styles.picker} role="radiogroup" aria-label="Choose a skin">
       {skins.map((s) => (
-        <button
-          key={s.id}
-          type="button"
-          role="radio"
-          aria-checked={s.id === skin.id}
-          data-active={s.id === skin.id}
-          className={styles.chip}
-          onClick={() => setSkinId(s.id)}
-        >
+        <label key={s.id} className={styles.chip} data-active={s.id === skin.id}>
+          <input
+            type="radio"
+            name="skin"
+            value={s.id}
+            checked={s.id === skin.id}
+            onChange={() => setSkinId(s.id)}
+            className={styles.radioInput}
+          />
           <span aria-hidden="true">{s.emoji}</span> {s.name}
-        </button>
+        </label>
       ))}
     </div>
   );

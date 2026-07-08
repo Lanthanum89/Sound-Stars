@@ -20,7 +20,7 @@ export function useRound(items: FlashcardItem[], options: RoundOptions) {
 
   useEffect(() => {
     setTimeLeft(options.secondsPerCard);
-  }, [current?.id, options.secondsPerCard]);
+  }, [current?.id, options.secondsPerCard, options.timed, items]);
 
   const mark = useCallback(
     (correct: boolean) => {
@@ -45,8 +45,9 @@ export function useRound(items: FlashcardItem[], options: RoundOptions) {
 
   const restart = useCallback(() => {
     setScore({ correct: 0, incorrect: 0 });
+    setTimeLeft(options.secondsPerCard);
     restartDeck();
-  }, [restartDeck]);
+  }, [restartDeck, options.secondsPerCard]);
 
   return {
     current,
