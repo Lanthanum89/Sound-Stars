@@ -23,7 +23,12 @@
   /* For actual phonics text (graphemes/words), not UI chrome — see Flashcard. */
   --reading: 'Andika', 'Baloo 2', system-ui, sans-serif;
 
-  font: 18px/145% var(--sans);
+  /* Unitless line-height (not a percentage): a percentage computes to a fixed
+     px value on :root and inherits as that px value into every descendant
+     regardless of its own font-size — which is what let a 4rem flashcard
+     glyph get crammed into an 18px line box and overlap the line below.
+     Unitless recomputes per element against its own font-size instead. */
+  font: 18px/1.45 var(--sans);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
