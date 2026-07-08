@@ -9,7 +9,9 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Baloo 2', system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* For actual phonics text (graphemes/words), not UI chrome — see Flashcard. */
+  --reading: 'Andika', 'Baloo 2', system-ui, sans-serif;
 
   font: 18px/145% var(--sans);
   color-scheme: light dark;
@@ -33,6 +35,33 @@
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
+}
+
+/* Explicit in-app toggle wins over the OS-level preference above. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --text: #7a6f4e;
+  --text-h: #1f2430;
+  --bg: #fffbef;
+  --border: #f2e1a8;
+  --accent: #1cade9;
+  --accent-bg: rgba(28, 173, 233, 0.12);
+  --accent-border: rgba(28, 173, 233, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --text: #a8a290;
+  --text-h: #f3f4f6;
+  --bg: #1c1a12;
+  --border: #3a3524;
+  --accent: #38bdf8;
+  --accent-bg: rgba(56, 189, 248, 0.15);
+  --accent-border: rgba(56, 189, 248, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
 }
 
 body {
