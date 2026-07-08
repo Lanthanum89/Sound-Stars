@@ -16,7 +16,8 @@ export function Modal({ onClose, label, children }: ModalProps) {
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
-    panelRef.current?.focus();
+    const firstFocusable = panelRef.current?.querySelector<HTMLElement>(FOCUSABLE_SELECTOR);
+    (firstFocusable ?? panelRef.current)?.focus();
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';

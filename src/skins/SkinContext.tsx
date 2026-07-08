@@ -15,6 +15,12 @@ export function SkinProvider({ children }: { children: ReactNode }) {
     root.style.setProperty('--accent', skin.accent);
     root.style.setProperty('--accent-bg', `rgba(${skin.accentRgb}, 0.12)`);
     root.style.setProperty('--accent-border', `rgba(${skin.accentRgb}, 0.5)`);
+
+    return () => {
+      root.style.removeProperty('--accent');
+      root.style.removeProperty('--accent-bg');
+      root.style.removeProperty('--accent-border');
+    };
   }, [skin]);
 
   const value = useMemo(() => ({ skin, skins, setSkinId }), [skin, setSkinId]);
