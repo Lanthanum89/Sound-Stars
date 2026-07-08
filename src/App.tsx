@@ -5,6 +5,7 @@ import { SkinStage } from './skins/SkinStage';
 import { buildGraphemeDeck, buildTrickyWordDeck } from './content/deck';
 import type { Phase } from './content/phonicsGraphemeBank';
 import type { DeckKind } from './content/types';
+import logo from './assets/logo.png';
 import styles from './App.module.css';
 
 const ALL_PHASES: Phase[] = [2, 3, 4, 5];
@@ -29,7 +30,10 @@ function App() {
 
   return (
     <main className={styles.app}>
-      <h1>Sound Stars</h1>
+      <div className={styles.header}>
+        <img src={logo} alt="" className={styles.logo} width={64} height={64} />
+        <h1>Sound Stars</h1>
+      </div>
       <p className={styles.subtitle}>Phonics flashcard practice for the Year 1 screening check</p>
 
       <SkinPicker />
