@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
 import { useSkin } from '../skins/context';
 import { useRound } from '../hooks/useRound';
-import { highlightGrapheme } from '../content/highlightGrapheme';
+import { getDisplayPrompt, getEyebrowLabel, highlightGrapheme } from '../content/highlightGrapheme';
 import type { FlashcardItem } from '../content/types';
 import type { RoundAnswer } from '../hooks/useProgress';
 import shared from './shared.module.css';
@@ -43,6 +43,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
   if (isComplete || !current) return null;
 
   const segments = highlightGrapheme(current);
+  const displayPrompt = getDisplayPrompt(current);
   const mascotEmoji = skin.id === 'classic' ? undefined : skin.emoji;
 
   return (
@@ -90,9 +91,11 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
             <div className={styles.mascotSlot}>
               <Mascot expression="happy" size={74} emoji={mascotEmoji} />
             </div>
-            <div className={styles.eyebrow}>Sound it out!</div>
-            <div className={styles.prompt}>{current.prompt}</div>
-            {current.kind === 'grapheme' && (
+            <div className={styles.eyebrow}>{getEyebrowLabel(current)}</div>
+            <div className={styles.prompt} data-long={displayPrompt.length > 4}>
+              {displayPrompt}
+            </div>
+            {current.kind === 'grapheme' && current.prompt !== 'adjacent_consonants' && (
               <div className={styles.word}>
                 {segments.map((segment, i) => (
                   <span key={i} className={segment.highlight ? styles.wordHighlight : undefined}>
