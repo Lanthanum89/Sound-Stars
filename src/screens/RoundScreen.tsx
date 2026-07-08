@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
 import { useSkin } from '../skins/context';
 import { useRound } from '../hooks/useRound';
@@ -21,17 +21,18 @@ interface RoundScreenProps {
 
 export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose, onComplete }: RoundScreenProps) {
   const { skin } = useSkin();
+  const answersRef = useRef<RoundAnswer[]>([]);
+
+  const handleAnswer = useCallback((item: FlashcardItem, correct: boolean) => {
+    answersRef.current.push({ item, correct });
+  }, []);
+
   const { current, position, total, isComplete, timeLeft, mark } = useRound(items, {
     timed,
     secondsPerCard,
     sessionSize,
+    onAnswer: handleAnswer,
   });
-  const answersRef = useRef<RoundAnswer[]>([]);
-
-  const handleMark = (correct: boolean) => {
-    if (current) answersRef.current.push({ item: current, correct });
-    mark(correct);
-  };
 
   useEffect(() => {
     if (isComplete) onComplete(answersRef.current);
@@ -70,7 +71,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
               ))
             ) : (
               <div className={styles.progressBar}>
-                <div className={styles.progressBarFill} style={{ width: `${(position / total) * 100}%` }} />
+                <div className={styles.progressBarFill} style={{ width: `${((position + 1) / total) * 100}%` }} />
               </div>
             )}
           </div>
@@ -91,20 +92,22 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
             </div>
             <div className={styles.eyebrow}>Sound it out!</div>
             <div className={styles.prompt}>{current.prompt}</div>
-            <div className={styles.word}>
-              {segments.map((segment, i) => (
-                <span key={i} className={segment.highlight ? styles.wordHighlight : undefined}>
-                  {segment.text}
-                </span>
-              ))}
-            </div>
+            {current.kind === 'grapheme' && (
+              <div className={styles.word}>
+                {segments.map((segment, i) => (
+                  <span key={i} className={segment.highlight ? styles.wordHighlight : undefined}>
+                    {segment.text}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className={styles.answers}>
-            <button type="button" className={styles.incorrect} onClick={() => handleMark(false)}>
+            <button type="button" className={styles.incorrect} onClick={() => mark(false)}>
               ✗
             </button>
-            <button type="button" className={styles.correct} onClick={() => handleMark(true)}>
+            <button type="button" className={styles.correct} onClick={() => mark(true)}>
               ✓ Yes!
             </button>
           </div>

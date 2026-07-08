@@ -14,12 +14,24 @@ function emptyProgress(): ProgressData {
   };
 }
 
+function isValidProgressShape(parsed: unknown): parsed is ProgressData {
+  if (typeof parsed !== 'object' || parsed === null) return false;
+  const candidate = parsed as Record<string, unknown>;
+  return (
+    candidate.version === CURRENT_VERSION &&
+    typeof candidate.graphemes === 'object' &&
+    candidate.graphemes !== null &&
+    !Array.isArray(candidate.graphemes) &&
+    Array.isArray(candidate.sessions)
+  );
+}
+
 export function loadProgress(): ProgressData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return emptyProgress();
     const parsed = JSON.parse(raw);
-    if (parsed?.version !== CURRENT_VERSION) return emptyProgress();
+    if (!isValidProgressShape(parsed)) return emptyProgress();
     return { ...emptyProgress(), ...parsed };
   } catch {
     return emptyProgress();
@@ -46,15 +58,7 @@ export function downloadProgressBackup(data: ProgressData): void {
 export function parseProgressBackup(json: string): ProgressData | null {
   try {
     const parsed = JSON.parse(json);
-    if (
-      typeof parsed !== 'object' ||
-      parsed === null ||
-      parsed.version !== CURRENT_VERSION ||
-      typeof parsed.graphemes !== 'object' ||
-      !Array.isArray(parsed.sessions)
-    ) {
-      return null;
-    }
+    if (!isValidProgressShape(parsed)) return null;
     return { ...emptyProgress(), ...parsed };
   } catch {
     return null;
