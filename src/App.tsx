@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Modal } from './components/Modal/Modal';
 import { Round } from './components/Round/Round';
 import { SkinPicker } from './skins/SkinPicker';
 import { SkinStage } from './skins/SkinStage';
@@ -16,6 +17,7 @@ function App() {
   const [deckKind, setDeckKind] = useState<DeckKind>('grapheme');
   const [timedMode, setTimedMode] = useState(false);
   const [secondsPerCard, setSecondsPerCard] = useState(DEFAULT_SECONDS_PER_CARD);
+  const [isRoundOpen, setIsRoundOpen] = useState(false);
 
   const items = useMemo(
     () => (deckKind === 'grapheme' ? buildGraphemeDeck(phases) : buildTrickyWordDeck(phases)),
@@ -104,9 +106,17 @@ function App() {
       {items.length === 0 ? (
         <p>Select at least one phase to start.</p>
       ) : (
-        <SkinStage>
-          <Round items={items} timed={timedMode} secondsPerCard={secondsPerCard} />
-        </SkinStage>
+        <button type="button" className={styles.startButton} onClick={() => setIsRoundOpen(true)}>
+          Start round ({items.length} cards)
+        </button>
+      )}
+
+      {isRoundOpen && (
+        <Modal onClose={() => setIsRoundOpen(false)} label="Phonics flashcard round">
+          <SkinStage>
+            <Round items={items} timed={timedMode} secondsPerCard={secondsPerCard} />
+          </SkinStage>
+        </Modal>
       )}
     </main>
   );

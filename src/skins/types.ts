@@ -7,4 +7,6 @@ export interface Skin {
   accent: string;
   /** Same colour as an "r, g, b" triple, for building rgba() tints in CSS. */
   accentRgb: string;
+  /** Hero mascot image, shown on the flashcard in place of the emoji once designed. */
+  mascotSrc?: string;
 }
