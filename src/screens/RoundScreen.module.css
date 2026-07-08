@@ -112,6 +112,16 @@
   font-size: clamp(3rem, 16vw, 5.25rem);
   line-height: 1.2;
   color: var(--ink-heading);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-align: center;
+}
+
+/* Whole-word prompts (Phase 4 blend words shown in place of a single
+   grapheme) need more headroom than a 1-3 letter grapheme at the same size. */
+.prompt[data-long='true'] {
+  font-size: clamp(2rem, 11vw, 3.5rem);
 }
 
 .word {

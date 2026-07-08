@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { getGraphemeLabel } from '../content/highlightGrapheme';
 import { formatRelativeTime, type WeeklySummary, type GraphemeProgress } from '../progress/derive';
 import shared from './shared.module.css';
 import styles from './ParentScreen.module.css';
@@ -113,7 +114,7 @@ export function ParentScreen({
             <div className={styles.sparklingWrap}>
               {sparkling.map((g) => (
                 <span key={g.grapheme} className={styles.sparklingPill}>
-                  {g.grapheme}
+                  {getGraphemeLabel(g.grapheme)}
                 </span>
               ))}
             </div>
@@ -126,7 +127,7 @@ export function ParentScreen({
             <div className={styles.needsPracticeList}>
               {needsPractice.map((g) => (
                 <div key={g.grapheme} className={styles.needsPracticeRow}>
-                  <span className={styles.needsPracticeGrapheme}>{g.grapheme}</span>
+                  <span className={styles.needsPracticeGrapheme}>{getGraphemeLabel(g.grapheme)}</span>
                   <div className={styles.needsPracticeTrack}>
                     <div className={styles.needsPracticeFill} style={{ width: `${Math.round(g.accuracy * 100)}%` }} />
                   </div>
