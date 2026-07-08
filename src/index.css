@@ -1,3 +1,13 @@
+/* Without this, any box that combines an explicit width with padding/border
+   (the modal panel, the flashcard, buttons, inputs...) renders larger than
+   its specified size under the browser default (content-box) — the exact
+   cause of the modal overflowing off-screen on narrow devices. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --text: #7a6f4e;
   --text-h: #1f2430;
