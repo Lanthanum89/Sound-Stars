@@ -1,0 +1,207 @@
+.content {
+  gap: 16px;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink-heading);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.weekCard {
+  background: var(--card-white);
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 18px -10px rgba(28, 90, 140, 0.35);
+}
+
+.weekHeading {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink-heading);
+}
+
+.weekDetail {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-body-2);
+  margin-top: 2px;
+}
+
+.weekTrend {
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.weekTrend[data-direction='up'] {
+  color: var(--green);
+}
+
+.weekTrend[data-direction='down'] {
+  color: var(--coral-shadow);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink-heading);
+  margin-bottom: 8px;
+}
+
+.sparklingWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.sparklingPill {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--sparkle-bg);
+  color: var(--sparkle-text);
+  font-family: var(--reading);
+  font-weight: 700;
+  font-size: 15px;
+  border: 1.5px solid var(--sparkle-border);
+}
+
+.needsPracticeList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.needsPracticeRow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: var(--card-white);
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px -8px rgba(28, 90, 140, 0.3);
+}
+
+.needsPracticeGrapheme {
+  width: 42px;
+  text-align: center;
+  font-family: var(--reading);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--practice-text);
+}
+
+.needsPracticeTrack {
+  flex: 1;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--practice-track);
+  overflow: hidden;
+}
+
+.needsPracticeFill {
+  height: 100%;
+  background: var(--practice-fill);
+}
+
+.needsPracticeCount {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--practice-count);
+}
+
+.emptyState {
+  font-size: 13px;
+  color: var(--ink-body-2);
+  text-align: center;
+  margin: 12px 0;
+}
+
+.footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.practiseButton {
+  text-align: center;
+  padding: 15px 0;
+  border-radius: 20px;
+  border: none;
+  font-family: var(--sans);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--cta-blue-1), var(--cta-blue-2));
+  box-shadow: 0 6px 0 var(--cta-blue-shadow), 0 12px 20px -6px rgba(28, 173, 233, 0.45);
+}
+
+.backupRow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px dashed #b9d3e4;
+}
+
+.backupText {
+  flex: 1;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.backupTitle {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-heading);
+}
+
+.backupSubtitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-body-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.backupChip {
+  padding: 7px 12px;
+  border-radius: 12px;
+  background: var(--card-white);
+  border: none;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  cursor: pointer;
+  box-shadow: 0 2px 0 #d3e2ec;
+  flex-shrink: 0;
+}
+
+.hiddenFileInput {
+  display: none;
+}

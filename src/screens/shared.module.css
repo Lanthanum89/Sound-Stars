@@ -1,0 +1,68 @@
+.screen {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  font-family: var(--sans);
+}
+
+.childSky {
+  background: linear-gradient(180deg, var(--sky-1), var(--sky-2) 55%, var(--sky-3));
+  color: #1c3a52;
+}
+
+.parentSky {
+  background: linear-gradient(180deg, var(--parent-1), var(--parent-2) 40%, var(--parent-3));
+  color: var(--ink-parent);
+  font-family: var(--body);
+}
+
+.decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 999px;
+  opacity: 0.75;
+  animation: sway 8s ease-in-out infinite;
+}
+
+.twinkleStar {
+  position: absolute;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px max(22px, env(safe-area-inset-bottom));
+  gap: 14px;
+  max-width: 460px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.roundButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--card-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--ink-body-2);
+  box-shadow: 0 3px 0 #d3e2ec;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
