@@ -8,12 +8,14 @@ interface RoundProps {
   items: FlashcardItem[];
   timed: boolean;
   secondsPerCard: number;
+  sessionSize?: number;
 }
 
-export function Round({ items, timed, secondsPerCard }: RoundProps) {
+export function Round({ items, timed, secondsPerCard, sessionSize }: RoundProps) {
   const { current, position, total, isComplete, score, timeLeft, mark, restart } = useRound(items, {
     timed,
     secondsPerCard,
+    sessionSize,
   });
 
   if (isComplete) {

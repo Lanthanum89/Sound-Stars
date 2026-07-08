@@ -1,3 +1,10 @@
+/*
+ * The card is intentionally always light, regardless of the app's dark/light
+ * mode — a dark flashcard reads poorly for early readers. Colours below are
+ * fixed literals rather than the theme's --bg/--text/--text-h vars for that
+ * reason; only the accent (skin colour) still tracks var(--accent-*).
+ */
+
 .card {
   position: relative;
   display: flex;
@@ -11,24 +18,27 @@
   padding: 1.5rem;
   border-radius: 1.25rem;
   border: 2px solid var(--accent-border);
-  background: linear-gradient(160deg, var(--accent-bg), var(--bg) 65%);
-  box-shadow: var(--shadow);
+  /* Two layers: the accent tint on top, an opaque light colour underneath —
+     without the second layer, the tint's translucency would reveal whatever
+     is behind the card in the page (e.g. a dark modal panel in dark mode). */
+  background: linear-gradient(160deg, var(--accent-bg), transparent 65%), #fffefa;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
 }
 
 .mascot {
   position: absolute;
-  top: -1.1rem;
-  right: -0.6rem;
-  width: 3rem;
-  height: 3rem;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
-  background: var(--bg);
+  font-size: 1.6rem;
+  background: #fffefa;
   border: 2px solid var(--accent-border);
   border-radius: 999px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.15);
   transform: rotate(8deg);
 }
 
@@ -44,18 +54,20 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text);
+  color: #8a8062;
 }
 
 .prompt {
   margin: 0;
+  font-family: var(--reading);
   font-size: clamp(2.5rem, 12vw, 4rem);
   font-weight: 700;
-  color: var(--text-h);
+  color: #1f2430;
 }
 
 .word {
   margin: 0;
+  font-family: var(--reading);
   font-size: 1.5rem;
-  color: var(--text-h);
+  color: #1f2430;
 }

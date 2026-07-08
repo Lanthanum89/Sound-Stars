@@ -6,10 +6,15 @@ export interface RoundOptions {
   /** When true, an unanswered card auto-marks incorrect once secondsPerCard elapses. */
   timed: boolean;
   secondsPerCard: number;
+  /** Cards to draw from the shuffled pool; omit/undefined for the whole pool. */
+  sessionSize?: number;
 }
 
 export function useRound(items: FlashcardItem[], options: RoundOptions) {
-  const { current, position, total, isComplete, next, restart: restartDeck } = useFlashcardDeck(items);
+  const { current, position, total, isComplete, next, restart: restartDeck } = useFlashcardDeck(
+    items,
+    options.sessionSize,
+  );
   const [score, setScore] = useState({ correct: 0, incorrect: 0 });
   const [timeLeft, setTimeLeft] = useState(options.secondsPerCard);
 

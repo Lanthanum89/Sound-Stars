@@ -1,8 +1,25 @@
 .app {
+  position: relative;
   max-width: 640px;
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
   text-align: center;
+}
+
+.themeToggle {
+  position: absolute;
+  top: 1.25rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
 }
 
 .header {
@@ -52,6 +69,23 @@
 .secondsInput {
   width: 3.5rem;
   margin-left: 0.35rem;
+}
+
+.pill {
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.pill[data-active='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--text-h);
+  font-weight: 600;
 }
 
 .startButton {
