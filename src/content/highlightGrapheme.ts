@@ -36,6 +36,7 @@ export function getDisplayPrompt(item: FlashcardItem): string {
 }
 
 export function getEyebrowLabel(item: FlashcardItem): string {
+  if (item.kind === 'tricky') return 'Sight word!';
   return item.prompt === 'adjacent_consonants' ? 'Blend it!' : 'Sound it out!';
 }
 
