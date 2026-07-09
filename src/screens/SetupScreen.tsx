@@ -11,6 +11,16 @@ const ALL_PHASES: Phase[] = [2, 3, 4, 5];
 const SESSION_SIZE_PRESETS = [10, 20, 30];
 const DEFAULT_SECONDS_PER_CARD = 5;
 
+// Phase 2-5 is Letters and Sounds terminology parents/teachers will recognize,
+// but it means nothing to a child on its own — the bracketed word is what
+// tells them (and a parent new to the terms) which end is easy vs hard.
+const PHASE_DIFFICULTY: Record<Phase, string> = {
+  2: 'Easiest',
+  3: 'Easy',
+  4: 'Trickier',
+  5: 'Trickiest',
+};
+
 interface SetupScreenProps {
   phases: Phase[];
   onTogglePhase: (phase: Phase) => void;
@@ -79,7 +89,8 @@ export function SetupScreen({
                   onClick={() => onTogglePhase(phase)}
                   aria-pressed={phases.includes(phase)}
                 >
-                  {phase}
+                  <span className={styles.pillMain}>Phase {phase}</span>
+                  <span className={styles.pillSub}>({PHASE_DIFFICULTY[phase]})</span>
                 </button>
               ))}
             </div>
@@ -96,7 +107,8 @@ export function SetupScreen({
                 onClick={() => onDeckKindChange('grapheme')}
                 aria-pressed={deckKind === 'grapheme'}
               >
-                🔤 Sounds
+                <span className={styles.pillMain}>🔤 Sounds</span>
+                <span className={styles.pillSub}>(sound them out)</span>
               </button>
               <button
                 type="button"
@@ -106,7 +118,8 @@ export function SetupScreen({
                 onClick={() => onDeckKindChange('tricky')}
                 aria-pressed={deckKind === 'tricky'}
               >
-                🌟 Tricky
+                <span className={styles.pillMain}>🌟 Tricky</span>
+                <span className={styles.pillSub}>(learn by heart)</span>
               </button>
             </div>
           </div>
