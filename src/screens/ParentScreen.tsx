@@ -155,7 +155,7 @@ export function ParentScreen({
               className={styles.practiseButton}
               onClick={() => onPractiseTogether(needsPractice.map((g) => g.grapheme))}
             >
-              Practise these {needsPractice.length} together
+              Practise these sounds together
             </button>
           )}
 
