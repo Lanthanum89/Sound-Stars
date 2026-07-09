@@ -71,9 +71,6 @@ export function ParentScreen({
           >
             {childName ? `${childName}'s progress` : 'Your progress'}
           </button>
-          <span className={shared.roundButton} aria-hidden="true">
-            ⭐
-          </span>
         </div>
 
         <div className={styles.weekCard}>
