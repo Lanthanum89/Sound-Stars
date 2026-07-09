@@ -26,8 +26,8 @@
 
   /* "Storybook Sky" design tokens — the redesign's fixed palette. Unlike the
      --accent-* vars above (which still drive the skin picker), these don't
-     vary with the active skin or dark/light mode: the child-facing screens
-     are always this bright, sunny palette by design. */
+     vary with the active skin: the child-facing screens are always this
+     bright, sunny palette by design — there is no dark mode. */
   --sky-1: #8fd0ff;
   --sky-2: #cdedff;
   --sky-3: #e9f7df;
@@ -71,54 +71,13 @@
      glyph get crammed into an 18px line box and overlap the line below.
      Unitless recomputes per element against its own font-size instead. */
   font: 18px/1.45 var(--sans);
-  color-scheme: light dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #a8a290;
-    --text-h: #f3f4f6;
-    --bg: #1c1a12;
-    --border: #3a3524;
-    --accent: #38bdf8;
-    --accent-bg: rgba(56, 189, 248, 0.15);
-    --accent-border: rgba(56, 189, 248, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-}
-
-/* Explicit in-app toggle wins over the OS-level preference above. */
-:root[data-theme='light'] {
-  color-scheme: light;
-  --text: #7a6f4e;
-  --text-h: #1f2430;
-  --bg: #fffbef;
-  --border: #f2e1a8;
-  --accent: #1cade9;
-  --accent-bg: rgba(28, 173, 233, 0.12);
-  --accent-border: rgba(28, 173, 233, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-}
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --text: #a8a290;
-  --text-h: #f3f4f6;
-  --bg: #1c1a12;
-  --border: #3a3524;
-  --accent: #38bdf8;
-  --accent-bg: rgba(56, 189, 248, 0.15);
-  --accent-border: rgba(56, 189, 248, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
 }
 
 body {
