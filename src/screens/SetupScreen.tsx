@@ -1,4 +1,5 @@
 import { Mascot } from '../components/Mascot/Mascot';
+import { SkyDecor } from '../components/SkyDecor/SkyDecor';
 import { SkinPicker } from '../skins/SkinPicker';
 import { useSkin } from '../skins/context';
 import type { Phase } from '../content/phonicsGraphemeBank';
@@ -57,16 +58,7 @@ export function SetupScreen({
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <div className={shared.decor} aria-hidden="true">
-        <div className={shared.cloud} style={{ top: 120, left: -10, width: 70, height: 26, animationDuration: '7s' }} />
-        <div className={shared.cloud} style={{ top: 250, right: -6, width: 56, height: 22, animationDuration: '9s' }} />
-        <span className={shared.twinkleStar} style={{ top: 80, right: 24, fontSize: 15 }}>
-          ⭐
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 190, left: 22, fontSize: 12, animationDelay: '.5s' }}>
-          ⭐
-        </span>
-      </div>
+      <SkyDecor />
 
       <div className={shared.content}>
         <div className={styles.header}>

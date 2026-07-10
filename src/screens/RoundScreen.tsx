@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
+import { SkyDecor } from '../components/SkyDecor/SkyDecor';
 import { useSkin } from '../skins/context';
 import { useRound } from '../hooks/useRound';
 import { getDisplayPrompt, getEyebrowLabel, highlightGrapheme } from '../content/highlightGrapheme';
@@ -48,12 +49,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <div className={shared.decor} aria-hidden="true">
-        <div className={shared.cloud} style={{ top: 150, left: -8, width: 64, height: 24, animationDuration: '8s' }} />
-        <span className={shared.twinkleStar} style={{ top: 110, right: 20, fontSize: 14 }}>
-          ⭐
-        </span>
-      </div>
+      <SkyDecor />
 
       <div className={shared.content}>
         <div className={styles.topBar}>

@@ -18,37 +18,50 @@
   font-family: var(--body);
 }
 
-.decor {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.cloud {
-  position: absolute;
-  background: #fff;
-  border-radius: 999px;
-  opacity: 0.75;
-  animation: sway 8s ease-in-out infinite;
-}
-
-.twinkleStar {
-  position: absolute;
-  animation: twinkle 3s ease-in-out infinite;
-}
-
 .content {
   position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 14px 20px max(22px, env(safe-area-inset-bottom));
   gap: 14px;
   max-width: 460px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+/* Tablets get a bigger, zoomed-up version of the exact same layout instead
+   of the same phone-sized card floating in a sea of blank space. `zoom`
+   (not `transform: scale`) so it also grows the box that's centered by
+   `margin: 0 auto` above, and every descendant's padding/gap/font-size. */
+@media (min-width: 640px) {
+  .content {
+    max-width: 480px;
+    zoom: 1.25;
+  }
+}
+
+@media (min-width: 900px) {
+  .content {
+    max-width: 560px;
+    zoom: 1.45;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content {
+    max-width: 640px;
+    zoom: 1.65;
+  }
+}
+
+@media (min-width: 1600px) {
+  .content {
+    max-width: 720px;
+    zoom: 1.85;
+  }
 }
 
 .roundButton {

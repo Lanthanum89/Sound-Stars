@@ -146,13 +146,14 @@ h1 {
   }
 }
 
-@keyframes sway {
-  0%,
-  100% {
-    transform: translateX(0);
+/* Background clouds drift the full width of the screen so the sky reads as
+   alive on any viewport size — from a phone to a tablet's wide-open sky. */
+@keyframes drift {
+  from {
+    transform: translateX(-14vw);
   }
-  50% {
-    transform: translateX(6px);
+  to {
+    transform: translateX(114vw);
   }
 }
 
