@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
+import { SkyDecor } from '../components/SkyDecor/SkyDecor';
 import { useSkin } from '../skins/context';
 import shared from './shared.module.css';
 import styles from './ResultsScreen.module.css';
@@ -69,26 +70,7 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <div className={shared.decor} aria-hidden="true">
-        <span className={shared.twinkleStar} style={{ top: 70, left: 26, fontSize: 16 }}>
-          ⭐
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 96, right: 34, fontSize: 13, animationDelay: '.3s' }}>
-          ⭐
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 150, left: 18, fontSize: 12, animationDelay: '.6s' }}>
-          ✨
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 132, right: 22, fontSize: 15, animationDelay: '.2s' }}>
-          ✨
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 200, left: 44, fontSize: 11, animationDelay: '.8s' }}>
-          ⭐
-        </span>
-        <span className={shared.twinkleStar} style={{ top: 186, right: 48, fontSize: 12, animationDelay: '.4s' }}>
-          ⭐
-        </span>
-      </div>
+      <SkyDecor />
 
       <div className={`${shared.content} ${styles.content}`}>
         <Mascot expression="happy" size={118} emoji={skin.id === 'classic' ? undefined : skin.emoji} />
