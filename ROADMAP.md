@@ -28,3 +28,10 @@ Hide the guideline and score how closely the drawn letter matches the target.
 ## Suggested order
 
 1 then 2 then 3. Each depends on the previous: the sheet defines the letter set, tracing needs stroke data for it, scoring reuses the same data.
+
+## Bug: layout looks zoomed out on smaller screens
+
+Needs device and orientation info from the user before fixing.
+
+- Suspected cause: `.content` in `src/screens/shared.module.css` has no scaling below 640px (capped at 460px, 18px base font), then fixed `zoom` steps (1.25x to 1.85x) from 640px up. Large phones, landscape phones and small portrait tablets get the unscaled layout.
+- Likely fix: replace the fixed `zoom` breakpoints with a fluid scale (`clamp()` on viewport width, limited by viewport height so landscape phones don't overflow).
