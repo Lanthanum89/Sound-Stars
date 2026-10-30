@@ -132,6 +132,35 @@ export const graphemeBank: GraphemeEntry[] = [
   { phase: 5, grapheme: 'ti', words: ['station', 'nation', 'action', 'motion', 'lotion', 'potion', 'caution', 'fiction', 'patient', 'nutritious'] },
   { phase: 5, grapheme: 'si', words: ['vision', 'television', 'decision', 'collision', 'illusion', 'division', 'revision', 'explosion', 'invasion', 'confusion'] },
   { phase: 5, grapheme: 'ci', words: ['special', 'precious', 'official', 'delicious', 'suspicious', 'social', 'magician', 'musician', 'vicious', 'politician'] },
+
+  // Alternative pronunciations of graphemes taught earlier, from the ELS sheet.
+  // Keys are '<grapheme>_<sound>'; the child only ever sees the grapheme.
+  { phase: 5, grapheme: 'a_ar', words: ['father', 'after', 'rather', 'grass', 'path', 'bath', 'fast', 'last', 'past', 'class'] },
+  { phase: 5, grapheme: 'a_o', words: ['swan', 'was', 'want', 'wash', 'watch', 'wasp', 'wallet', 'what', 'swamp', 'squash'] },
+  { phase: 5, grapheme: 'a_ay', words: ['apron', 'apricot', 'baby', 'paper', 'table', 'lady', 'acorn', 'April', 'bacon', 'angel'] },
+  { phase: 5, grapheme: 'e_ee', words: ['she', 'he', 'me', 'we', 'be', 'secret', 'evil', 'even', 'equal', 'begin'] },
+  { phase: 5, grapheme: 'i_igh', words: ['tiger', 'find', 'mind', 'kind', 'child', 'wild', 'pilot', 'behind', 'blind', 'spider'] },
+  { phase: 5, grapheme: 'o_oa', words: ['host', 'both', 'most', 'post', 'gold', 'cold', 'old', 'told', 'hold', 'open'] },
+  { phase: 5, grapheme: 'o_u', words: ['monkey', 'mother', 'brother', 'other', 'month', 'money', 'honey', 'come', 'some', 'oven'] },
+  { phase: 5, grapheme: 'u_oo', words: ['bush', 'put', 'push', 'pull', 'full', 'bull', 'butcher', 'cushion', 'pudding', 'bullet'] },
+  { phase: 5, grapheme: 'u_yoo', words: ['unicorn', 'uniform', 'unit', 'music', 'human', 'menu', 'pupil', 'student', 'union', 'future'] },
+  { phase: 5, grapheme: 'y_ee', words: ['baby', 'happy', 'funny', 'sunny', 'puppy', 'bunny', 'jelly', 'family', 'lovely', 'story'] },
+  { phase: 5, grapheme: 'y_igh', words: ['fly', 'my', 'by', 'cry', 'try', 'sky', 'dry', 'why', 'shy', 'spy'] },
+  { phase: 5, grapheme: 'y_i', words: ['gym', 'myth', 'crystal', 'symbol', 'system', 'mystery', 'pyramid', 'Egypt', 'cygnet', 'sycamore'] },
+  { phase: 5, grapheme: 'ch_sh', words: ['chef', 'machine', 'chute', 'chalet', 'brochure', 'parachute', 'moustache', 'chic', 'charade', 'chandelier'] },
+  { phase: 5, grapheme: 'ch_k', words: ['orchestra', 'school', 'echo', 'chemist', 'Christmas', 'chorus', 'stomach', 'ache', 'character', 'chaos'] },
+  { phase: 5, grapheme: 'ea_e', words: ['head', 'bread', 'breath', 'heavy', 'feather', 'weather', 'ready', 'health', 'dead', 'instead'] },
+  { phase: 5, grapheme: 'ea_ay', words: ['great', 'break', 'steak', 'greatest', 'breaking', 'breaker', 'greatly', 'outbreak', 'greatness', 'jailbreak'] },
+  { phase: 5, grapheme: 'ie_ee', words: ['shield', 'field', 'chief', 'thief', 'brief', 'piece', 'niece', 'believe', 'relief', 'priest'] },
+  { phase: 5, grapheme: 'ie_e', words: ['friend', 'friends', 'friendly', 'friendship', 'boyfriend', 'girlfriend', 'befriend', 'friendlier', 'friendliest', 'friendless'] },
+  { phase: 5, grapheme: 'or_ur', words: ['word', 'work', 'world', 'worm', 'worse', 'worth', 'worthy', 'worst', 'worship', 'works'] },
+  { phase: 5, grapheme: 'ear_ur', words: ['learn', 'earth', 'early', 'pearl', 'search', 'heard', 'earn', 'yearn', 'rehearse', 'earnest'] },
+  { phase: 5, grapheme: 'ear_air', words: ['bear', 'pear', 'wear', 'swear', 'bears', 'pears', 'bearing', 'wearing', 'swearing', 'bearable'] },
+  { phase: 5, grapheme: 'ou_oo', words: ['soup', 'you', 'group', 'youth', 'through', 'coupon', 'routine', 'toucan', 'cougar', 'souvenir'] },
+  { phase: 5, grapheme: 'ey_ay', words: ['grey', 'they', 'prey', 'obey', 'survey', 'convey', 'hey', 'whey', 'greyhound', 'greying'] },
+  { phase: 5, grapheme: 'ow_oa', words: ['snow', 'slow', 'show', 'grow', 'blow', 'throw', 'yellow', 'window', 'pillow', 'rainbow'] },
+  { phase: 5, grapheme: 'ss_sh', words: ['mission', 'permission', 'session', 'passion', 'impression', 'discussion', 'profession', 'expression', 'possession', 'admission'] },
+  { phase: 5, grapheme: 'g_j', words: ['giraffe', 'giant', 'gentle', 'gym', 'magic', 'energy', 'ginger', 'gem', 'germ', 'danger'] },
 ];
 
 // Tricky/exception words (high-frequency, not fully phonetically decodable

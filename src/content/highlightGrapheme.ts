@@ -8,23 +8,19 @@ export interface WordSegment {
 const SPLIT_DIGRAPHS = new Set(['a-e', 'e-e', 'i-e', 'o-e', 'u-e']);
 
 // Some grapheme keys in the content bank are internal data-modeling labels,
-// not something a child should ever see verbatim: "oo_long"/"oo_short"
-// disambiguate two different sounds that are both spelled "oo" (likewise
-// "c_soft" vs the Phase 2 hard "c"), and
+// not something a child should ever see verbatim. "<grapheme>_<sound>" keys
+// ("oo_long", "c_soft", "a_ay", ...) disambiguate different sounds that share
+// one spelling, so the label is everything before the underscore.
 // "adjacent_consonants" is Phase 4's grouping label for consonant-blend
 // words — there's no single new grapheme being tested there at all.
-const GRAPHEME_DISPLAY_LABELS: Record<string, string> = {
-  oo_long: 'oo',
-  oo_short: 'oo',
-  c_soft: 'c',
-  // Only relevant for standalone display (e.g. the parent progress view),
-  // which has no specific word to fall back to the way getDisplayPrompt does.
-  adjacent_consonants: 'blends',
-};
+const BLENDS_KEY = 'adjacent_consonants';
 
 /** Clean, kid-facing label for a raw grapheme/prompt key (e.g. "oo_long" -> "oo"). */
 export function getGraphemeLabel(rawKey: string): string {
-  return GRAPHEME_DISPLAY_LABELS[rawKey] ?? rawKey;
+  // Only relevant for standalone display (e.g. the parent progress view),
+  // which has no specific word to fall back to the way getDisplayPrompt does.
+  if (rawKey === BLENDS_KEY) return 'blends';
+  return rawKey.split('_')[0];
 }
 
 /**
@@ -33,13 +29,13 @@ export function getGraphemeLabel(rawKey: string): string {
  * new one), so show the word itself instead of the internal grouping key.
  */
 export function getDisplayPrompt(item: FlashcardItem): string {
-  if (item.prompt === 'adjacent_consonants') return item.word;
+  if (item.prompt === BLENDS_KEY) return item.word;
   return getGraphemeLabel(item.prompt);
 }
 
 export function getEyebrowLabel(item: FlashcardItem): string {
   if (item.kind === 'tricky') return 'Sight word!';
-  return item.prompt === 'adjacent_consonants' ? 'Blend it!' : 'Sound it out!';
+  return item.prompt === BLENDS_KEY ? 'Blend it!' : 'Sound it out!';
 }
 
 /**
@@ -52,7 +48,7 @@ export function getEyebrowLabel(item: FlashcardItem): string {
 export function highlightGrapheme(item: FlashcardItem): WordSegment[] {
   const { word, prompt, kind } = item;
 
-  if (kind === 'tricky' || prompt === 'adjacent_consonants') {
+  if (kind === 'tricky' || prompt === BLENDS_KEY) {
     return [{ text: word, highlight: false }];
   }
 

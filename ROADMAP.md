@@ -39,4 +39,5 @@ Needs device and orientation info from the user before fixing.
 ## Content gaps vs the school's ELS sheet
 
 - Done: the 24 graphemes missing from the bank (`nk`, soft `c` as `c_soft`, and 22 Phase 5 spellings).
-- Still open: alternative pronunciations of graphemes the bank already has (`a`, `e`, `i`, `o`, `u`, `y`, `ch`, `ea`, `ie`, `or`, `ear`, `ou`, `ey`, `ow`, `ss`, `g`). The bank holds one word list per grapheme, so these need a pronunciation tag per entry (as `oo_long` / `oo_short` do today).
+- Done: alternative pronunciations of existing graphemes (26 entries, keyed `<grapheme>_<sound>`, e.g. `a_ar`, `y_igh`, `ch_k`).
+- Open: the parent progress view shows the same label for each sound of a grapheme (e.g. several `a` rows), so it may need a sound hint.
