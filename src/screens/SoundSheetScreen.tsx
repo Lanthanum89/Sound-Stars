@@ -116,7 +116,7 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
             </button>
             {traceableLetters(getGraphemeLabel(open.key)) && (
               <button type="button" className={styles.trace} onClick={() => setTracing(open)}>
-                ✏️ Trace it
+                <Icon name="pencil" /> Trace it
               </button>
             )}
           </div>
