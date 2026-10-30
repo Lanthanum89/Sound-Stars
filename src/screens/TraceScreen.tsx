@@ -348,17 +348,18 @@ export function TraceScreen({ soundKey, label, cells, phrase, onPractise, onClos
             </button>
           </div>
 
-          {mode === 'write' && (
-            <button type="button" className={styles.linkButton} onClick={() => chooseMode('trace')}>
-              Trace it again
-            </button>
-          )}
-
-          {onPractise && (
-            <button type="button" className={styles.linkButton} onClick={onPractise}>
-              Practise this sound with flashcards
-            </button>
-          )}
+          <div className={styles.links}>
+            {mode === 'write' && (
+              <button type="button" className={styles.linkButton} onClick={() => chooseMode('trace')}>
+                Trace it again
+              </button>
+            )}
+            {onPractise && (
+              <button type="button" className={styles.linkButton} onClick={onPractise}>
+                Practise with flashcards
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
