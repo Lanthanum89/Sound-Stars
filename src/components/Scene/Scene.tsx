@@ -263,15 +263,15 @@ function Dinosaur() {
 /* ---------------------------------------------------------------- Main Stage */
 
 const CONFETTI: { left: string; size: number; duration: number; delay: number; fill: string; shape: 'dot' | 'tri' | 'bar' }[] = [
-  { left: '6%', size: 12, duration: 30, delay: -3, fill: '#2536b8', shape: 'dot' },
-  { left: '17%', size: 10, duration: 38, delay: -20, fill: '#ff7a1a', shape: 'tri' },
-  { left: '29%', size: 14, duration: 34, delay: -11, fill: '#ffd23f', shape: 'dot' },
-  { left: '38%', size: 9, duration: 41, delay: -29, fill: '#2536b8', shape: 'bar' },
-  { left: '52%', size: 12, duration: 32, delay: -7, fill: '#ff7a1a', shape: 'dot' },
-  { left: '63%', size: 11, duration: 39, delay: -24, fill: '#ffd23f', shape: 'tri' },
-  { left: '74%', size: 13, duration: 35, delay: -15, fill: '#2536b8', shape: 'dot' },
-  { left: '84%', size: 9, duration: 43, delay: -33, fill: '#ff7a1a', shape: 'bar' },
-  { left: '93%', size: 12, duration: 31, delay: -9, fill: '#ffd23f', shape: 'dot' },
+  { left: '6%', size: 12, duration: 30, delay: -3, fill: '#6fa8e8', shape: 'dot' },
+  { left: '17%', size: 10, duration: 38, delay: -20, fill: '#f77fa5', shape: 'tri' },
+  { left: '29%', size: 14, duration: 34, delay: -11, fill: '#ffd76e', shape: 'dot' },
+  { left: '38%', size: 9, duration: 41, delay: -29, fill: '#6fa8e8', shape: 'bar' },
+  { left: '52%', size: 12, duration: 32, delay: -7, fill: '#f77fa5', shape: 'dot' },
+  { left: '63%', size: 11, duration: 39, delay: -24, fill: '#ffd76e', shape: 'tri' },
+  { left: '74%', size: 13, duration: 35, delay: -15, fill: '#6fa8e8', shape: 'dot' },
+  { left: '84%', size: 9, duration: 43, delay: -33, fill: '#f77fa5', shape: 'bar' },
+  { left: '93%', size: 12, duration: 31, delay: -9, fill: '#ffd76e', shape: 'dot' },
 ];
 
 function MainStage() {
@@ -298,13 +298,13 @@ function MainStage() {
         );
       })}
       <svg className={styles.ground} style={{ height: 'clamp(74px, 10.8vw, 16vh)' }} viewBox="0 0 1200 130" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <rect y="56" width="1200" height="74" fill="#ff7a1a" />
-        <rect y="46" width="1200" height="12" fill="#2536b8" />
-        <rect y="104" width="1200" height="26" fill="#e0600d" />
+        <rect y="56" width="1200" height="74" fill="#f77fa5" />
+        <rect y="46" width="1200" height="12" fill="#6fa8e8" />
+        <rect y="104" width="1200" height="26" fill="#e0618a" />
         {Array.from({ length: 21 }, (_, i) => (
           <g key={i}>
-            <circle cx={30 + i * 57} cy="80" r="9" fill="#ffe27a" />
-            <circle cx={30 + i * 57} cy="80" r="4.5" fill="#fff8d6" />
+            <circle cx={30 + i * 57} cy="80" r="9" fill="#ffe9a8" />
+            <circle cx={30 + i * 57} cy="80" r="4.5" fill="#fffaf0" />
           </g>
         ))}
       </svg>
