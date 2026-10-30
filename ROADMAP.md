@@ -11,7 +11,9 @@ Display the official sounds and the class "remember it" phrases from Freddie's t
 - Needs the worksheet content as data (sound, memory phrase/action), kept separate from presentation like `src/content/`.
 - Presentation should plug into the existing skin system (`src/skins/`).
 
-## 2. Letter tracing
+## 2. Letter tracing - done
+
+Built as a "Trace it" screen reached from a sound's card on the sound sheet. Stroke data for a-z is in `src/content/letterStrokes.ts` (own hand-built shapes, not the school's font) and is what stage 3 scores against. Split digraphs (`a-e`) are not traceable yet.
 
 Stylus and finger drawing to trace each letter over a guideline.
 

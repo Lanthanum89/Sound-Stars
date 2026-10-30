@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { SkyDecor } from '../components/SkyDecor/SkyDecor';
 import { graphemeBank } from '../content/phonicsGraphemeBank';
 import { getGraphemeLabel } from '../content/highlightGrapheme';
-import { parsePhrase, soundSheet, type SoundSheetEntry } from '../content/soundSheet';
+import { soundSheet, type SoundSheetEntry } from '../content/soundSheet';
+import { traceableLetters } from '../content/letterStrokes';
+import { PhraseText } from '../components/PhraseText/PhraseText';
+import { TraceScreen } from './TraceScreen';
 import shared from './shared.module.css';
 import styles from './SoundSheetScreen.module.css';
 
@@ -15,18 +18,6 @@ const YEAR_TABS = [
 // can be told apart at a glance.
 const cueWords = new Map(graphemeBank.map((entry) => [entry.grapheme, entry.words[0]]));
 
-function Phrase({ phrase }: { phrase: string }) {
-  return (
-    <>
-      {parsePhrase(phrase).map((segment, i) => (
-        <span key={i} className={segment.highlight ? styles.mark : undefined}>
-          {segment.text}
-        </span>
-      ))}
-    </>
-  );
-}
-
 interface SoundSheetScreenProps {
   onBack: () => void;
   onPractise: (key: string) => void;
@@ -35,6 +26,7 @@ interface SoundSheetScreenProps {
 export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<SoundSheetEntry | null>(null);
+  const [tracing, setTracing] = useState<SoundSheetEntry | null>(null);
 
   const entries = soundSheet.filter((entry) => YEAR_TABS[tab].phases.includes(entry.phase));
   const groups = YEAR_TABS[tab].phases.map((phase) => ({
@@ -93,7 +85,16 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
         ))}
       </div>
 
-      {open && (
+      {tracing && (
+        <TraceScreen
+          label={getGraphemeLabel(tracing.key)}
+          letters={traceableLetters(getGraphemeLabel(tracing.key)) ?? []}
+          phrase={tracing.phrase}
+          onClose={() => setTracing(null)}
+        />
+      )}
+
+      {open && !tracing && (
         <div className={styles.backdrop} onClick={() => setOpen(null)}>
           <div
             className={styles.sheet}
@@ -107,11 +108,16 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
             </button>
             <div className={styles.bigGrapheme}>{getGraphemeLabel(open.key)}</div>
             <p className={styles.phrase}>
-              <Phrase phrase={open.phrase} />
+              <PhraseText phrase={open.phrase} />
             </p>
             <button type="button" className={styles.practise} onClick={() => onPractise(open.key)}>
               Practise this sound ✨
             </button>
+            {traceableLetters(getGraphemeLabel(open.key)) && (
+              <button type="button" className={styles.trace} onClick={() => setTracing(open)}>
+                ✏️ Trace it
+              </button>
+            )}
           </div>
         </div>
       )}
