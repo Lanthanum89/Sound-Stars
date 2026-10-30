@@ -7,20 +7,28 @@
 
 import type { Point, Stroke } from './letterStrokes';
 
+/** One gentle thing to try next, for the weakest letter. */
 export type Hint = 'empty' | 'missing' | 'shape' | 'direction' | 'start' | 'size';
+
+/** Something true and good to say about a letter, the strongest first. */
+export type Praise = 'shape' | 'start' | 'way' | 'size' | 'effort';
 
 export interface LetterScore {
   /** 0 to 100. */
   score: number;
   hint?: Hint;
+  praise: Praise;
 }
 
 export interface WritingScore {
   letters: LetterScore[];
-  /** 0 to 100: half the letters' average, half the weakest letter. */
+  /** 0 to 100: half the letters' average, half the weakest letter. Not shown to children. */
   score: number;
+  /** 0 only when nothing was written; any real attempt earns at least one star. */
   stars: 0 | 1 | 2 | 3;
-  /** What to say first: the weakest letter's hint. */
+  /** What to praise first. `best` means one letter stood out from the others. */
+  praise: { kind: Praise | 'best'; letterIndex: number };
+  /** The one thing to try next, if any. */
   hint?: { letterIndex: number; hint: Hint };
 }
 
@@ -33,7 +41,12 @@ const MIN_EXTENT = 14;
 const MIN_INK = 6;
 const MAX_STROKES = 8;
 
-export const STAR_THRESHOLDS = { three: 78, two: 58, one: 35 } as const;
+/**
+ * Three stars are kept for a letter that is properly well formed; two are
+ * generous, since a wobbly but recognisable letter is a good letter at six.
+ * Any real attempt earns one.
+ */
+export const STAR_THRESHOLDS = { three: 78, two: 50 } as const;
 
 const dist = (a: Point, b: Point) => Math.hypot(a.x - b.x, a.y - b.y);
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -160,7 +173,7 @@ export function scoreLetter(drawnStrokes: Stroke[], reference: Stroke[]): Letter
   const inked = drawnStrokes.filter((s) => s.length > 0);
   const totalInk = inked.reduce((sum, s) => sum + length(s), 0);
   const hasDot = inked.some((s) => s.length > 0 && length(s) < MIN_INK);
-  if (inked.length === 0 || (totalInk < MIN_INK && !hasDot)) return { score: 0, hint: 'empty' };
+  if (inked.length === 0 || (totalInk < MIN_INK && !hasDot)) return { score: 0, hint: 'empty', praise: 'effort' };
 
   // Longest first when there are too many to try every pairing.
   const capped = [...inked].sort((a, b) => length(b) - length(a)).slice(0, MAX_STROKES);
@@ -185,6 +198,8 @@ export function scoreLetter(drawnStrokes: Stroke[], reference: Stroke[]): Letter
   let reversed = false;
   let lowStart = false;
   let missing = false;
+  let lines = 0;
+  let goodStarts = 0;
   const strokeScores = refs.map((r, j) => {
     const k = match[j];
     if (k < 0) {
@@ -201,6 +216,8 @@ export function scoreLetter(drawnStrokes: Stroke[], reference: Stroke[]): Letter
     const start = clamp01(1 - dist(wrongWay ? d[SAMPLES - 1] : d[0], r[0]) / (D_MAX * 1.5));
     if (wrongWay) reversed = true;
     if (start < 0.4 && shape > 0.6) lowStart = true;
+    lines++;
+    if (!wrongWay && start >= 0.7) goodStarts++;
     return shape * (wrongWay ? 0.6 : 1) * (0.85 + 0.15 * start);
   });
 
@@ -221,7 +238,14 @@ export function scoreLetter(drawnStrokes: Stroke[], reference: Stroke[]): Letter
   else if (reversed) hint = 'direction';
   else if (lowStart) hint = 'start';
   else if (layout < 0.6) hint = 'size';
-  return { score, hint };
+  // The best true thing to say, in order of how much it means. 'start' and 'way'
+  // need some real resemblance, so a scribble is never told it went the right way.
+  let praise: Praise = 'effort';
+  if (accuracy >= 0.55) praise = 'shape';
+  else if (accuracy >= 0.3 && lines > 0 && goodStarts === lines) praise = 'start';
+  else if (accuracy >= 0.3 && lines > 0 && !reversed) praise = 'way';
+  else if (layout >= 0.7) praise = 'size';
+  return { score, hint, praise };
 }
 
 /**
@@ -241,12 +265,17 @@ export function scoreWriting(ink: Stroke[], references: Stroke[][], cellWidth: n
   // cannot be averaged away by two good ones.
   const scores = letters.map((l) => l.score);
   const score = Math.round(0.5 * (scores.reduce((sum, v) => sum + v, 0) / scores.length) + 0.5 * Math.min(...scores));
-  const stars = score >= STAR_THRESHOLDS.three ? 3 : score >= STAR_THRESHOLDS.two ? 2 : score >= STAR_THRESHOLDS.one ? 1 : 0;
+  const wroteSomething = letters.some((l) => l.hint !== 'empty');
+  const stars = !wroteSomething ? 0 : score >= STAR_THRESHOLDS.three ? 3 : score >= STAR_THRESHOLDS.two ? 2 : 1;
   const weakest = letters.reduce((worst, l, i) => (l.hint && l.score < letters[worst].score ? i : worst), 0);
+  const best = letters.reduce((top, l, i) => (l.score > letters[top].score ? i : top), 0);
+  // Name the standout letter when there are several and one clearly shone.
+  const standsOut = letters.length > 1 && letters[best].score >= STAR_THRESHOLDS.two && letters[best].score - Math.min(...scores) >= 10;
   return {
     letters,
     score,
     stars,
+    praise: standsOut ? { kind: 'best', letterIndex: best } : { kind: letters[best].praise, letterIndex: best },
     hint: letters[weakest].hint ? { letterIndex: weakest, hint: letters[weakest].hint } : undefined,
   };
 }

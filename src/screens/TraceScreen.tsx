@@ -4,6 +4,7 @@ import { Scene } from '../components/Scene/Scene';
 import { PhraseText } from '../components/PhraseText/PhraseText';
 import { CELL_HEIGHT, CELL_WIDTH, LINES, letterStrokes, type Point, type Stroke } from '../content/letterStrokes';
 import { scoreWriting, type Hint, type WritingScore } from '../content/scoring';
+import { recordWritingStars } from '../progress/writing';
 import shared from './shared.module.css';
 import styles from './TraceScreen.module.css';
 
@@ -13,23 +14,48 @@ const DEMO_SPEED = 60; // viewBox units per second
 
 type Mode = 'trace' | 'write';
 
-const VERDICTS = ['Have another go', 'Good try', 'Nearly there', 'Lovely writing'] as const;
+const VERDICTS = ['', 'Good try!', 'Great writing!', 'Brilliant!'] as const;
 
-function hintText(hint: Hint, letter: string): string {
+// A result starts with something true and good, then at most one gentle thing
+// to try. Nothing here says a child got something wrong.
+function praiseText(score: WritingScore, letters: string[], label: string): string {
+  const { kind, letterIndex } = score.praise;
+  switch (kind) {
+    case 'best':
+      return `Your “${letters[letterIndex]}” was the best one!`;
+    case 'shape':
+      return `That looks like “${label}”!`;
+    case 'start':
+      return 'Great start!';
+    case 'way':
+      return 'You went the right way!';
+    case 'size':
+      return 'Lovely size!';
+    case 'effort':
+      return 'Great effort!';
+  }
+}
+
+function tipText(hint: Hint, letter: string): string {
   switch (hint) {
     case 'empty':
-      return `Nothing in the “${letter}” box yet.`;
+      return `Next time, add the “${letter}”.`;
     case 'missing':
-      return `Part of the “${letter}” is missing. Press Watch to see every stroke.`;
+      return 'Next time, add every part. Press Watch to see them all.';
     case 'shape':
-      return `The “${letter}” doesn't look quite right yet. Press Watch, then have another go.`;
+      return 'Press Watch to see how it goes, then have another go.';
     case 'direction':
-      return `The “${letter}” is going the wrong way round. Press Watch to see which way.`;
+      return 'Try going the other way round. Press Watch to see.';
     case 'start':
-      return `Start the “${letter}” at the green dot. Press Watch to see where.`;
+      return 'Try starting at the green dot.';
     case 'size':
-      return `Make the “${letter}” fit the lines: not too big, not too small.`;
+      return 'Try making it fit the lines.';
   }
+}
+
+interface Feedback {
+  /** A line celebrating progress, if there is any to celebrate. */
+  badge?: string;
 }
 
 const toPath = (points: Stroke) => points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
@@ -60,13 +86,14 @@ function partial(points: Stroke, length: number): Stroke {
 }
 
 interface TraceScreenProps {
+  soundKey: string;
   label: string;
   letters: string[];
   phrase?: string;
   onClose: () => void;
 }
 
-export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProps) {
+export function TraceScreen({ soundKey, label, letters, phrase, onClose }: TraceScreenProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const activePointer = useRef<number | null>(null);
   const lastPenAt = useRef(-Infinity);
@@ -74,6 +101,8 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
   const [demoLength, setDemoLength] = useState<number | null>(null);
   const [mode, setMode] = useState<Mode>('trace');
   const [result, setResult] = useState<WritingScore | null>(null);
+  const [feedback, setFeedback] = useState<Feedback>({});
+  const lastScore = useRef<number | null>(null);
 
   const width = letters.length * CELL_WIDTH;
 
@@ -138,6 +167,21 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
 
   const onPointerEnd = (e: PointerEvent<SVGSVGElement>) => {
     if (e.pointerId === activePointer.current) activePointer.current = null;
+  };
+
+  const check = () => {
+    const next = scoreWriting(ink, references, CELL_WIDTH);
+    const feedback: Feedback = {};
+    if (next.stars > 0) {
+      const { previous } = recordWritingStars(soundKey, next.stars);
+      const last = lastScore.current;
+      if (previous > 0 && next.stars > previous) feedback.badge = 'New best!';
+      else if (last !== null && next.score >= last + 6) feedback.badge = 'Better than last time!';
+      else if (previous === 0) feedback.badge = `First stars for “${label}”!`;
+      lastScore.current = next.score;
+    }
+    setFeedback(feedback);
+    setResult(next);
   };
 
   const chooseMode = (next: Mode) => {
@@ -231,18 +275,24 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
 
           {result && (
             <div className={styles.result} role="status">
-              <div className={styles.stars} aria-label={`${result.stars} out of 3 stars`}>
-                {[1, 2, 3].map((n) => (
-                  <span key={n} className={styles.star} data-earned={n <= result.stars}>
-                    <Icon name="star" filled={n <= result.stars} />
-                  </span>
-                ))}
-              </div>
-              <div className={styles.verdict}>
-                {VERDICTS[result.stars]} <span className={styles.score}>{result.score}/100</span>
-              </div>
-              {result.hint && result.stars < 3 && (
-                <p className={styles.hint}>{hintText(result.hint.hint, letters[result.hint.letterIndex])}</p>
+              {result.stars === 0 ? (
+                <p className={styles.praise}>Write the letter in the box, then check it.</p>
+              ) : (
+                <>
+                  <div className={styles.stars} aria-label={`${result.stars} out of 3 stars`}>
+                    {[1, 2, 3].map((n) => (
+                      <span key={n} className={styles.star} data-earned={n <= result.stars} style={{ animationDelay: `${(n - 1) * 0.18}s` }}>
+                        <Icon name="star" filled={n <= result.stars} />
+                      </span>
+                    ))}
+                  </div>
+                  <div className={styles.verdict}>{VERDICTS[result.stars]}</div>
+                  <p className={styles.praise}>{praiseText(result, letters, label)}</p>
+                  {feedback.badge && <div className={styles.badge}>{feedback.badge}</div>}
+                  {result.hint && result.stars < 3 && (
+                    <p className={styles.hint}>{tipText(result.hint.hint, letters[result.hint.letterIndex])}</p>
+                  )}
+                </>
               )}
             </div>
           )}
@@ -258,9 +308,9 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
               type="button"
               className={styles.check}
               disabled={ink.length === 0 && result === null}
-              onClick={() => (result ? chooseMode('write') : setResult(scoreWriting(ink, references, CELL_WIDTH)))}
+              onClick={() => (result ? chooseMode('write') : check())}
             >
-              {result ? 'Try again' : 'Check my writing'}
+              {result ? 'Have another go' : 'Check my writing'}
             </button>
           )}
 

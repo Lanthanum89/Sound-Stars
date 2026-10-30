@@ -23,12 +23,14 @@ Stylus and finger drawing to trace each letter over a guideline.
 
 ## 3. Tracing score (guidelines removed) - done
 
-A "Write it" mode on the trace screen hides the guide, shows only the writing lines and letter boxes, and scores the result on Check (stars, a 0-100 score and one hint). The scoring is `src/content/scoring.ts`; `npm run check:scoring` calibrates it on synthetic handwriting (good, fair and messy attempts, wrong letters, backwards strokes, scribbles). Shape is judged after fitting to the letter's box, so size and position are scored separately and weigh less; mirror images are never accepted.
+A "Write it" mode on the trace screen hides the guide, shows only the writing lines and letter boxes, and gives feedback on Check. The scoring is `src/content/scoring.ts`; `npm run check:scoring` calibrates it on synthetic handwriting (good, fair and messy attempts, wrong letters, backwards strokes, scribbles). Shape is judged after fitting to the letter's box, so size and position are scored separately and weigh less; mirror images are never accepted.
+
+Children only ever see stars, never a number: any real attempt earns at least one star, two stars are generous, three are kept for a well-formed letter. Every result leads with something true and specific (the best letter, a good start, the right direction), then at most one gentle tip. "Better than last time!" and "New best!" celebrate progress, and each sound's best stars are kept on the device and shown on its tile in the sound sheet, so they collect and never go down.
 
 Open:
 - Thresholds are calibrated on synthetic handwriting, not real children. Try Freddie's attempts and adjust `STAR_THRESHOLDS` and `D_MAX` if it is too harsh or too kind.
 - Near-twin letters (g/q, d/a) can still reach 2 stars when written as each other.
-- Scores are not saved or shown in the parent view yet.
+- Best stars are not in the progress backup or the parent view yet.
 
 ## Suggested order
 

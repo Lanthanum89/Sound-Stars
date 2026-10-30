@@ -7,6 +7,7 @@ import { soundSheet, type SoundSheetEntry } from '../content/soundSheet';
 import { traceableLetters } from '../content/letterStrokes';
 import { PhraseText } from '../components/PhraseText/PhraseText';
 import { TraceScreen } from './TraceScreen';
+import { loadWritingBest } from '../progress/writing';
 import shared from './shared.module.css';
 import styles from './SoundSheetScreen.module.css';
 
@@ -28,6 +29,7 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<SoundSheetEntry | null>(null);
   const [tracing, setTracing] = useState<SoundSheetEntry | null>(null);
+  const [best, setBest] = useState(loadWritingBest);
 
   const entries = soundSheet.filter((entry) => YEAR_TABS[tab].phases.includes(entry.phase));
   const groups = YEAR_TABS[tab].phases.map((phase) => ({
@@ -75,10 +77,17 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
                   className={styles.tile}
                   data-phase={entry.phase}
                   onClick={() => setOpen(entry)}
-                  aria-label={`${getGraphemeLabel(entry.key)}, ${entry.phrase.replace(/[[\]]/g, '')}`}
+                  aria-label={`${getGraphemeLabel(entry.key)}, ${entry.phrase.replace(/[[\]]/g, '')}${best[entry.key] ? `, ${best[entry.key]} stars for writing` : ''}`}
                 >
                   <span className={styles.tileGrapheme}>{getGraphemeLabel(entry.key)}</span>
                   <span className={styles.tileCue}>{cueWords.get(entry.key)}</span>
+                  {best[entry.key] > 0 && (
+                    <span className={styles.tileStars} aria-hidden="true">
+                      {Array.from({ length: best[entry.key] }, (_, n) => (
+                        <Icon key={n} name="star" />
+                      ))}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -88,10 +97,14 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
 
       {tracing && (
         <TraceScreen
+          soundKey={tracing.key}
           label={getGraphemeLabel(tracing.key)}
           letters={traceableLetters(getGraphemeLabel(tracing.key)) ?? []}
           phrase={tracing.phrase}
-          onClose={() => setTracing(null)}
+          onClose={() => {
+            setBest(loadWritingBest());
+            setTracing(null);
+          }}
         />
       )}
 

@@ -208,11 +208,12 @@
   display: flex;
   justify-content: center;
   gap: 6px;
-  font-size: 30px;
+  font-size: 34px;
 }
 
 .star {
   color: var(--edge);
+  animation: pop 0.45s ease-out both;
 }
 
 .star[data-earned='true'] {
@@ -220,28 +221,41 @@
 }
 
 .verdict {
-  margin-top: 4px;
+  margin-top: 2px;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 18px;
+  font-size: 22px;
   color: var(--ink-heading);
 }
 
-.score {
-  margin-left: 6px;
-  font-family: var(--body);
+.praise {
+  margin: 2px 0 0;
+  font-family: var(--reading);
   font-weight: 700;
-  font-size: 13px;
-  color: var(--ink-body-2);
+  font-size: 17px;
+  color: var(--ink-body);
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--sparkle-bg);
+  border: 1.5px solid var(--sparkle-border);
+  color: var(--sparkle-text);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 14px;
 }
 
 .hint {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-family: var(--body);
   font-weight: 700;
   font-size: 14px;
   line-height: 1.35;
-  color: var(--ink-body);
+  color: var(--ink-body-2);
 }
 
 .check {

@@ -2,8 +2,10 @@
 // A score is only useful if it separates a decent attempt from the wrong
 // letter, so this writes every letter several ways with seeded synthetic
 // handwriting and checks the scores land where a teacher would expect:
-//   good and fair attempts clear the star thresholds, other letters never
-//   do, backwards strokes and scribbles score low, an empty page scores 0.
+//   good attempts earn 3 stars, fair and messy ones 2, other letters never
+//   earn 3, backwards strokes and scribbles score low, an empty page earns no
+//   stars, and any real attempt earns at least one star and some praise (the
+//   screen is built so a child is never told they got nothing).
 import { letterStrokes, CELL_WIDTH } from '../src/content/letterStrokes.ts';
 import { scoreLetter, scoreWriting, STAR_THRESHOLDS } from '../src/content/scoring.ts';
 
@@ -125,14 +127,22 @@ for (const i of [...impostors].sort((a, b) => b.score - a.score).slice(0, 8)) co
 
 check(pct(results.good, 0.1) >= STAR_THRESHOLDS.three, `good attempts: at least 90% should earn 3 stars (10th percentile is ${pct(results.good, 0.1)}, needs ${STAR_THRESHOLDS.three})`);
 check(mean(results.fair) >= STAR_THRESHOLDS.two, `fair attempts: mean ${mean(results.fair).toFixed(0)} should reach 2 stars (${STAR_THRESHOLDS.two})`);
-check(pct(results.fair, 0.05) >= STAR_THRESHOLDS.one, `fair attempts: 5th percentile ${pct(results.fair, 0.05)} should reach 1 star (${STAR_THRESHOLDS.one})`);
+check(pct(results.fair, 0.05) >= STAR_THRESHOLDS.two, `fair attempts: 95% should earn at least 2 stars (5th percentile ${pct(results.fair, 0.05)})`);
+check(mean(results.messy) >= STAR_THRESHOLDS.two, `messy attempts: mean ${mean(results.messy).toFixed(0)} should still reach 2 stars, so a wobbly child is not disheartened`);
 check(mean(results.messy) < mean(results.fair) && mean(results.fair) < mean(results.good), 'scores should fall as the writing gets messier');
 check(Math.max(...imp) < STAR_THRESHOLDS.three, `a wrong letter reached 3 stars (max ${Math.max(...imp).toFixed(0)})`);
-check(pct(imp, 0.95) < STAR_THRESHOLDS.two, `wrong letters: 95th percentile ${pct(imp, 0.95)} should stay under 2 stars (${STAR_THRESHOLDS.two})`);
+check(mean(imp) < STAR_THRESHOLDS.two - 10, `wrong letters: mean ${mean(imp).toFixed(0)} should sit well under the 2-star mark (${STAR_THRESHOLDS.two})`);
 check(mean(backwards) < mean(forwards) - 15, `backwards strokes should score well below forwards (${mean(backwards).toFixed(0)} vs ${mean(forwards).toFixed(0)})`);
-check(pct(scribbles, 0.95) < STAR_THRESHOLDS.one, `scribbles: 95th percentile ${pct(scribbles, 0.95)} should stay under 1 star (${STAR_THRESHOLDS.one})`);
+check(pct(scribbles, 0.95) < STAR_THRESHOLDS.two, `scribbles: 95th percentile ${pct(scribbles, 0.95)} should stay under 2 stars (${STAR_THRESHOLDS.two})`);
 check(scoreLetter([], letterStrokes.a).score === 0, 'an empty page should score 0');
-check(scoreLetter([[{ x: 30, y: 60 }]], letterStrokes.a).score < STAR_THRESHOLDS.one, 'a single tap should not score for an a');
+check(scoreWriting([], [letterStrokes.a], CELL_WIDTH).stars === 0, 'an empty page should earn no stars');
+const tap = scoreWriting([[{ x: 30, y: 60 }]], [letterStrokes.a], CELL_WIDTH);
+check(tap.stars <= 1, 'a single tap should earn at most 1 star');
+
+// The kindness rules: every real attempt, however poor, earns a star and some praise.
+const scribbleResult = scoreWriting([[{ x: 5, y: 40 }, { x: 60, y: 115 }, { x: 8, y: 118 }, { x: 62, y: 35 }]], [letterStrokes.a], CELL_WIDTH);
+check(scribbleResult.stars === 1, `a scribble should still earn 1 star (got ${scribbleResult.stars})`);
+check(Boolean(scribbleResult.praise.kind), 'a scribble should still get something to praise');
 
 // Several letters across cells: igh written well, then with the g missing.
 const igh = ['i', 'g', 'h'].map((l) => letterStrokes[l]);
@@ -140,7 +150,7 @@ const writeAcross = (skip) =>
   ['i', 'g', 'h'].flatMap((l, i) => (i === skip ? [] : handwrite(letterStrokes[l], STYLES.good).map((s) => s.map((p) => ({ x: p.x + i * CELL_WIDTH, y: p.y })))));
 const full = scoreWriting(writeAcross(-1), igh, CELL_WIDTH);
 const gap = scoreWriting(writeAcross(1), igh, CELL_WIDTH);
-console.log(`igh written well: ${full.score} (${full.stars} stars); with the g missing: ${gap.score} (${gap.stars} stars, hint ${gap.hint?.hint} on letter ${gap.hint?.letterIndex})`);
+console.log(`igh written well: ${full.stars} stars; with the g missing: ${gap.stars} star, tip ${gap.hint?.hint} on letter ${gap.hint?.letterIndex}, praise ${gap.praise.kind}`);
 const reverseH = scoreWriting(
   ['i', 'g', 'h'].flatMap((l, i) =>
     handwrite(letterStrokes[l], STYLES.good).map((s) => (l === 'h' ? [...s].reverse() : s).map((p) => ({ x: p.x + i * CELL_WIDTH, y: p.y }))),
@@ -151,7 +161,8 @@ const reverseH = scoreWriting(
 console.log(`igh with the h written backwards: ${reverseH.score} (${reverseH.stars} stars, hint ${reverseH.hint?.hint} on letter ${reverseH.hint?.letterIndex})`);
 check(reverseH.stars < 3 && reverseH.hint?.letterIndex === 2, 'igh with a backwards h should fall short of 3 stars and point at the h');
 check(full.stars === 3, 'igh written well should earn 3 stars');
-check(gap.stars <= 1 && gap.hint?.letterIndex === 1 && gap.hint?.hint === 'empty', 'igh with a missing g should earn at most 1 star and flag the g as empty');
+check(gap.stars === 1 && gap.hint?.letterIndex === 1 && gap.hint?.hint === 'empty', 'igh with a missing g should earn 1 star and suggest adding the g');
+check(gap.praise.kind === 'best' && gap.praise.letterIndex !== 1, 'igh with a missing g should still praise a letter that was written');
 
 // Whole words: good writing should mostly earn 3 stars, fair writing mostly 2.
 for (const word of [['i', 'g', 'h'], ['s', 'h'], ['a', 'u', 'g', 'h'], ['o', 'a']]) {
