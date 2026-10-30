@@ -10,6 +10,7 @@ export function SkinPicker() {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const pointerPick = useRef(false);
 
   useEffect(() => {
     if (!open) return;
@@ -58,15 +59,24 @@ export function SkinPicker() {
               key={s.id}
               className={styles.choice}
               data-active={s.id === skin.id}
-              // A real click (mouse or touch) closes the menu; arrow keys keep it open so you can browse.
-              onClick={(e) => e.detail > 0 && setOpen(false)}
+              onPointerDown={() => (pointerPick.current = true)}
             >
               <input
                 type="radio"
                 name="skin"
                 value={s.id}
                 checked={s.id === skin.id}
-                onChange={() => setSkinId(s.id)}
+                onChange={() => {
+                  setSkinId(s.id);
+                  // Picking with a mouse or finger closes the menu; arrow keys keep it open so you can browse.
+                  if (pointerPick.current) setOpen(false);
+                  pointerPick.current = false;
+                }}
+                // Tapping the theme that is already selected makes no change, so close here too.
+                onClick={() => {
+                  if (pointerPick.current) setOpen(false);
+                  pointerPick.current = false;
+                }}
                 className={styles.radioInput}
               />
               <Mascot skinId={s.id} size={44} animate={false} />
