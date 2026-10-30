@@ -155,3 +155,109 @@
     display: none;
   }
 }
+
+.modes {
+  display: flex;
+  gap: 8px;
+}
+
+.mode {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: 16px;
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  background: var(--card-white);
+  color: var(--ink-muted);
+  box-shadow: 0 3px 0 var(--edge-soft);
+}
+
+.mode[data-active='true'] {
+  background: var(--yellow-chip);
+  color: var(--on-gold);
+  box-shadow: 0 4px 0 var(--yellow-chip-shadow);
+}
+
+/* "Write it" shows lines and letter boxes only, no guide, until it is checked. */
+.cellDivider {
+  stroke: var(--edge);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.revealRoad {
+  fill: none;
+  stroke: var(--sparkle-bg);
+  stroke-width: 11;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.result {
+  background: var(--card-white);
+  border-radius: 22px;
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: 0 8px 18px -10px rgba(var(--shadow-rgb), 0.4);
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 30px;
+}
+
+.star {
+  color: var(--edge);
+}
+
+.star[data-earned='true'] {
+  color: var(--gold-2);
+}
+
+.verdict {
+  margin-top: 4px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--ink-heading);
+}
+
+.score {
+  margin-left: 6px;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-body-2);
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--ink-body);
+}
+
+.check {
+  padding: 15px 0;
+  border-radius: 22px;
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--on-gold);
+  background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
+  box-shadow: 0 6px 0 var(--cta-gold-shadow);
+}
+
+.check:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
