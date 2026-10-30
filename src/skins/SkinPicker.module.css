@@ -1,5 +1,16 @@
 .picker {
   position: relative;
+  z-index: 6;
+}
+
+/* Everything behind an open menu is dimmed and blurred. */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(var(--scrim-rgb), 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 .row {
