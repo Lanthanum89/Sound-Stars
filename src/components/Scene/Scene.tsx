@@ -53,24 +53,14 @@ const CLOUDS: DriftSpec[] = [
 
 /* ---------------------------------------------------------------- Sunny Day */
 
-const SPARKLE = 'M8 0 C8.6 5 11 7.4 16 8 C11 8.6 8.6 11 8 16 C7.4 11 5 8.6 0 8 C5 7.4 7.4 5 8 0 Z';
-
-const SPARKLES: { top: string; left: string; size: number; delay: number }[] = [
-  { top: '5%', left: '12%', size: 16, delay: 0 },
-  { top: '22%', left: '5%', size: 11, delay: 1.2 },
-  { top: '41%', left: '91%', size: 14, delay: 0.5 },
-  { top: '58%', left: '7%', size: 10, delay: 2 },
-  { top: '14%', left: '58%', size: 10, delay: 1.7 },
-];
-
 function SunnyDay() {
   return (
     <>
       <span
         style={{
           position: 'absolute',
-          top: '4%',
-          right: '7%',
+          top: '10%',
+          right: '4%',
           width: 'clamp(54px, 9vw, 112px)',
           aspectRatio: '1',
           borderRadius: '50%',
@@ -81,17 +71,6 @@ function SunnyDay() {
       <Drifters specs={CLOUDS}>
         <Cloud fill="#fffdf7" />
       </Drifters>
-      {SPARKLES.map((s, i) => (
-        <svg
-          key={i}
-          viewBox="0 0 16 16"
-          className={styles.twinkle}
-          style={{ top: s.top, left: s.left, width: s.size, animationDelay: `${s.delay}s` }}
-          aria-hidden="true"
-        >
-          <path d={SPARKLE} fill="#f5b21b" />
-        </svg>
-      ))}
       <svg className={styles.ground} style={{ height: 'clamp(110px, 20vw, 34vh)' }} viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <path d="M0 240 V120 C150 60 300 70 450 112 C600 154 760 80 900 84 C1040 88 1130 120 1200 100 V240 Z" fill="#b6dc99" />
         <path d="M0 240 V170 C170 120 330 150 520 168 C700 186 860 128 1040 140 C1120 146 1170 160 1200 156 V240 Z" fill="#86c077" />
@@ -180,7 +159,7 @@ const PETALS: { left: string; size: number; duration: number; delay: number; fil
 function Hedgerow() {
   return (
     <>
-      {PETALS.map((p, i) => (
+      {PETALS.slice(0, 4).map((p, i) => (
         <svg
           key={i}
           className={styles.fall}
@@ -301,7 +280,7 @@ function MainStage() {
       <div className={styles.rays} />
       <div className={`${styles.halftone} ${styles.halftoneA}`} />
       <div className={`${styles.halftone} ${styles.halftoneB}`} />
-      {CONFETTI.map((c, i) => {
+      {CONFETTI.slice(0, 5).map((c, i) => {
         const shape: CSSProperties =
           c.shape === 'dot'
             ? { borderRadius: '50%' }
@@ -414,21 +393,21 @@ function MatchDay() {
       <Drifters specs={CLOUDS.slice(0, 3)}>
         <Cloud fill="#fffffb" />
       </Drifters>
-      <svg className={styles.ground} style={{ height: 'clamp(240px, 41.7vw, 62vh)' }} viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <svg className={styles.ground} style={{ height: 'clamp(200px, 36vw, 40vh)' }} viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <rect y="0" width="1200" height="64" fill="#dfe7ea" />
         {Array.from({ length: 3 }, (_, row) =>
           Array.from({ length: 60 }, (_, i) => (
-            <circle key={`${row}-${i}`} cx={10 + i * 20 + (row % 2) * 10} cy={14 + row * 17} r="5" fill={STAND_COLOURS[(i * 7 + row * 3) % 4]} opacity="0.85" />
+            <circle key={`${row}-${i}`} cx={10 + i * 20 + (row % 2) * 10} cy={14 + row * 17} r="5" fill={STAND_COLOURS[(i * 7 + row * 3) % 4]} opacity="0.6" />
           )),
         )}
         {Array.from({ length: 7 }, (_, i) => (
           <rect key={i} y={64 + i * 63} width="1200" height="63" fill={i % 2 === 0 ? '#a3d490' : '#b3dc9f'} />
         ))}
         <rect y="62" width="1200" height="5" fill="#fffffb" />
-        <rect y="206" width="1200" height="5" fill="#fffffb" opacity="0.9" />
-        <ellipse cx="600" cy="208" rx="130" ry="44" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.9" />
-        <circle cx="600" cy="208" r="6" fill="#fffffb" />
-        <path d="M330 500 V392 H870 V500" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.9" />
+        <rect y="206" width="1200" height="5" fill="#fffffb" opacity="0.5" />
+        <ellipse cx="600" cy="208" rx="130" ry="44" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.5" />
+        <circle cx="600" cy="208" r="6" fill="#fffffb" opacity="0.5" />
+        <path d="M330 500 V392 H870 V500" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.5" />
       </svg>
       <div className={styles.ball}>
         <svg viewBox="0 0 100 100" aria-hidden="true">

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useStored } from './hooks/useStored';
 import { SetupScreen } from './screens/SetupScreen';
 import { RoundScreen } from './screens/RoundScreen';
 import { ResultsScreen } from './screens/ResultsScreen';
@@ -19,14 +20,29 @@ type View = 'setup' | 'round' | 'results' | 'parent' | 'sounds';
 interface RoundResult {
   correct: number;
   total: number;
+  missed: string[];
 }
 
 function App() {
-  const [phases, setPhases] = useState<Phase[]>(ALL_PHASES);
-  const [deckKind, setDeckKind] = useState<DeckKind>('grapheme');
-  const [timedMode, setTimedMode] = useState(false);
-  const [secondsPerCard, setSecondsPerCard] = useState(DEFAULT_SECONDS_PER_CARD);
-  const [sessionSize, setSessionSize] = useState<SessionSize>('all');
+  // What was picked last time is remembered, so a returning child (or parent)
+  // can press Let's go straight away.
+  const [phases, setPhases] = useStored<Phase[]>(
+    'sound-stars-phases',
+    ALL_PHASES,
+    (v): v is Phase[] => Array.isArray(v) && v.length > 0 && v.every((p) => ALL_PHASES.includes(p)),
+  );
+  const [deckKind, setDeckKind] = useStored<DeckKind>('sound-stars-deck', 'grapheme', (v): v is DeckKind => v === 'grapheme' || v === 'tricky');
+  const [timedMode, setTimedMode] = useStored('sound-stars-timed', false, (v): v is boolean => typeof v === 'boolean');
+  const [secondsPerCard, setSecondsPerCard] = useStored(
+    'sound-stars-seconds',
+    DEFAULT_SECONDS_PER_CARD,
+    (v): v is number => typeof v === 'number' && v >= 2 && v <= 30,
+  );
+  const [sessionSize, setSessionSize] = useStored<SessionSize>(
+    'sound-stars-size',
+    20,
+    (v): v is SessionSize => v === 'all' || (typeof v === 'number' && Number.isInteger(v) && v > 0),
+  );
   const [view, setView] = useState<View>('setup');
   const [roundResult, setRoundResult] = useState<RoundResult | null>(null);
   const [targetedItems, setTargetedItems] = useState<FlashcardItem[] | null>(null);
@@ -48,7 +64,10 @@ function App() {
 
   const handleRoundComplete = (answers: RoundAnswer[]) => {
     progress.recordSession(answers);
-    setRoundResult({ correct: answers.filter((a) => a.correct).length, total: answers.length });
+    setRoundResult({
+      correct: answers.filter((a) => a.correct).length, total: answers.length,
+      missed: [...new Set(answers.filter((a) => !a.correct).map((a) => a.item.prompt))],
+    });
     setTargetedItems(null);
     setView('results');
   };
@@ -60,6 +79,14 @@ function App() {
 
   const handlePractiseTogether = (prompts: string[]) => {
     setTargetedItems(buildTargetedDeck(prompts));
+    setView('round');
+  };
+
+  // One card per missed sound, so "practise the tricky ones" stays short.
+  const handlePractiseMissed = () => {
+    if (!roundResult) return;
+    const seen = new Set<string>();
+    setTargetedItems(buildTargetedDeck(roundResult.missed).filter((item) => !seen.has(item.prompt) && seen.add(item.prompt)));
     setView('round');
   };
 
@@ -81,7 +108,9 @@ function App() {
       <ResultsScreen
         correct={roundResult.correct}
         total={roundResult.total}
+        hasMissed={roundResult.missed.length > 0}
         onPlayAgain={() => setView('round')}
+        onPractiseMissed={handlePractiseMissed}
         onBackHome={() => setView('setup')}
       />
     );
@@ -123,6 +152,7 @@ function App() {
       secondsPerCard={secondsPerCard}
       onSecondsPerCardChange={setSecondsPerCard}
       roundSize={roundSize}
+      availableCount={items.length}
       onStart={() => setView('round')}
       onOpenParentView={() => setView('parent')}
       onOpenSoundSheet={() => setView('sounds')}

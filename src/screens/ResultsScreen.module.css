@@ -14,7 +14,7 @@
 .title {
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 30px;
+  font-size: 36px;
   line-height: 1.05;
   color: var(--ink-heading);
   text-shadow: 0 2px 0 var(--card-white);
@@ -30,13 +30,13 @@
 .scoreCard {
   width: 100%;
   background: var(--card-white);
-  border-radius: 26px;
-  padding: 22px 18px;
+  border-radius: var(--radius-l);
+  border: 1.5px solid var(--control-line);
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 16px 30px -14px rgba(var(--shadow-rgb), 0.45);
+  gap: 8px;
 }
 
 .stars {
@@ -59,21 +59,6 @@
   color: var(--ink-muted);
 }
 
-.progressTrack {
-  width: 100%;
-  height: 12px;
-  border-radius: 999px;
-  background: var(--wash);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--green), var(--gold-2));
-  transition: width 0.4s ease;
-}
-
 .caption {
   margin: 0;
   font-family: var(--body);
@@ -94,27 +79,27 @@
 .playAgain {
   text-align: center;
   padding: 16px 0;
-  border-radius: 22px;
+  border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   color: var(--on-gold);
   font-weight: 800;
   font-size: 19px;
   cursor: pointer;
-  background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
-  box-shadow: 0 6px 0 var(--cta-gold-shadow), 0 12px 20px -6px rgba(var(--glow-rgb), 0.5);
+  background: var(--cta-gold-1);
+  box-shadow: 0 5px 0 var(--cta-gold-shadow);
 }
 
+.practiseMissed,
 .backHome {
   text-align: center;
   padding: 13px 0;
-  border-radius: 20px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   background: var(--card-white);
   color: var(--ink-body);
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
-  box-shadow: 0 4px 0 #d7e6ef;
 }

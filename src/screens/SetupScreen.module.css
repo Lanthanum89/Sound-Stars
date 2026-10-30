@@ -1,64 +1,142 @@
 .header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  margin-top: 4px;
+  justify-content: center;
+  gap: 10px;
 }
 
 .title {
   margin: 0;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 30px;
-  line-height: 1;
+  font-size: 26px;
+  line-height: 1.05;
   color: var(--ink-heading);
-  text-shadow: 0 2px 0 var(--card-white);
-}
-
-.subtitle {
-  margin: 0;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--ink-body);
 }
 
 .card {
-  background: var(--card-translucent);
-  border-radius: 22px;
-  padding: 14px;
+  background: var(--card-white);
+  border: 1.5px solid var(--edge);
+  border-radius: var(--radius-l);
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 8px 18px -8px rgba(var(--shadow-rgb), 0.35);
+  gap: 10px;
 }
 
+/* Instructions are a quieter voice than the buttons they sit above. */
 .groupLabel {
   font-family: var(--sans);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink-heading);
+  margin-bottom: 6px;
+}
+
+.moreLabel {
+  font-family: var(--body);
   font-weight: 700;
   font-size: 14px;
-  color: var(--ink-heading);
-  margin-bottom: 7px;
+  color: var(--ink-body);
+  margin-bottom: 4px;
 }
 
 .pillRow {
   display: flex;
-  gap: 7px;
+  gap: 6px;
 }
 
-.fineTuneLink {
-  background: none;
-  border: none;
-  padding: 6px 0;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 12.5px;
-  color: var(--ink-body-2);
-  text-decoration: underline;
+.pillRow + .disclosure,
+.disclosure + .pillRow {
+  margin-top: 8px;
+}
+
+/* Secondary button that reveals more controls. */
+.disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-heading);
   cursor: pointer;
 }
 
+.more {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink-body);
+}
+
+.numberInput {
+  width: 4.5rem;
+  min-height: 36px;
+  box-sizing: border-box;
+  border-radius: var(--radius-s);
+  border: 1.5px solid var(--control-line);
+  padding: 4px 8px;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 14px;
+  background: var(--card-white);
+  color: var(--ink-heading);
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  cursor: pointer;
+  padding: 0;
+}
+
+.switch[data-on='true'] {
+  background: var(--selected-bg);
+  border-color: var(--selected-edge);
+}
+
+.switchKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--control-line);
+  transition: transform 0.15s ease;
+}
+
+.switch[data-on='true'] .switchKnob {
+  transform: translateX(22px);
+  background: var(--selected-edge);
+}
+
+/* Every choice looks the same: an outlined tile that fills and gets a tick
+   when picked. */
 .pill {
   flex: 1;
   display: flex;
@@ -67,53 +145,22 @@
   justify-content: center;
   gap: 2px;
   text-align: center;
-  padding: 9px 2px;
-  border-radius: 14px;
-  border: none;
+  padding: 8px 4px;
+  min-height: 48px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 16px;
   cursor: pointer;
   background: var(--card-white);
-  color: var(--ink-muted);
-  box-shadow: 0 3px 0 var(--edge-soft);
+  color: var(--ink-body);
 }
 
-.pill .pillMain {
-  white-space: nowrap;
-  font-size: 13px;
-}
-
-.pill[data-variant='gold'][data-active='true'] {
-  background: var(--yellow-chip);
-  color: var(--on-gold);
-  box-shadow: 0 4px 0 var(--yellow-chip-shadow);
-}
-
-.pill[data-variant='green'][data-active='true'] {
-  background: var(--green);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--green-shadow);
-}
-
-.wideButton {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  text-align: center;
-  padding: 10px 4px;
-  border-radius: 16px;
-  border: none;
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-  background: var(--card-white);
-  color: var(--ink-body-2);
-  box-shadow: 0 3px 0 var(--edge-soft);
+.pill[data-active='true'] {
+  background: var(--selected-bg);
+  color: var(--selected-fg);
+  border-color: var(--selected-edge);
+  box-shadow: inset 0 0 0 1px var(--selected-edge);
 }
 
 .pillMain {
@@ -124,87 +171,54 @@
 .pillSub {
   font-family: var(--body);
   font-weight: 700;
-  font-size: 9.5px;
-  opacity: 0.75;
+  font-size: 11px;
   text-transform: none;
   letter-spacing: 0;
 }
 
-.wideButton[data-variant='coral'][data-active='true'] {
-  background: var(--coral);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--coral-shadow);
-}
-
-.wideButton[data-variant='blue'][data-active='true'] {
-  background: linear-gradient(180deg, var(--cta-blue-1), var(--cta-blue-2));
-  color: #fff;
-  box-shadow: 0 4px 0 var(--cta-blue-shadow);
-}
-
-.customSizeRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 8px;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 12.5px;
-  color: var(--ink-body-2);
-}
-
-.customSizeInput {
-  width: 4rem;
-  border-radius: 10px;
-  border: 1.5px solid var(--edge-soft);
-  padding: 4px 8px;
-  font-family: var(--body);
-  font-weight: 700;
-}
-
+/* The one chunky control on the screen. */
 .cta {
   text-align: center;
-  padding: 18px 0;
-  border-radius: 24px;
+  padding: 14px 0;
+  border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   color: var(--on-gold);
   font-weight: 800;
-  font-size: 22px;
+  font-size: 21px;
   cursor: pointer;
-  background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
-  box-shadow: 0 7px 0 var(--cta-gold-shadow), 0 14px 22px -6px rgba(var(--glow-rgb), 0.5);
-  animation: floaty 3s ease-in-out infinite;
+  background: var(--cta-gold-1);
+  box-shadow: 0 5px 0 var(--cta-gold-shadow);
+}
+
+.cta:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--cta-gold-shadow);
 }
 
 .cta:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  animation: none;
 }
 
-.parentLink {
-  align-self: center;
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: none;
   background: none;
-  border: none;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 12.5px;
-  color: rgba(var(--scrim-rgb), 0.45);
-  cursor: pointer;
-  padding: 4px 10px;
-}
-
-.soundSheetButton {
-  padding: 12px 0;
-  border-radius: 20px;
-  border: none;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--ink-heading);
+  text-decoration: underline;
   cursor: pointer;
-  background: var(--card-white);
-  box-shadow: 0 4px 0 var(--edge);
 }

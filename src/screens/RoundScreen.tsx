@@ -9,8 +9,6 @@ import type { RoundAnswer } from '../hooks/useProgress';
 import shared from './shared.module.css';
 import styles from './RoundScreen.module.css';
 
-const DOT_LIMIT = 10;
-
 interface RoundScreenProps {
   items: FlashcardItem[];
   timed: boolean;
@@ -55,20 +53,20 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
             <Icon name="cross" />
           </button>
 
-          <div className={styles.progress} role="status" aria-label={`Card ${position + 1} of ${total}`}>
-            {total <= DOT_LIMIT ? (
-              Array.from({ length: total }).map((_, i) => (
-                <span
-                  key={i}
-                  className={styles.dot}
-                  data-state={i < position ? 'done' : i === position ? 'current' : 'upcoming'}
-                />
-              ))
-            ) : (
-              <div className={styles.progressBar}>
-                <div className={styles.progressBarFill} style={{ width: `${((position + 1) / total) * 100}%` }} />
-              </div>
-            )}
+          <div className={styles.progress}>
+            <span className={styles.progressText}>
+              {position + 1} of {total}
+            </span>
+            <div
+              className={styles.progressBar}
+              role="progressbar"
+              aria-label="Round progress"
+              aria-valuemin={0}
+              aria-valuemax={total}
+              aria-valuenow={position}
+            >
+              <div className={styles.progressBarFill} style={{ width: `${(position / total) * 100}%` }} />
+            </div>
           </div>
 
           {timeLeft !== null ? (
@@ -102,10 +100,10 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
 
           <div className={styles.answers}>
             <button type="button" className={styles.incorrect} onClick={() => mark(false)}>
-              <Icon name="cross" />
+              Practise again
             </button>
             <button type="button" className={styles.correct} onClick={() => mark(true)}>
-              <Icon name="check" /> Yes!
+              <Icon name="check" /> Got it
             </button>
           </div>
         </div>

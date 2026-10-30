@@ -1,51 +1,92 @@
 .picker {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  position: relative;
 }
 
-.chip {
+.row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 8px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  color: var(--ink-heading);
+  cursor: pointer;
+  text-align: left;
+}
+
+.change {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px 6px 8px;
-  border-radius: 999px;
-  border: 2px solid var(--edge);
-  background: var(--card-white);
-  color: var(--ink-body);
+  gap: 4px;
   font-family: var(--sans);
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-heading);
+  text-decoration: underline;
+}
+
+.name {
+  margin-left: 6px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-heading);
+  flex: 1;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 8px;
+  border-radius: var(--radius-l);
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  box-shadow: 0 10px 24px -8px rgba(var(--shadow-rgb), 0.45);
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px 6px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
   cursor: pointer;
 }
 
-.chip[data-active='true'] {
-  border-color: var(--ink-heading);
-  color: var(--ink-heading);
-  box-shadow: 0 3px 0 var(--ink-heading);
+.choice[data-active='true'] {
+  background: var(--selected-bg);
+  border-color: var(--selected-edge);
+  box-shadow: inset 0 0 0 1px var(--selected-edge);
 }
 
-.chip:has(:focus-visible) {
-  outline: 2px solid var(--accent);
+.choice:has(:focus-visible) {
+  outline: 3px solid var(--ink-heading);
   outline-offset: 2px;
 }
 
-/* Three overlapping dots: the theme's inks at a glance. */
-.swatch {
-  display: inline-flex;
+.choiceName {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: var(--ink-body);
 }
 
-.swatch > span {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--card-white);
-  margin-left: -5px;
-}
-
-.swatch > span:first-child {
-  margin-left: 0;
+.choice[data-active='true'] .choiceName {
+  color: var(--selected-fg);
 }
 
 .radioInput {

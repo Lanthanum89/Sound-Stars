@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, type ReactNode } from 'react';
+import { useStored } from '../hooks/useStored';
 import { SkinContext } from './context';
 import { defaultSkin, skins } from './registry';
 
 export function SkinProvider({ children }: { children: ReactNode }) {
-  const [skinId, setSkinId] = useState(defaultSkin.id);
+  const [skinId, setSkinId] = useStored('sound-stars-theme', defaultSkin.id, (v): v is string => typeof v === 'string' && skins.some((s) => s.id === v));
   const skin = skins.find((s) => s.id === skinId) ?? defaultSkin;
 
   // Set on the root element (not a wrapper div) so the active skin's colours

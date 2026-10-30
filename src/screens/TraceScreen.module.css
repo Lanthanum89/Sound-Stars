@@ -36,9 +36,9 @@
 
 .paper {
   background: var(--card-white);
-  border-radius: 26px;
+  border-radius: var(--radius-l);
   padding: 10px;
-  box-shadow: 0 12px 24px -12px rgba(28, 90, 140, 0.5);
+  border: 1.5px solid var(--edge);
 }
 
 .canvas {
@@ -129,15 +129,14 @@
 .action {
   flex: 1;
   padding: 13px 4px;
-  border-radius: 18px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--edge);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-heading);
-  box-shadow: 0 4px 0 #d3e2ec;
 }
 
 .action:disabled {
@@ -164,21 +163,21 @@
 .mode {
   flex: 1;
   padding: 10px 4px;
-  border-radius: 16px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--edge);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-muted);
-  box-shadow: 0 3px 0 var(--edge-soft);
 }
 
 .mode[data-active='true'] {
-  background: var(--yellow-chip);
-  color: var(--on-gold);
-  box-shadow: 0 4px 0 var(--yellow-chip-shadow);
+  background: var(--selected-bg);
+  color: var(--selected-fg);
+  border-color: var(--selected-edge);
+  box-shadow: inset 0 0 0 1px var(--selected-edge);
 }
 
 /* "Write it" shows lines and letter boxes only, no guide, until it is checked. */
@@ -198,10 +197,10 @@
 
 .result {
   background: var(--card-white);
-  border-radius: 22px;
+  border-radius: var(--radius-l);
   padding: 14px 16px;
   text-align: center;
-  box-shadow: 0 8px 18px -10px rgba(var(--shadow-rgb), 0.4);
+  border: 1.5px solid var(--edge);
 }
 
 .stars {
@@ -260,15 +259,15 @@
 
 .check {
   padding: 15px 0;
-  border-radius: 22px;
+  border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   font-weight: 800;
   font-size: 18px;
   cursor: pointer;
   color: var(--on-gold);
-  background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
-  box-shadow: 0 6px 0 var(--cta-gold-shadow);
+  background: var(--cta-gold-1);
+  box-shadow: 0 5px 0 var(--cta-gold-shadow);
 }
 
 .check:disabled {

@@ -57,11 +57,13 @@ function captionFor(stars: number, incorrect: number): string {
 interface ResultsScreenProps {
   correct: number;
   total: number;
+  hasMissed: boolean;
   onPlayAgain: () => void;
+  onPractiseMissed: () => void;
   onBackHome: () => void;
 }
 
-export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: ResultsScreenProps) {
+export function ResultsScreen({ correct, total, hasMissed, onPlayAgain, onPractiseMissed, onBackHome }: ResultsScreenProps) {
   const pct = total === 0 ? 0 : Math.round((correct / total) * 100);
   const stars = starsEarned(pct);
   const incorrect = total - correct;
@@ -71,7 +73,7 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
       <Scene />
 
       <div className={`${shared.content} ${styles.content}`}>
-        <Mascot expression="happy" size={134} />
+        <Mascot expression="happy" size={176} />
 
         <div className={styles.headline}>
           <div className={styles.title}>You did it!</div>
@@ -87,9 +89,6 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
           <div className={styles.score}>
             {correct} <span className={styles.scoreTotal}>/ {total} sounds</span>
           </div>
-          <div className={styles.progressTrack}>
-            <div className={styles.progressFill} style={{ width: `${pct}%` }} />
-          </div>
           <p className={styles.caption}>{captionFor(stars, incorrect)}</p>
         </div>
 
@@ -97,6 +96,11 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
           <button type="button" className={styles.playAgain} onClick={onPlayAgain}>
             Play again
           </button>
+          {hasMissed && (
+            <button type="button" className={styles.practiseMissed} onClick={onPractiseMissed}>
+              Practise the tricky ones
+            </button>
+          )}
           <button type="button" className={styles.backHome} onClick={onBackHome}>
             Back home
           </button>

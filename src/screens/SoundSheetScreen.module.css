@@ -31,21 +31,21 @@
 .tab {
   flex: 1;
   padding: 10px 4px;
-  border-radius: 16px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-muted);
-  box-shadow: 0 3px 0 var(--edge-soft);
 }
 
 .tab[data-active='true'] {
-  background: var(--yellow-chip);
-  color: var(--on-gold);
-  box-shadow: 0 4px 0 var(--yellow-chip-shadow);
+  background: var(--selected-bg);
+  color: var(--selected-fg);
+  border-color: var(--selected-edge);
+  box-shadow: inset 0 0 0 1px var(--selected-edge);
 }
 
 .phaseHeading {
@@ -70,12 +70,11 @@
   gap: 2px;
   min-height: 78px;
   padding: 8px 4px;
-  border-radius: 18px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-heading);
-  box-shadow: 0 4px 0 var(--edge);
   transition: transform 0.12s ease;
 }
 
@@ -85,12 +84,12 @@
 
 .tile[data-phase='3'] {
   background: var(--tint-1);
-  box-shadow: 0 4px 0 var(--tint-1-edge);
+  border-color: var(--tint-1-edge);
 }
 
 .tile[data-phase='5'] {
   background: var(--tint-2);
-  box-shadow: 0 4px 0 var(--tint-2-edge);
+  border-color: var(--tint-2-edge);
 }
 
 .tileGrapheme {
@@ -110,7 +109,7 @@
 .tileCue {
   font-family: var(--body);
   font-weight: 700;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ink-body-2);
 }
 
@@ -133,7 +132,7 @@
   overflow-y: auto;
   box-sizing: border-box;
   padding: 36px 22px 24px;
-  border-radius: 30px;
+  border-radius: var(--radius-l);
   background: var(--card-white);
   box-shadow: 0 16px 30px -12px rgba(var(--shadow-rgb), 0.55);
   display: flex;
@@ -188,29 +187,28 @@
 .practise {
   width: 100%;
   padding: 14px 0;
-  border-radius: 20px;
+  border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   font-weight: 800;
   font-size: 17px;
   color: var(--on-gold);
   cursor: pointer;
-  background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
+  background: var(--cta-gold-1);
   box-shadow: 0 5px 0 var(--cta-gold-shadow);
 }
 
 .trace {
   width: 100%;
   padding: 12px 0;
-  border-radius: 20px;
-  border: none;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 16px;
   color: var(--ink-heading);
   cursor: pointer;
   background: #eef4f8;
-  box-shadow: 0 4px 0 #d3e2ec;
 }
 
 @media (orientation: landscape) and (max-height: 520px) {

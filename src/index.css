@@ -65,6 +65,19 @@
   --practice-fill: #f5b21b;
   --practice-count: #7d6f48;
 
+  /* One shape language for controls and cards, one look for "selected", and
+     hard bottom edges kept for the single main button on each screen. */
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+  /* Picked = a pale tint with a dark outline and a tick, so it never competes
+     with the warm main button. */
+  /* Outline for anything you can press: dark enough to see (3:1 or better on a card). */
+  --control-line: var(--ink-muted);
+  --selected-bg: var(--tint-2);
+  --selected-fg: var(--ink-heading);
+  --selected-edge: var(--ink-heading);
+
   /* Neutrals and shadow colours that used to be hard-coded in the screen
      stylesheets, so a theme can tint them instead of leaving cold blue-grey
      edges on a warm palette. The *-rgb tokens are "r, g, b" triples. */
@@ -93,6 +106,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink-heading);
+  outline-offset: 2px;
 }
 
 body {
