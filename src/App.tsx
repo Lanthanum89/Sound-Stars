@@ -3,6 +3,7 @@ import { SetupScreen } from './screens/SetupScreen';
 import { RoundScreen } from './screens/RoundScreen';
 import { ResultsScreen } from './screens/ResultsScreen';
 import { ParentScreen } from './screens/ParentScreen';
+import { SoundSheetScreen } from './screens/SoundSheetScreen';
 import { buildGraphemeDeck, buildTrickyWordDeck, buildTargetedDeck } from './content/deck';
 import { useProgress, type RoundAnswer } from './hooks/useProgress';
 import { getWeeklySummary, getSparkling, getNeedsPractice } from './progress/derive';
@@ -13,7 +14,7 @@ import type { SessionSize } from './screens/types';
 const ALL_PHASES: Phase[] = [2, 3, 4, 5];
 const DEFAULT_SECONDS_PER_CARD = 5;
 
-type View = 'setup' | 'round' | 'results' | 'parent';
+type View = 'setup' | 'round' | 'results' | 'parent' | 'sounds';
 
 interface RoundResult {
   correct: number;
@@ -104,6 +105,10 @@ function App() {
     );
   }
 
+  if (view === 'sounds') {
+    return <SoundSheetScreen onBack={() => setView('setup')} onPractise={(key) => handlePractiseTogether([key])} />;
+  }
+
   return (
     <SetupScreen
       phases={phases}
@@ -120,6 +125,7 @@ function App() {
       roundSize={roundSize}
       onStart={() => setView('round')}
       onOpenParentView={() => setView('parent')}
+      onOpenSoundSheet={() => setView('sounds')}
     />
   );
 }

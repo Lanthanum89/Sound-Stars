@@ -2,7 +2,9 @@
 
 Future work, not yet started.
 
-## 1. Sound sheet (teacher's worksheet)
+## 1. Sound sheet (teacher's worksheet) - done
+
+Built as a Sound sheet screen (Setup > Sound sheet): tiles by year group, tap for the phrase with the sound highlighted, and a Practise button. Data in `src/content/soundSheet.ts`. No pictures yet (the sheet's artwork is copyrighted); own illustrations or emoji would be a follow-up.
 
 Display the official sounds and the class "remember it" phrases from Freddie's teacher's worksheet in a fun, kid-friendly way.
 

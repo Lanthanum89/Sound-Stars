@@ -47,6 +47,7 @@ interface SetupScreenProps {
   roundSize: number;
   onStart: () => void;
   onOpenParentView: () => void;
+  onOpenSoundSheet: () => void;
 }
 
 export function SetupScreen({
@@ -64,6 +65,7 @@ export function SetupScreen({
   roundSize,
   onStart,
   onOpenParentView,
+  onOpenSoundSheet,
 }: SetupScreenProps) {
   const { skin } = useSkin();
   const [fineTune, setFineTune] = useState(false);
@@ -237,6 +239,10 @@ export function SetupScreen({
 
         <button type="button" className={styles.cta} onClick={onStart} disabled={!canStart}>
           {canStart ? "Let's go! ✨" : 'Pick a phase first'}
+        </button>
+
+        <button type="button" className={styles.soundSheetButton} onClick={onOpenSoundSheet}>
+          📖 Sound sheet
         </button>
 
         <button type="button" className={styles.parentLink} onClick={onOpenParentView}>

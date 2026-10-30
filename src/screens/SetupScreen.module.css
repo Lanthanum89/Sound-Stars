@@ -193,3 +193,16 @@
   cursor: pointer;
   padding: 4px 10px;
 }
+
+.soundSheetButton {
+  padding: 12px 0;
+  border-radius: 20px;
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink-heading);
+  cursor: pointer;
+  background: var(--card-white);
+  box-shadow: 0 4px 0 #d3e2ec;
+}
