@@ -1,20 +1,20 @@
 # Mascot artwork
 
-Each theme has a hero character in two expressions, in `public/mascots/<theme>-<neutral|happy>.webp`
-(512 x 512, transparent). `src/skins/registry.ts` points each skin at its pair through `mascotSrc`.
+Each theme has a hero character in two expressions. Five have image art in
+`public/mascots/<theme>-<neutral|happy>.webp` (512 x 512, transparent); Main Stage uses the drawn microphone until its art exists. `src/skins/registry.ts` points each skin at its pair through `mascotSrc`.
 
 | Theme (id) | Character |
 | --- | --- |
 | Sunny Day (`classic`) | star |
 | Hedgerow (`flowers`) | bumblebee |
 | Dino Dig (`dinosaurs`) | speckled egg |
-| Main Stage (`kpop`) | boombox |
+| Main Stage (`kpop`) | microphone (drawn in code; image art not made yet, see `docs/mic-mascot-prompts.md`) |
 | Railway (`trains`) | steam locomotive |
 | Match Day (`football`) | football |
 
 ## Where it came from
 
-Made from the prompts in `docs/canva-theme-brief.md`. The pack supplied was raster artwork
+Made from the prompts in `docs/canva-theme-brief.md`. (The pack also had a boombox for Main Stage; it was replaced by a microphone and is not used.) The pack supplied was raster artwork
 (1024 x 1024 PNG with transparency) produced with an image generation tool; the prompts it used
 are kept in `docs/mascot-prompts.json`. Those original PNGs are not in the repo (about 6 MB);
 the app uses 512 px WebP copies (about 26 KB each, 350 KB in all), which stay sharp at 3x pixel

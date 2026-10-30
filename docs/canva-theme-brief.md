@@ -70,7 +70,7 @@ Scene: stacked wavy strata with a spiral ammonite, a bone and a footprint set in
 ### Main Stage (`kpop`)
 A daytime gig poster: sunburst rays, halftone dots, a stage edge with footlights. No purple, no neon.
 Paper `#FFFAF0`, lemon `#FFE98F`, cobalt `#2536B8`, tangerine `#FF7A1A`, sun yellow `#FFD23F`, ink `#1B1F5C`.
-Mascot: a boombox. Its two speakers are the eyes, with a small cassette window between them, a flat carry handle and an antenna.
+Mascot: a handheld microphone, upright. Round cream grille head with the face on it, a tangerine collar, a cobalt tapered handle with one small yellow button. Happy: two sound-wave arcs on each side.
 Scene: rays fanning up from the stage, halftone corners, an orange stage edge with a row of round footlights.
 
 ### Railway (`trains`)
@@ -102,8 +102,8 @@ fewer details, like a screen print".
 **Dino Dig (dinosaur egg)**
 > Flat vector children's book mascot, screen-print look, one dark outline of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A speckled dinosaur egg: cream shell #F6E7C8 with terracotta speckles #BF4526, brown outline #8A6A3B, a zigzag crack in dark brown #2B2118 across the upper third, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth, and three fern-green #3C7A33 dinosaur plates poking out of the top of the egg).
 
-**Main Stage (boombox)**
-> Flat vector children's book mascot, screen-print look, one dark navy outline #1B1F5C of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple, no pink, no neon. A friendly boombox seen front-on: cobalt blue body #2536B8, a tangerine #FF7A1A stripe along the top, a flat carry handle, a short antenna with a tangerine tip, a small cream cassette window #FFF7E6 in the middle. The two big cream speakers are the eyes, each with a dark navy cone and a white highlight, and a small smile beneath them. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (normal cones, small closed smile) and happy (larger cones, open smiling mouth with dark red inside #A8341A, a small sound-wave arc on each side).
+**Main Stage (microphone)**
+> See `docs/mic-mascot-prompts.md` for the neutral prompt and the happy-edit prompt, written in the same wording as the rest of the pack.
 
 **Railway (steam locomotive)**
 > Flat vector children's book mascot, screen-print look, one dark outline of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A little steam locomotive seen from the front: round boiler in Brunswick green #1F5B3F with a brass ring #CF9522, tall dark chimney #12261C with a flared top, a small cream headlamp above the face, a red buffer beam #C43620 with two round buffers, black wheels at the sides, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth with dark red inside #A8341A).
