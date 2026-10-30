@@ -20,6 +20,7 @@ type View = 'setup' | 'round' | 'results' | 'parent' | 'sounds';
 interface RoundResult {
   correct: number;
   total: number;
+  missed: string[];
 }
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
   );
   const [sessionSize, setSessionSize] = useStored<SessionSize>(
     'sound-stars-size',
-    'all',
+    20,
     (v): v is SessionSize => v === 'all' || (typeof v === 'number' && Number.isInteger(v) && v > 0),
   );
   const [view, setView] = useState<View>('setup');
@@ -63,7 +64,10 @@ function App() {
 
   const handleRoundComplete = (answers: RoundAnswer[]) => {
     progress.recordSession(answers);
-    setRoundResult({ correct: answers.filter((a) => a.correct).length, total: answers.length });
+    setRoundResult({
+      correct: answers.filter((a) => a.correct).length, total: answers.length,
+      missed: [...new Set(answers.filter((a) => !a.correct).map((a) => a.item.prompt))],
+    });
     setTargetedItems(null);
     setView('results');
   };
@@ -75,6 +79,14 @@ function App() {
 
   const handlePractiseTogether = (prompts: string[]) => {
     setTargetedItems(buildTargetedDeck(prompts));
+    setView('round');
+  };
+
+  // One card per missed sound, so "practise the tricky ones" stays short.
+  const handlePractiseMissed = () => {
+    if (!roundResult) return;
+    const seen = new Set<string>();
+    setTargetedItems(buildTargetedDeck(roundResult.missed).filter((item) => !seen.has(item.prompt) && seen.add(item.prompt)));
     setView('round');
   };
 
@@ -96,7 +108,9 @@ function App() {
       <ResultsScreen
         correct={roundResult.correct}
         total={roundResult.total}
+        hasMissed={roundResult.missed.length > 0}
         onPlayAgain={() => setView('round')}
+        onPractiseMissed={handlePractiseMissed}
         onBackHome={() => setView('setup')}
       />
     );

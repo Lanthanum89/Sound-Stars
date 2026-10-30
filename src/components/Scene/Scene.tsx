@@ -393,21 +393,21 @@ function MatchDay() {
       <Drifters specs={CLOUDS.slice(0, 3)}>
         <Cloud fill="#fffffb" />
       </Drifters>
-      <svg className={styles.ground} style={{ height: 'clamp(240px, 41.7vw, 62vh)' }} viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <svg className={styles.ground} style={{ height: 'clamp(200px, 36vw, 40vh)' }} viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <rect y="0" width="1200" height="64" fill="#dfe7ea" />
         {Array.from({ length: 3 }, (_, row) =>
           Array.from({ length: 60 }, (_, i) => (
-            <circle key={`${row}-${i}`} cx={10 + i * 20 + (row % 2) * 10} cy={14 + row * 17} r="5" fill={STAND_COLOURS[(i * 7 + row * 3) % 4]} opacity="0.85" />
+            <circle key={`${row}-${i}`} cx={10 + i * 20 + (row % 2) * 10} cy={14 + row * 17} r="5" fill={STAND_COLOURS[(i * 7 + row * 3) % 4]} opacity="0.6" />
           )),
         )}
         {Array.from({ length: 7 }, (_, i) => (
           <rect key={i} y={64 + i * 63} width="1200" height="63" fill={i % 2 === 0 ? '#a3d490' : '#b3dc9f'} />
         ))}
         <rect y="62" width="1200" height="5" fill="#fffffb" />
-        <rect y="206" width="1200" height="5" fill="#fffffb" opacity="0.9" />
-        <ellipse cx="600" cy="208" rx="130" ry="44" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.9" />
-        <circle cx="600" cy="208" r="6" fill="#fffffb" />
-        <path d="M330 500 V392 H870 V500" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.9" />
+        <rect y="206" width="1200" height="5" fill="#fffffb" opacity="0.5" />
+        <ellipse cx="600" cy="208" rx="130" ry="44" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.5" />
+        <circle cx="600" cy="208" r="6" fill="#fffffb" opacity="0.5" />
+        <path d="M330 500 V392 H870 V500" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.5" />
       </svg>
       <div className={styles.ball}>
         <svg viewBox="0 0 100 100" aria-hidden="true">

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Icon } from '../components/Icon/Icon';
-import { Scene } from '../components/Scene/Scene';
 import { graphemeBank } from '../content/phonicsGraphemeBank';
 import { getGraphemeLabel } from '../content/highlightGrapheme';
 import { soundSheet, type SoundSheetEntry } from '../content/soundSheet';
@@ -39,8 +38,6 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <Scene />
-
       <div className={`${shared.content} ${styles.content}`}>
         <div className={styles.topBar}>
           <button type="button" className={shared.roundButton} onClick={onBack} aria-label="Back">

@@ -109,9 +109,9 @@
   bottom: 0;
   height: 130%;
   transform-origin: 50% 100%;
-  background: repeating-conic-gradient(from 0deg at 50% 100%, rgba(247, 127, 165, 0.34) 0deg 6deg, transparent 6deg 12deg);
-  -webkit-mask-image: radial-gradient(circle at 50% 100%, #000 5%, transparent 72%);
-  mask-image: radial-gradient(circle at 50% 100%, #000 5%, transparent 72%);
+  background: repeating-conic-gradient(from 0deg at 50% 100%, rgba(247, 127, 165, 0.16) 0deg 6deg, transparent 6deg 12deg);
+  -webkit-mask-image: radial-gradient(circle at 50% 100%, #000 5%, transparent 48%);
+  mask-image: radial-gradient(circle at 50% 100%, #000 5%, transparent 48%);
   animation: sway 9s ease-in-out infinite alternate;
 }
 

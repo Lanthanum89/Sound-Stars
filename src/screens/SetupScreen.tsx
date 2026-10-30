@@ -26,7 +26,7 @@ const PHASE_YEAR: Record<Phase, string> = {
 const YEAR_GROUPS: { label: string; sub: string; phases: Phase[] }[] = [
   { label: 'Reception', sub: 'Phases 2-4', phases: [2, 3, 4] },
   { label: 'Year 1', sub: 'Phase 5', phases: [5] },
-  { label: 'Everything', sub: 'All phases', phases: ALL_PHASES },
+  { label: 'Both years', sub: 'Phases 2-5', phases: ALL_PHASES },
 ];
 
 const samePhases = (a: readonly Phase[], b: readonly Phase[]) =>
@@ -69,7 +69,6 @@ export function SetupScreen({
   onOpenParentView,
   onOpenSoundSheet,
 }: SetupScreenProps) {
-  const [showPhases, setShowPhases] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const canStart = roundSize > 0;
   const noun = deckKind === 'tricky' ? 'words' : 'sounds';
@@ -101,37 +100,10 @@ export function SetupScreen({
                     aria-pressed={active}
                   >
                     <span className={styles.pillMain}>{active && <Icon name="check" />} {group.label}</span>
-                    <span className={styles.pillSub}>{group.sub}</span>
                   </button>
                 );
               })}
             </div>
-            <button
-              type="button"
-              className={styles.disclosure}
-              onClick={() => setShowPhases((open) => !open)}
-              aria-expanded={showPhases}
-              aria-controls="setup-phases"
-            >
-              <Icon name="sliders" /> Choose phases <Icon name={showPhases ? 'chevronUp' : 'chevronDown'} />
-            </button>
-            {showPhases && (
-              <div id="setup-phases" className={styles.pillRow}>
-                {ALL_PHASES.map((phase) => (
-                  <button
-                    key={phase}
-                    type="button"
-                    className={styles.pill}
-                    data-active={phases.includes(phase)}
-                    onClick={() => onTogglePhase(phase)}
-                    aria-pressed={phases.includes(phase)}
-                  >
-                    <span className={styles.pillMain}>{phases.includes(phase) && <Icon name="check" />} Phase {phase}</span>
-                    <span className={styles.pillSub}>{PHASE_YEAR[phase]}</span>
-                  </button>
-                ))}
-              </div>
-            )}
           </section>
 
           <section aria-labelledby="setup-game">
@@ -145,7 +117,6 @@ export function SetupScreen({
                 aria-pressed={deckKind === 'grapheme'}
               >
                 <span className={styles.pillMain}>{deckKind === 'grapheme' && <Icon name="check" />} Sounds</span>
-                <span className={styles.pillSub}>Sound them out</span>
               </button>
               <button
                 type="button"
@@ -155,36 +126,6 @@ export function SetupScreen({
                 aria-pressed={deckKind === 'tricky'}
               >
                 <span className={styles.pillMain}>{deckKind === 'tricky' && <Icon name="check" />} Tricky words</span>
-                <span className={styles.pillSub}>Learn by heart</span>
-              </button>
-            </div>
-          </section>
-
-          <section aria-labelledby="setup-size">
-            <div id="setup-size" className={styles.groupLabel}>How many {noun}?</div>
-            <div className={styles.pillRow}>
-              {presets.map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  className={styles.pill}
-                  data-active={sessionSize === n}
-                  onClick={() => onSessionSizeChange(n)}
-                  aria-pressed={sessionSize === n}
-                >
-                  <span className={styles.pillMain}>{sessionSize === n && <Icon name="check" />} {n}</span>
-                </button>
-              ))}
-              <button
-                type="button"
-                className={styles.pill}
-                data-active={sessionSize === 'all'}
-                onClick={() => onSessionSizeChange('all')}
-                aria-pressed={sessionSize === 'all'}
-              >
-                <span className={styles.pillMain}>
-                  {sessionSize === 'all' && <Icon name="check" />} All{availableCount > 0 ? ` (${availableCount})` : ''}
-                </span>
               </button>
             </div>
           </section>
@@ -197,12 +138,60 @@ export function SetupScreen({
               aria-expanded={showMore}
               aria-controls="setup-more"
             >
-              More options <Icon name={showMore ? 'chevronUp' : 'chevronDown'} />
+              <Icon name="sliders" /> More options <Icon name={showMore ? 'chevronUp' : 'chevronDown'} />
             </button>
             {showMore && (
               <div id="setup-more" className={styles.more}>
+                <div>
+                  <div className={styles.moreLabel}>Phases</div>
+                  <div className={styles.pillRow}>
+                    {ALL_PHASES.map((phase) => (
+                      <button
+                        key={phase}
+                        type="button"
+                        className={styles.pill}
+                        data-active={phases.includes(phase)}
+                        onClick={() => onTogglePhase(phase)}
+                        aria-pressed={phases.includes(phase)}
+                      >
+                        <span className={styles.pillMain}>{phases.includes(phase) && <Icon name="check" />} {phase}</span>
+                        <span className={styles.pillSub}>{PHASE_YEAR[phase]}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className={styles.moreLabel}>How many {noun}?</div>
+                  <div className={styles.pillRow}>
+                    {presets.map((n) => (
+                      <button
+                        key={n}
+                        type="button"
+                        className={styles.pill}
+                        data-active={sessionSize === n}
+                        onClick={() => onSessionSizeChange(n)}
+                        aria-pressed={sessionSize === n}
+                      >
+                        <span className={styles.pillMain}>{sessionSize === n && <Icon name="check" />} {n}</span>
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className={styles.pill}
+                      data-active={sessionSize === 'all'}
+                      onClick={() => onSessionSizeChange('all')}
+                      aria-pressed={sessionSize === 'all'}
+                    >
+                      <span className={styles.pillMain}>
+                        {sessionSize === 'all' && <Icon name="check" />} All{availableCount > 0 ? ` (${availableCount})` : ''}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
                 <label className={styles.optionRow}>
-                  <span>Custom number of {noun}</span>
+                  <span>Or pick a number</span>
                   <input
                     type="number"
                     min={1}
@@ -216,6 +205,7 @@ export function SetupScreen({
                     className={styles.numberInput}
                   />
                 </label>
+
                 <div className={styles.optionRow}>
                   <span id="setup-timed">Timed round</span>
                   <button

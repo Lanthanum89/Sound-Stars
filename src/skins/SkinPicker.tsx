@@ -42,10 +42,11 @@ export function SkinPicker() {
         aria-haspopup="true"
         aria-expanded={open}
       >
-        <Mascot skinId={skin.id} size={32} animate={false} />
-        <span className={styles.label}>Theme</span>
+        <Mascot skinId={skin.id} size={40} animate={false} />
         <span className={styles.name}>{skin.name}</span>
-        <Icon name={open ? 'chevronUp' : 'chevronDown'} />
+        <span className={styles.change}>
+          {open ? 'Close' : 'Change theme'} <Icon name={open ? 'chevronUp' : 'chevronDown'} />
+        </span>
       </button>
 
       {open && (

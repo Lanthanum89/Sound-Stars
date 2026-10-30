@@ -7,42 +7,34 @@
 
 .progress {
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  gap: 4px;
   align-items: center;
   flex: 1;
-  justify-content: center;
 }
 
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--card-white);
-}
-
-.dot[data-state='done'] {
-  background: var(--green);
-}
-
-.dot[data-state='current'] {
-  width: 12px;
-  height: 12px;
-  background: var(--gold-2);
+.progressText {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--ink-heading);
+  text-shadow: 0 1px 0 var(--card-white);
 }
 
 .progressBar {
   width: 100%;
-  max-width: 140px;
-  height: 9px;
+  max-width: 180px;
+  height: 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--card-white);
+  border: 1.5px solid var(--control-line);
+  box-sizing: border-box;
   overflow: hidden;
 }
 
 .progressBarFill {
   height: 100%;
-  border-radius: 999px;
-  background: var(--gold-2);
+  background: var(--green);
   transition: width 0.25s ease;
 }
 
@@ -59,8 +51,8 @@
 }
 
 .timer[data-low='true'] {
-  color: var(--coral-shadow);
-  box-shadow: 0 3px 0 #ffc4b0;
+  background: var(--gold-1);
+  border-color: var(--gold-stroke);
 }
 
 .timerSpacer {
@@ -100,9 +92,7 @@
   margin-top: 16px;
   font-family: var(--body);
   font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 14px;
   color: var(--practice-text);
 }
 
@@ -141,18 +131,19 @@
   gap: 12px;
 }
 
+/* Secondary: flat and neutral, so red stays reserved for "this is the sound". */
 .incorrect {
   flex: 1;
   text-align: center;
-  padding: 18px 0;
+  padding: 18px 8px;
   border-radius: var(--radius-m);
-  border: none;
-  background: var(--coral-2);
-  color: #fff;
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  color: var(--ink-heading);
+  font-family: var(--sans);
   font-weight: 800;
-  font-size: 26px;
+  font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 5px 0 var(--coral-shadow);
 }
 
 .correct {
