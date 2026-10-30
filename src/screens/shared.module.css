@@ -35,29 +35,32 @@
 /* Tablets get a bigger, zoomed-up version of the exact same layout instead
    of the same phone-sized card floating in a sea of blank space. `zoom`
    (not `transform: scale`) so it also grows the box that's centered by
-   `margin: 0 auto` above, and every descendant's padding/gap/font-size. */
-@media (min-width: 640px) {
+   `margin: 0 auto` above, and every descendant's padding/gap/font-size.
+   Each tier also needs enough height: a round screen is ~460px tall at 1x,
+   so a wide-but-short viewport (a phone or tablet in landscape) stays at a
+   smaller zoom instead of pushing the answer buttons off screen. */
+@media (min-width: 640px) and (min-height: 640px) {
   .content {
     max-width: 480px;
     zoom: 1.25;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 900px) and (min-height: 760px) {
   .content {
     max-width: 560px;
     zoom: 1.45;
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (min-height: 850px) {
   .content {
     max-width: 640px;
     zoom: 1.65;
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1600px) and (min-height: 950px) {
   .content {
     max-width: 720px;
     zoom: 1.85;

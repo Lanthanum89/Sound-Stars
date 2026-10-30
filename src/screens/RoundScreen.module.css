@@ -169,3 +169,27 @@
   cursor: pointer;
   box-shadow: 0 5px 0 var(--green-shadow);
 }
+
+/* Short landscape viewports (phones on their side): card and answers sit side
+   by side so the whole round fits without scrolling. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .body {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .body > .card {
+    flex: 1.6;
+    padding: 24px 16px 16px;
+  }
+
+  .prompt {
+    font-size: clamp(2.5rem, 22vh, 4.5rem);
+  }
+
+  .answers {
+    flex: 1;
+    flex-direction: column;
+  }
+}
