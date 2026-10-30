@@ -8,7 +8,7 @@ Each theme has a hero character in two expressions. Five have image art in
 | Sunny Day (`classic`) | star |
 | Hedgerow (`flowers`) | bumblebee |
 | Dino Dig (`dinosaurs`) | speckled egg |
-| Main Stage (`kpop`) | microphone (drawn in code; image art not made yet, see `docs/mic-mascot-prompts.md`) |
+| Main Stage (`kpop`) | pastel pink microphone (drawn in code; image art not made yet, see `docs/mic-mascot-prompts.md`) |
 | Railway (`trains`) | steam locomotive |
 | Match Day (`football`) | football |
 
