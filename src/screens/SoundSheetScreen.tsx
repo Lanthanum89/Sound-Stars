@@ -4,7 +4,7 @@ import { Scene } from '../components/Scene/Scene';
 import { graphemeBank } from '../content/phonicsGraphemeBank';
 import { getGraphemeLabel } from '../content/highlightGrapheme';
 import { soundSheet, type SoundSheetEntry } from '../content/soundSheet';
-import { traceableLetters } from '../content/letterStrokes';
+import { traceCells } from '../content/letterStrokes';
 import { PhraseText } from '../components/PhraseText/PhraseText';
 import { TraceScreen } from './TraceScreen';
 import { loadWritingBest } from '../progress/writing';
@@ -99,7 +99,7 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
         <TraceScreen
           soundKey={tracing.key}
           label={getGraphemeLabel(tracing.key)}
-          letters={traceableLetters(getGraphemeLabel(tracing.key)) ?? []}
+          cells={traceCells(getGraphemeLabel(tracing.key)) ?? []}
           phrase={tracing.phrase}
           onClose={() => {
             setBest(loadWritingBest());
@@ -127,7 +127,7 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
             <button type="button" className={styles.practise} onClick={() => onPractise(open.key)}>
               Practise this sound
             </button>
-            {traceableLetters(getGraphemeLabel(open.key)) && (
+            {traceCells(getGraphemeLabel(open.key)) && (
               <button type="button" className={styles.trace} onClick={() => setTracing(open)}>
                 <Icon name="pencil" /> Trace it
               </button>

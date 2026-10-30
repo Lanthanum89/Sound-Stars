@@ -88,12 +88,13 @@ function partial(points: Stroke, length: number): Stroke {
 interface TraceScreenProps {
   soundKey: string;
   label: string;
-  letters: string[];
+  /** One entry per letter box: the letter to write, or null for an open box (the middle of a split digraph). */
+  cells: (string | null)[];
   phrase?: string;
   onClose: () => void;
 }
 
-export function TraceScreen({ soundKey, label, letters, phrase, onClose }: TraceScreenProps) {
+export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceScreenProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const activePointer = useRef<number | null>(null);
   const lastPenAt = useRef(-Infinity);
@@ -104,21 +105,23 @@ export function TraceScreen({ soundKey, label, letters, phrase, onClose }: Trace
   const [feedback, setFeedback] = useState<Feedback>({});
   const lastScore = useRef<number | null>(null);
 
-  const width = letters.length * CELL_WIDTH;
+  const width = cells.length * CELL_WIDTH;
+  const letters = useMemo(() => cells.filter((c): c is string => c !== null), [cells]);
 
   // The guide: every stroke of every letter, shifted into its cell, in writing order.
   const guide = useMemo(
     () =>
-      letters.flatMap((letter, i) =>
-        letterStrokes[letter].map((stroke, n) => ({
+      cells.flatMap((letter, i) =>
+        (letter === null ? [] : letterStrokes[letter]).map((stroke, n) => ({
           key: `${i}-${n}`,
           number: n + 1,
           points: stroke.map((p) => ({ x: p.x + i * CELL_WIDTH, y: p.y })),
         })),
       ),
-    [letters],
+    [cells],
   );
   const references = useMemo(() => letters.map((letter) => letterStrokes[letter]), [letters]);
+  const cellOf = useMemo(() => cells.flatMap((letter, i) => (letter === null ? [] : [i])), [cells]);
   const totalLength = useMemo(() => guide.reduce((sum, s) => sum + pathLength(s.points), 0), [guide]);
 
   const demoRunning = demoLength !== null;
@@ -170,7 +173,7 @@ export function TraceScreen({ soundKey, label, letters, phrase, onClose }: Trace
   };
 
   const check = () => {
-    const next = scoreWriting(ink, references, CELL_WIDTH);
+    const next = scoreWriting(ink, references, CELL_WIDTH, cellOf);
     const feedback: Feedback = {};
     if (next.stars > 0) {
       const { previous } = recordWritingStars(soundKey, next.stars);
@@ -246,10 +249,20 @@ export function TraceScreen({ soundKey, label, letters, phrase, onClose }: Trace
               <line className={styles.baseline} x1={0} x2={width} y1={LINES.baseline} y2={LINES.baseline} />
               <line className={styles.lineHint} x1={0} x2={width} y1={LINES.descender} y2={LINES.descender} />
               {mode === 'write' &&
-                letters.slice(1).map((_, i) => (
+                cells.slice(1).map((_, i) => (
                   <line key={`cell-${i}`} className={styles.cellDivider} x1={(i + 1) * CELL_WIDTH} x2={(i + 1) * CELL_WIDTH} y1={LINES.ascender - 10} y2={LINES.descender + 6} />
                 ))}
 
+              {cells.map((letter, i) =>
+                letter === null ? (
+                  <g key={`gap-${i}`}>
+                    <rect className={styles.gap} x={i * CELL_WIDTH + 12} y={LINES.xHeight - 4} width={CELL_WIDTH - 24} height={LINES.baseline - LINES.xHeight + 8} rx={6} />
+                    <text className={styles.gapMark} x={i * CELL_WIDTH + CELL_WIDTH / 2} y={(LINES.xHeight + LINES.baseline) / 2}>
+                      ?
+                    </text>
+                  </g>
+                ) : null,
+              )}
               {showGuide &&
                 guide.map((s) => <path key={s.key} className={result ? styles.revealRoad : styles.guideRoad} d={toPath(s.points)} />)}
               {showGuide &&
