@@ -1,0 +1,157 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow-y: auto;
+}
+
+/* No tablet zoom here: pointer coordinates are mapped from the on-screen box,
+   and the writing area already scales to the width of the screen. */
+.content {
+  zoom: 1 !important;
+  max-width: 640px !important;
+  justify-content: flex-start;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+  font-family: var(--reading);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink-heading);
+  text-shadow: 0 2px 0 #fff;
+}
+
+.topSpacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.paper {
+  background: var(--card-white);
+  border-radius: 26px;
+  padding: 10px;
+  box-shadow: 0 12px 24px -12px rgba(28, 90, 140, 0.5);
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  /* The page must not scroll or zoom while a child is writing. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: crosshair;
+}
+
+.lineHint {
+  stroke: #cfe1ee;
+  stroke-width: 0.8;
+  stroke-dasharray: 3 3;
+}
+
+.baseline {
+  stroke: #9bb4c5;
+  stroke-width: 1.2;
+}
+
+.guideRoad {
+  fill: none;
+  stroke: #e3eef6;
+  stroke-width: 11;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.guideDash {
+  fill: none;
+  stroke: #9bb4c5;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.startDot {
+  fill: var(--green);
+}
+
+.startNumber {
+  fill: #fff;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 8px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.ink {
+  fill: none;
+  stroke: var(--ink-heading);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.demo {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.phrase {
+  margin: 0;
+  text-align: center;
+  font-family: var(--reading);
+  font-size: 19px;
+  line-height: 1.35;
+  color: var(--ink-body);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action {
+  flex: 1;
+  padding: 13px 4px;
+  border-radius: 18px;
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  background: var(--card-white);
+  color: var(--ink-heading);
+  box-shadow: 0 4px 0 #d3e2ec;
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .canvas {
+    max-height: 62vh;
+    margin: 0 auto;
+  }
+
+  .phrase {
+    display: none;
+  }
+}

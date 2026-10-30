@@ -178,11 +178,6 @@
   color: var(--ink-body);
 }
 
-.mark {
-  color: var(--coral);
-  font-weight: 700;
-}
-
 .practise {
   width: 100%;
   padding: 14px 0;
@@ -195,6 +190,20 @@
   cursor: pointer;
   background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
   box-shadow: 0 5px 0 var(--cta-gold-shadow);
+}
+
+.trace {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 20px;
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink-heading);
+  cursor: pointer;
+  background: #eef4f8;
+  box-shadow: 0 4px 0 #d3e2ec;
 }
 
 @media (orientation: landscape) and (max-height: 520px) {
