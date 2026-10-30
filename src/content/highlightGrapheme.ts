@@ -1,3 +1,4 @@
+import { graphemeBank } from './phonicsGraphemeBank';
 import type { FlashcardItem } from './types';
 
 export interface WordSegment {
@@ -21,6 +22,26 @@ export function getGraphemeLabel(rawKey: string): string {
   // which has no specific word to fall back to the way getDisplayPrompt does.
   if (rawKey === BLENDS_KEY) return 'blends';
   return rawKey.split('_')[0];
+}
+
+// How many bank entries share each visible label ("a" has four: short a plus
+// three other sounds), so a view that lists sounds can tell the repeats apart.
+const labelCounts = new Map<string, number>();
+for (const entry of graphemeBank) {
+  const label = getGraphemeLabel(entry.grapheme);
+  labelCounts.set(label, (labelCounts.get(label) ?? 0) + 1);
+}
+
+/**
+ * A word that shows which sound a repeated spelling means (the "a" in "father"
+ * rather than the "a" in "at"), or undefined when the spelling is unambiguous
+ * and the label alone is enough.
+ */
+export function getSoundCue(rawKey: string): string | undefined {
+  if (rawKey === BLENDS_KEY) return undefined;
+  const entry = graphemeBank.find((e) => e.grapheme === rawKey);
+  if (!entry || (labelCounts.get(getGraphemeLabel(rawKey)) ?? 0) < 2) return undefined;
+  return entry.words[0];
 }
 
 /**

@@ -42,4 +42,4 @@ Zoom tiers are now height-aware and landscape phones lay the round screen out si
 
 - Done: the 24 graphemes missing from the bank (`nk`, soft `c` as `c_soft`, and 22 Phase 5 spellings).
 - Done: alternative pronunciations of existing graphemes (26 entries, keyed `<grapheme>_<sound>`, e.g. `a_ar`, `y_igh`, `ch_k`).
-- Open: the parent progress view shows the same label for each sound of a grapheme (e.g. several `a` rows), so it may need a sound hint.
+- Done: the parent progress view adds a cue word to a spelling that has several sounds (a "father" next to a "at"); unambiguous spellings are unchanged.
