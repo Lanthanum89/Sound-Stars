@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
 import { SkyDecor } from '../components/SkyDecor/SkyDecor';
 import { SkinPicker } from '../skins/SkinPicker';
@@ -12,19 +13,29 @@ const ALL_PHASES: Phase[] = [2, 3, 4, 5];
 const SESSION_SIZE_PRESETS = [10, 20, 30];
 const DEFAULT_SECONDS_PER_CARD = 5;
 
-// Phase 2-5 is Letters and Sounds terminology parents/teachers will recognize,
-// but it means nothing to a child on its own — the bracketed word is what
-// tells them (and a parent new to the terms) which end is easy vs hard.
-const PHASE_DIFFICULTY: Record<Phase, string> = {
-  2: 'Easiest',
-  3: 'Easy',
-  4: 'Trickier',
-  5: 'Trickiest',
+// Letters and Sounds phases map onto school year groups: Phases 2-4 are taught
+// in Reception, Phase 5 in Year 1. Parents and teachers talk in year groups, so
+// that is the main choice; the raw phases sit behind "Fine-tune".
+const PHASE_YEAR: Record<Phase, string> = {
+  2: 'Reception',
+  3: 'Reception',
+  4: 'Reception',
+  5: 'Year 1',
 };
+
+const YEAR_GROUPS: { label: string; sub: string; phases: Phase[] }[] = [
+  { label: 'Reception', sub: 'Phases 2-4', phases: [2, 3, 4] },
+  { label: 'Year 1', sub: 'Phase 5', phases: [5] },
+  { label: 'Everything', sub: 'All phases', phases: ALL_PHASES },
+];
+
+const samePhases = (a: readonly Phase[], b: readonly Phase[]) =>
+  a.length === b.length && b.every((phase) => a.includes(phase));
 
 interface SetupScreenProps {
   phases: Phase[];
   onTogglePhase: (phase: Phase) => void;
+  onPhasesChange: (phases: Phase[]) => void;
   deckKind: DeckKind;
   onDeckKindChange: (kind: DeckKind) => void;
   sessionSize: SessionSize;
@@ -41,6 +52,7 @@ interface SetupScreenProps {
 export function SetupScreen({
   phases,
   onTogglePhase,
+  onPhasesChange,
   deckKind,
   onDeckKindChange,
   sessionSize,
@@ -54,6 +66,7 @@ export function SetupScreen({
   onOpenParentView,
 }: SetupScreenProps) {
   const { skin } = useSkin();
+  const [fineTune, setFineTune] = useState(false);
   const canStart = roundSize > 0;
 
   return (
@@ -69,23 +82,52 @@ export function SetupScreen({
 
         <div className={styles.card}>
           <div>
-            <div className={styles.groupLabel}>Pick your sounds</div>
+            <div className={styles.groupLabel}>Which year group?</div>
             <div className={styles.pillRow}>
-              {ALL_PHASES.map((phase) => (
-                <button
-                  key={phase}
-                  type="button"
-                  className={styles.pill}
-                  data-variant="gold"
-                  data-active={phases.includes(phase)}
-                  onClick={() => onTogglePhase(phase)}
-                  aria-pressed={phases.includes(phase)}
-                >
-                  <span className={styles.pillMain}>Phase {phase}</span>
-                  <span className={styles.pillSub}>({PHASE_DIFFICULTY[phase]})</span>
-                </button>
-              ))}
+              {YEAR_GROUPS.map((group) => {
+                const active = samePhases(phases, group.phases);
+                return (
+                  <button
+                    key={group.label}
+                    type="button"
+                    className={styles.pill}
+                    data-variant="gold"
+                    data-active={active}
+                    onClick={() => onPhasesChange(group.phases)}
+                    aria-pressed={active}
+                  >
+                    <span className={styles.pillMain}>{active ? '✓ ' : ''}{group.label}</span>
+                    <span className={styles.pillSub}>({group.sub})</span>
+                  </button>
+                );
+              })}
             </div>
+            <button
+              type="button"
+              className={styles.fineTuneLink}
+              onClick={() => setFineTune((open) => !open)}
+              aria-expanded={fineTune}
+            >
+              {fineTune ? 'Hide phases' : 'Fine-tune phases'}
+            </button>
+            {fineTune && (
+              <div className={styles.pillRow}>
+                {ALL_PHASES.map((phase) => (
+                  <button
+                    key={phase}
+                    type="button"
+                    className={styles.pill}
+                    data-variant="gold"
+                    data-active={phases.includes(phase)}
+                    onClick={() => onTogglePhase(phase)}
+                    aria-pressed={phases.includes(phase)}
+                  >
+                    <span className={styles.pillMain}>{phases.includes(phase) ? '✓ ' : ''}Phase {phase}</span>
+                    <span className={styles.pillSub}>({PHASE_YEAR[phase]})</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>

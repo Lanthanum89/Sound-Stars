@@ -108,6 +108,7 @@ function App() {
     <SetupScreen
       phases={phases}
       onTogglePhase={togglePhase}
+      onPhasesChange={setPhases}
       deckKind={deckKind}
       onDeckKindChange={setDeckKind}
       sessionSize={sessionSize}
