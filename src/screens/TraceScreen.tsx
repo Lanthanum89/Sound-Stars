@@ -91,10 +91,11 @@ interface TraceScreenProps {
   /** One entry per letter box: the letter to write, or null for an open box (the middle of a split digraph). */
   cells: (string | null)[];
   phrase?: string;
+  onPractise?: () => void;
   onClose: () => void;
 }
 
-export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceScreenProps) {
+export function TraceScreen({ soundKey, label, cells, phrase, onPractise, onClose }: TraceScreenProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const activePointer = useRef<number | null>(null);
   const lastPenAt = useRef(-Infinity);
@@ -350,6 +351,12 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
           {mode === 'write' && (
             <button type="button" className={styles.linkButton} onClick={() => chooseMode('trace')}>
               Trace it again
+            </button>
+          )}
+
+          {onPractise && (
+            <button type="button" className={styles.linkButton} onClick={onPractise}>
+              Practise this sound with flashcards
             </button>
           )}
         </div>

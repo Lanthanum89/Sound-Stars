@@ -188,29 +188,12 @@
 
 .practise {
   width: 100%;
-  padding: 12px 0;
-  border-radius: var(--radius-m);
-  border: 1.5px solid var(--control-line);
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--ink-heading);
-  cursor: pointer;
-  background: var(--card-white);
-}
-
-.trace {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 18px 0;
+  padding: 16px 0;
   border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 21px;
+  font-size: 18px;
   color: var(--on-gold);
   cursor: pointer;
   background: var(--cta-gold-1);

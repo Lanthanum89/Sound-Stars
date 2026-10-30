@@ -48,7 +48,6 @@ interface SetupScreenProps {
   availableCount: number;
   onStart: () => void;
   onOpenParentView: () => void;
-  onOpenSoundSheet: () => void;
   onOpenTrace: () => void;
 }
 
@@ -68,7 +67,6 @@ export function SetupScreen({
   availableCount,
   onStart,
   onOpenParentView,
-  onOpenSoundSheet,
   onOpenTrace,
 }: SetupScreenProps) {
   const [showMore, setShowMore] = useState(false);
@@ -251,9 +249,6 @@ export function SetupScreen({
         </button>
 
         <div className={styles.links}>
-          <button type="button" className={styles.link} onClick={onOpenSoundSheet}>
-            <Icon name="book" /> Sound sheet
-          </button>
           <button type="button" className={styles.link} onClick={onOpenParentView}>
             Grown-ups
           </button>

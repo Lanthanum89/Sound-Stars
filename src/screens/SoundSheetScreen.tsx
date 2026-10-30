@@ -22,11 +22,9 @@ const cueWords = new Map(graphemeBank.map((entry) => [entry.grapheme, entry.word
 interface SoundSheetScreenProps {
   onBack: () => void;
   onPractise: (key: string) => void;
-  /** Opened from "Trace letters": tapping a sound goes straight to tracing it. */
-  traceFirst?: boolean;
 }
 
-export function SoundSheetScreen({ onBack, onPractise, traceFirst = false }: SoundSheetScreenProps) {
+export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<SoundSheetEntry | null>(null);
   const [tracing, setTracing] = useState<SoundSheetEntry | null>(null);
@@ -45,11 +43,11 @@ export function SoundSheetScreen({ onBack, onPractise, traceFirst = false }: Sou
           <button type="button" className={shared.roundButton} onClick={onBack} aria-label="Back">
             <Icon name="back" />
           </button>
-          <h1 className={styles.title}>{traceFirst ? 'Trace a sound' : 'Sound sheet'}</h1>
+          <h1 className={styles.title}>Trace a sound</h1>
           <div className={styles.topSpacer} />
         </div>
 
-        {traceFirst && <p className={styles.banner}>Tap a sound to trace it. Sounds with a pencil can be traced.</p>}
+        <p className={styles.banner}>Tap a sound to trace it.</p>
 
         <div className={styles.tabs} role="tablist" aria-label="Year group">
           {YEAR_TABS.map((t, i) => (
@@ -77,7 +75,8 @@ export function SoundSheetScreen({ onBack, onPractise, traceFirst = false }: Sou
                   type="button"
                   className={styles.tile}
                   data-phase={entry.phase}
-                  onClick={() => (traceFirst && traceCells(getGraphemeLabel(entry.key) ) ? setTracing(entry) : setOpen(entry))}
+                  // Tracing is the main thing to do with a sound; the few that can't be traced just show their cue.
+                  onClick={() => (traceCells(getGraphemeLabel(entry.key)) ? setTracing(entry) : setOpen(entry))}
                   aria-label={`${getGraphemeLabel(entry.key)}, ${entry.phrase.replace(/[[\]]/g, '')}${best[entry.key] ? `, ${best[entry.key]} stars for writing` : ''}`}
                 >
                   <span className={styles.tileGrapheme}>{getGraphemeLabel(entry.key)}</span>
@@ -107,6 +106,7 @@ export function SoundSheetScreen({ onBack, onPractise, traceFirst = false }: Sou
           label={getGraphemeLabel(tracing.key)}
           cells={traceCells(getGraphemeLabel(tracing.key)) ?? []}
           phrase={tracing.phrase}
+          onPractise={() => onPractise(tracing.key)}
           onClose={() => {
             setBest(loadWritingBest());
             setTracing(null);
@@ -130,11 +130,6 @@ export function SoundSheetScreen({ onBack, onPractise, traceFirst = false }: Sou
             <p className={styles.phrase}>
               <PhraseText phrase={open.phrase} />
             </p>
-            {traceCells(getGraphemeLabel(open.key)) && (
-              <button type="button" className={styles.trace} onClick={() => setTracing(open)}>
-                <Icon name="pencil" /> Trace it
-              </button>
-            )}
             <button type="button" className={styles.practise} onClick={() => onPractise(open.key)}>
               Practise this sound
             </button>

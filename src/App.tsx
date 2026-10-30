@@ -44,7 +44,6 @@ function App() {
     (v): v is SessionSize => v === 'all' || (typeof v === 'number' && Number.isInteger(v) && v > 0),
   );
   const [view, setView] = useState<View>('setup');
-  const [traceFirst, setTraceFirst] = useState(false);
   const [roundResult, setRoundResult] = useState<RoundResult | null>(null);
   const [targetedItems, setTargetedItems] = useState<FlashcardItem[] | null>(null);
 
@@ -136,7 +135,7 @@ function App() {
   }
 
   if (view === 'sounds') {
-    return <SoundSheetScreen traceFirst={traceFirst} onBack={() => setView('setup')} onPractise={(key) => handlePractiseTogether([key])} />;
+    return <SoundSheetScreen onBack={() => setView('setup')} onPractise={(key) => handlePractiseTogether([key])} />;
   }
 
   return (
@@ -156,14 +155,7 @@ function App() {
       availableCount={items.length}
       onStart={() => setView('round')}
       onOpenParentView={() => setView('parent')}
-      onOpenSoundSheet={() => {
-        setTraceFirst(false);
-        setView('sounds');
-      }}
-      onOpenTrace={() => {
-        setTraceFirst(true);
-        setView('sounds');
-      }}
+      onOpenTrace={() => setView('sounds')}
     />
   );
 }
