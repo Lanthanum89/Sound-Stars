@@ -68,10 +68,10 @@ Mascot: a speckled egg with a zigzag crack across the top. Happy: three green pl
 Scene: stacked wavy strata with a spiral ammonite, a bone and a footprint set into them; a pterodactyl gliding over.
 
 ### Main Stage (`kpop`)
-A daytime gig poster: sunburst rays, halftone dots, a stage edge with footlights. No purple, no neon.
-Paper `#FFFAF0`, lemon `#FFE98F`, cobalt `#2536B8`, tangerine `#FF7A1A`, sun yellow `#FFD23F`, ink `#1B1F5C`.
-Mascot: a handheld microphone, upright. Round cream grille head with the face on it, a tangerine collar, a cobalt tapered handle with one small yellow button. Happy: two sound-wave arcs on each side.
-Scene: rays fanning up from the stage, halftone corners, an orange stage edge with a row of round footlights.
+A pastel pink gig poster for girl-band fans: pale pink sunburst rays, halftone dots, a pink stage edge with warm footlights. Flat and print-like: no neon, no glow, no gradients.
+Paper `#FFFAF8`, blush pink `#FFD3E1`, pink `#F77FA5`, baby blue `#6FA8E8`, butter `#FFD76E`, ink (deep rose) `#8A2352`, outline (deep berry) `#5A1236`.
+Mascot: a handheld microphone, upright. Round cream grille head with the face on it, a baby-blue collar, a pastel pink `#F9A8C4` tapered handle with one small butter-yellow button, pink cheeks. Happy: two sound-wave arcs on each side.
+Scene: pink rays fanning up from the stage, halftone corners, a pink stage edge with a baby-blue trim and a row of round footlights, pink, blue and butter confetti drifting up.
 
 ### Railway (`trains`)
 A heritage railway poster: green hills, telegraph poles, a little train crossing.

@@ -10,10 +10,12 @@ interface FaceProps {
   expression: MascotExpression;
   /** Skip the eyes where a character supplies its own. */
   eyes?: boolean;
+  /** Cheek colour; defaults to the theme's coral. */
+  cheek?: string;
 }
 
 /** The shared face: eyes at cy, cheeks and a smile below. */
-function Face({ cx, cy, expression, eyes = true }: FaceProps) {
+function Face({ cx, cy, expression, eyes = true, cheek = 'var(--coral-2)' }: FaceProps) {
   return (
     <>
       {eyes &&
@@ -30,8 +32,8 @@ function Face({ cx, cy, expression, eyes = true }: FaceProps) {
             <path d={`M${cx + 3} ${cy - 1} Q${cx + 9} ${cy - 7} ${cx + 15} ${cy - 1}`} stroke={INK} strokeWidth="3.2" strokeLinecap="round" fill="none" />
           </>
         ))}
-      <circle cx={cx - 17.5} cy={cy + 10} r="5.4" fill="var(--coral-2)" opacity=".45" />
-      <circle cx={cx + 17.5} cy={cy + 10} r="5.4" fill="var(--coral-2)" opacity=".45" />
+      <circle cx={cx - 17.5} cy={cy + 10} r="5.4" fill={cheek} opacity=".45" />
+      <circle cx={cx + 17.5} cy={cy + 10} r="5.4" fill={cheek} opacity=".45" />
       {expression === 'neutral' ? (
         <path d={`M${cx - 11} ${cy + 10} Q${cx} ${cy + 22} ${cx + 11} ${cy + 10}`} stroke={INK} strokeWidth="3.4" strokeLinecap="round" fill="none" />
       ) : (
@@ -131,25 +133,25 @@ function Microphone({ expression }: { expression: MascotExpression }) {
         </clipPath>
       </defs>
       {happy && (
-        <g stroke="#1b1f5c" strokeWidth="3" strokeLinecap="round" fill="none">
+        <g stroke="#5a1236" strokeWidth="3" strokeLinecap="round" fill="none">
           <path d="M14 26 Q8 35 14 44" />
           <path d="M6 20 Q-4 35 6 50" />
           <path d="M86 26 Q92 35 86 44" />
           <path d="M94 20 Q104 35 94 50" />
         </g>
       )}
-      <path d="M36 62 L64 62 L58 93 Q50 99 42 93 Z" fill="#2536b8" stroke="#1b1f5c" strokeWidth="3.4" strokeLinejoin="round" />
-      <path d="M44 72 H56" stroke="#1b1f5c" strokeWidth="2.6" strokeLinecap="round" />
-      <circle cx="50" cy="82" r="3.4" fill="#ffd23f" stroke="#1b1f5c" strokeWidth="2" />
-      <circle cx="50" cy="35" r="27" fill="#fff7e6" />
-      <g clipPath={`url(#${clip})`} stroke="#1b1f5c" strokeWidth="1.8" opacity=".13">
+      <path d="M36 62 L64 62 L58 93 Q50 99 42 93 Z" fill="#f9a8c4" stroke="#5a1236" strokeWidth="3.4" strokeLinejoin="round" />
+      <path d="M44 72 H56" stroke="#5a1236" strokeWidth="2.6" strokeLinecap="round" />
+      <circle cx="50" cy="82" r="3.4" fill="#ffd76e" stroke="#5a1236" strokeWidth="2" />
+      <circle cx="50" cy="35" r="27" fill="#fffaf0" />
+      <g clipPath={`url(#${clip})`} stroke="#5a1236" strokeWidth="1.8" opacity=".13">
         {[-30, -18, -6, 6, 18, 30, 42, 54, 66, 78].map((o) => (
           <path key={o} d={`M${o} 0 L${o + 70} 70 M${o + 70} 0 L${o} 70`} />
         ))}
       </g>
-      <circle cx="50" cy="35" r="27" fill="none" stroke="#1b1f5c" strokeWidth="3.4" />
-      <path d="M30 59 Q50 69 70 59 L67 68 Q50 76 33 68 Z" fill="#ff7a1a" stroke="#1b1f5c" strokeWidth="3" strokeLinejoin="round" />
-      <Face cx={50} cy={31} expression={expression} />
+      <circle cx="50" cy="35" r="27" fill="none" stroke="#5a1236" strokeWidth="3.4" />
+      <path d="M30 59 Q50 69 70 59 L67 68 Q50 76 33 68 Z" fill="#8fb8ee" stroke="#5a1236" strokeWidth="3" strokeLinejoin="round" />
+      <Face cx={50} cy={31} expression={expression} cheek="#f77fa5" />
     </>
   );
 }
