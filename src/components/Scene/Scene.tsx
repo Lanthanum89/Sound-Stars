@@ -51,6 +51,98 @@ const CLOUDS: DriftSpec[] = [
   { top: '52%', width: 'clamp(60px, 9vw, 120px)', duration: 84, delay: -4 },
 ];
 
+
+/* A small figure that crosses the bottom of the screen, like the railway train. */
+interface WalkerSpec {
+  bottom: string | number;
+  width: string;
+  duration: number;
+  delay?: number;
+  left?: string;
+}
+
+function Walker({ spec, children }: { spec: WalkerSpec; children: ReactNode }) {
+  return (
+    <div
+      className={styles.walker}
+      style={{ bottom: spec.bottom, width: spec.width, left: spec.left, animationDuration: `${spec.duration}s`, animationDelay: `${spec.delay ?? 0}s` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Tractor() {
+  return (
+    <svg viewBox="0 0 120 70" aria-hidden="true">
+      <rect x="52" y="26" width="56" height="20" rx="4" fill="#d9442f" />
+      <rect x="20" y="8" width="36" height="38" rx="4" fill="#d9442f" />
+      <rect x="26" y="14" width="24" height="16" rx="2" fill="#fff7dc" />
+      <rect x="16" y="2" width="44" height="7" rx="2" fill="#8f2a1c" />
+      <rect x="96" y="12" width="5" height="16" fill="#3b2f26" />
+      <circle cx="38" cy="50" r="18" fill="#2b2118" />
+      <circle cx="38" cy="50" r="7" fill="#f5b21b" />
+      <circle cx="98" cy="58" r="10" fill="#2b2118" />
+      <circle cx="98" cy="58" r="4" fill="#f5b21b" />
+    </svg>
+  );
+}
+
+function Hedgehog() {
+  return (
+    <svg viewBox="0 0 80 50" aria-hidden="true">
+      <path d="M8 38 L4 28 L12 28 L10 16 L20 20 L22 8 L32 14 L38 4 L44 14 L54 8 L54 20 L62 24 L58 38 Z" fill="#5c3d2c" />
+      <ellipse cx="36" cy="32" rx="28" ry="14" fill="#6f4b37" />
+      <ellipse cx="64" cy="34" rx="13" ry="9" fill="#ecc9a0" />
+      <circle cx="76" cy="34" r="3.2" fill="#2b2118" />
+      <circle cx="68" cy="30" r="2" fill="#2b2118" />
+      <rect x="24" y="42" width="8" height="8" rx="3" fill="#ecc9a0" />
+      <rect x="50" y="42" width="8" height="8" rx="3" fill="#ecc9a0" />
+    </svg>
+  );
+}
+
+function Stegosaurus() {
+  return (
+    <svg viewBox="0 0 140 80" aria-hidden="true">
+      <path d="M4 52 Q22 44 34 40 L40 56 Q22 60 4 52 Z" fill="#7fb069" />
+      <ellipse cx="68" cy="44" rx="40" ry="22" fill="#7fb069" />
+      <path d="M40 26 L46 10 L54 24 L62 6 L70 22 L80 6 L86 24 L96 12 L98 30 Z" fill="#e8a23a" />
+      <circle cx="108" cy="38" r="13" fill="#7fb069" />
+      <circle cx="113" cy="34" r="2.6" fill="#2b2118" />
+      <path d="M110 44 Q116 47 121 43" stroke="#2b2118" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+      <g className={styles.legA}>
+        <rect x="44" y="56" width="13" height="22" rx="5" fill="#5f9150" />
+        <rect x="90" y="56" width="13" height="22" rx="5" fill="#5f9150" />
+      </g>
+      <g className={styles.legB}>
+        <rect x="60" y="58" width="13" height="20" rx="5" fill="#6aa058" />
+        <rect x="76" y="58" width="13" height="20" rx="5" fill="#6aa058" />
+      </g>
+    </svg>
+  );
+}
+
+function Runner() {
+  return (
+    <svg viewBox="0 0 50 90" aria-hidden="true">
+      <g className={styles.legB}>
+        <rect x="27" y="58" width="8" height="26" rx="3" fill="#f0c8a0" />
+        <rect x="26" y="78" width="12" height="8" rx="3" fill="#2b2118" />
+      </g>
+      <g className={styles.legA}>
+        <rect x="15" y="58" width="8" height="26" rx="3" fill="#f0c8a0" />
+        <rect x="14" y="78" width="12" height="8" rx="3" fill="#2b2118" />
+      </g>
+      <rect x="13" y="46" width="24" height="16" rx="4" fill="#15305a" />
+      <rect x="13" y="22" width="24" height="28" rx="6" fill="#cc2f2c" />
+      <rect x="35" y="26" width="7" height="18" rx="3" fill="#f0c8a0" transform="rotate(-20 38 26)" />
+      <circle cx="25" cy="13" r="9" fill="#f0c8a0" />
+      <path d="M16 12 Q18 2 27 3 Q34 4 34 12 Q28 7 16 12 Z" fill="#3a2a20" />
+    </svg>
+  );
+}
+
 /* ---------------------------------------------------------------- Sunny Day */
 
 function SunnyDay() {
@@ -94,6 +186,9 @@ function SunnyDay() {
           <circle cx="1010" cy="204" r="2.6" />
         </g>
       </svg>
+      <Walker spec={{ bottom: 6, width: 'clamp(54px, 9vw, 96px)', duration: 90, delay: -20 }}>
+        <Tractor />
+      </Walker>
     </>
   );
 }
@@ -188,6 +283,9 @@ function Hedgerow() {
         <Buttercup x={840} y={136} s={0.8} />
         <Poppy x={1090} y={138} s={0.8} />
       </svg>
+      <Walker spec={{ bottom: 4, width: 'clamp(44px, 7vw, 76px)', duration: 110, delay: -35 }}>
+        <Hedgehog />
+      </Walker>
     </>
   );
 }
@@ -256,6 +354,9 @@ function Dinosaur() {
           <circle cx="430" cy="376" r="8" />
         </g>
       </svg>
+      <Walker spec={{ bottom: 10, width: 'clamp(70px, 11vw, 130px)', duration: 100, delay: -30 }}>
+        <Stegosaurus />
+      </Walker>
     </>
   );
 }
@@ -303,7 +404,7 @@ function MainStage() {
         <rect y="104" width="1200" height="26" fill="#e0618a" />
         {Array.from({ length: 21 }, (_, i) => (
           <g key={i}>
-            <circle cx={30 + i * 57} cy="80" r="9" fill="#ffe9a8" />
+            <circle className={styles.bulb} style={{ animationDelay: `${i % 2 ? 0 : 1}s` }} cx={30 + i * 57} cy="80" r="9" fill="#ffe9a8" />
             <circle cx={30 + i * 57} cy="80" r="4.5" fill="#fffaf0" />
           </g>
         ))}
@@ -409,6 +510,9 @@ function MatchDay() {
         <circle cx="600" cy="208" r="6" fill="#fffffb" opacity="0.5" />
         <path d="M330 500 V392 H870 V500" fill="none" stroke="#fffffb" strokeWidth="5" opacity="0.5" />
       </svg>
+      <div className={styles.runner}>
+        <Runner />
+      </div>
       <div className={styles.ball}>
         <svg viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="46" fill="#fffffb" stroke="#15305a" strokeWidth="6" />

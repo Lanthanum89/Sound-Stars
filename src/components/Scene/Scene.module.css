@@ -205,3 +205,102 @@
     transform: translate(-14px, -34px) scale(1.7);
   }
 }
+
+/* Little figures that cross the bottom of the screen. */
+.walker {
+  position: absolute;
+  left: 0;
+  animation: cross linear infinite;
+  will-change: transform;
+}
+
+.walker > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: bob 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3%);
+  }
+}
+
+.legA,
+.legB {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: stride 0.9s ease-in-out infinite alternate;
+}
+
+.legB {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes stride {
+  from {
+    transform: rotate(-18deg);
+  }
+  to {
+    transform: rotate(18deg);
+  }
+}
+
+/* The striker trails the ball, kicking it along the pitch. */
+.runner {
+  position: absolute;
+  bottom: 7%;
+  left: -9vw;
+  width: clamp(26px, 4vw, 40px);
+  animation: roll 16s linear infinite;
+}
+
+.runner > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: bob 0.45s ease-in-out infinite alternate;
+}
+
+.runner .legA,
+.runner .legB {
+  animation-duration: 0.45s;
+}
+
+/* Main Stage footlights twinkle in turn. */
+.bulb {
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walker,
+  .walker > svg,
+  .runner,
+  .runner > svg,
+  .legA,
+  .legB,
+  .bulb {
+    animation: none;
+  }
+
+  .walker {
+    left: 22%;
+  }
+
+  .runner {
+    left: 40%;
+  }
+}
