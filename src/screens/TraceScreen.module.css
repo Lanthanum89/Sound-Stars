@@ -142,7 +142,10 @@
 }
 
 .action:disabled {
-  opacity: 0.5;
+  /* Solid, not see-through: the scenery must not show through the label. */
+  background: var(--wash);
+  border-color: var(--edge);
+  color: var(--ink-muted);
   cursor: default;
 }
 
@@ -273,7 +276,9 @@
 }
 
 .check:disabled {
-  opacity: 0.5;
+  background: var(--wash);
+  color: var(--ink-muted);
+  box-shadow: 0 5px 0 var(--edge);
   cursor: default;
 }
 

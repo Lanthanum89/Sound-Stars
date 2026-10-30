@@ -266,14 +266,20 @@ export function TraceScreen({ soundKey, label, cells, phrase, onPractise, onClos
               {showGuide &&
                 guide.map((s) => <path key={`d-${s.key}`} className={styles.guideDash} d={toPath(s.points)} />)}
               {showGuide &&
-                guide.map((s) => (
-                  <g key={`n-${s.key}`}>
-                    <circle className={styles.startDot} cx={s.points[0].x} cy={s.points[0].y} r={9} />
-                    <text className={styles.startNumber} x={s.points[0].x} y={s.points[0].y}>
-                      {s.number}
-                    </text>
-                  </g>
-                ))}
+                guide.map((s, i) => {
+                  // Two strokes can start in nearly the same place (as in "g"): nudge the later dot aside so both numbers show.
+                  const clashes = guide.slice(0, i).filter((o) => Math.hypot(o.points[0].x - s.points[0].x, o.points[0].y - s.points[0].y) < 20).length;
+                  const x = s.points[0].x + clashes * 14;
+                  const y = s.points[0].y - clashes * 14;
+                  return (
+                    <g key={`n-${s.key}`}>
+                      <circle className={styles.startDot} cx={x} cy={y} r={9} />
+                      <text className={styles.startNumber} x={x} y={y}>
+                        {s.number}
+                      </text>
+                    </g>
+                  );
+                })}
 
               {ink.map((stroke, i) => (
                 <path key={i} className={styles.ink} d={toPath(stroke.length > 1 ? stroke : [...stroke, stroke[0]])} />
