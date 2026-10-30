@@ -155,7 +155,7 @@ function App() {
       availableCount={items.length}
       onStart={() => setView('round')}
       onOpenParentView={() => setView('parent')}
-      onOpenSoundSheet={() => setView('sounds')}
+      onOpenTrace={() => setView('sounds')}
     />
   );
 }

@@ -44,7 +44,7 @@
 .canvas {
   display: block;
   width: 100%;
-  max-height: 60vh;
+  max-height: 52vh;
   /* The page must not scroll or zoom while a child is writing. */
   touch-action: none;
   user-select: none;
@@ -88,7 +88,7 @@
   fill: #fff;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 8px;
+  font-size: 11px;
   text-anchor: middle;
   dominant-baseline: central;
   pointer-events: none;
@@ -105,8 +105,8 @@
 
 .demo {
   fill: none;
-  stroke: var(--coral);
-  stroke-width: 5;
+  stroke: var(--gold-2);
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
@@ -114,6 +114,7 @@
 
 .phrase {
   margin: 0;
+  padding: 0 8px;
   text-align: center;
   font-family: var(--reading);
   font-size: 19px;
@@ -128,9 +129,10 @@
 
 .action {
   flex: 1;
-  padding: 13px 4px;
+  min-height: 48px;
+  padding: 10px 4px;
   border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 15px;
@@ -155,36 +157,26 @@
   }
 }
 
-.modes {
-  display: flex;
-  gap: 8px;
-}
-
-.mode {
-  flex: 1;
-  padding: 10px 4px;
-  border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 15px;
-  cursor: pointer;
-  background: var(--card-white);
-  color: var(--ink-muted);
-}
-
-.mode[data-active='true'] {
-  background: var(--selected-bg);
-  color: var(--selected-fg);
-  border-color: var(--selected-edge);
-  box-shadow: inset 0 0 0 1px var(--selected-edge);
-}
-
 /* "Write it" shows lines and letter boxes only, no guide, until it is checked. */
-.cellDivider {
+.writeBox {
+  fill: none;
   stroke: var(--edge);
   stroke-width: 1;
-  stroke-dasharray: 3 4;
+  stroke-dasharray: 4 4;
+}
+
+.linkButton {
+  align-self: center;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: none;
+  background: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--ink-heading);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .revealRoad {
@@ -258,12 +250,12 @@
 }
 
 .check {
-  padding: 15px 0;
+  padding: 18px 0;
   border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 18px;
+  font-size: 21px;
   cursor: pointer;
   color: var(--on-gold);
   background: var(--cta-gold-1);

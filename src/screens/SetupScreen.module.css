@@ -222,3 +222,20 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Second big action: tracing is a main activity, not a hidden extra. */
+.trace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 0;
+  border-radius: var(--radius-m);
+  border: 2px solid var(--selected-edge);
+  background: var(--card-white);
+  color: var(--ink-heading);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 19px;
+  cursor: pointer;
+}
