@@ -9,12 +9,14 @@ const SPLIT_DIGRAPHS = new Set(['a-e', 'e-e', 'i-e', 'o-e', 'u-e']);
 
 // Some grapheme keys in the content bank are internal data-modeling labels,
 // not something a child should ever see verbatim: "oo_long"/"oo_short"
-// disambiguate two different sounds that are both spelled "oo", and
+// disambiguate two different sounds that are both spelled "oo" (likewise
+// "c_soft" vs the Phase 2 hard "c"), and
 // "adjacent_consonants" is Phase 4's grouping label for consonant-blend
 // words — there's no single new grapheme being tested there at all.
 const GRAPHEME_DISPLAY_LABELS: Record<string, string> = {
   oo_long: 'oo',
   oo_short: 'oo',
+  c_soft: 'c',
   // Only relevant for standalone display (e.g. the parent progress view),
   // which has no specific word to fall back to the way getDisplayPrompt does.
   adjacent_consonants: 'blends',

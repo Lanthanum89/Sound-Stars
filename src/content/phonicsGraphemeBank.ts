@@ -55,6 +55,7 @@ export const graphemeBank: GraphemeEntry[] = [
   { phase: 3, grapheme: 'sh', words: ['shop', 'shed', 'ship', 'shut', 'fish', 'wish', 'dash', 'rush', 'shell', 'shark'] },
   { phase: 3, grapheme: 'th', words: ['thin', 'that', 'this', 'moth', 'bath', 'with', 'then', 'them', 'think', 'thumb'] },
   { phase: 3, grapheme: 'ng', words: ['ring', 'song', 'king', 'long', 'sing', 'wing', 'bang', 'gong', 'hang', 'strong'] },
+  { phase: 3, grapheme: 'nk', words: ['ink', 'pink', 'sink', 'bank', 'think', 'drink', 'thank', 'link', 'honk', 'trunk'] },
   { phase: 3, grapheme: 'ai', words: ['rain', 'tail', 'pain', 'snail', 'paint', 'wait', 'chain', 'brain', 'train', 'aim'] },
   { phase: 3, grapheme: 'ee', words: ['bee', 'feet', 'tree', 'sleep', 'green', 'deep', 'seed', 'week', 'sweet', 'queen'] },
   { phase: 3, grapheme: 'igh', words: ['high', 'sigh', 'night', 'light', 'might', 'fight', 'right', 'sight', 'tight', 'bright'] },
@@ -105,6 +106,32 @@ export const graphemeBank: GraphemeEntry[] = [
   { phase: 5, grapheme: 'i-e', words: ['like', 'time', 'bike', 'kite', 'smile', 'slide', 'shine', 'twice', 'stripe', 'invite'] },
   { phase: 5, grapheme: 'o-e', words: ['home', 'bone', 'rope', 'stone', 'phone', 'smoke', 'globe', 'those', 'broke', 'joke'] },
   { phase: 5, grapheme: 'u-e', words: ['tune', 'cube', 'tube', 'cute', 'rude', 'flute', 'flume', 'dune', 'mule', 'plume'] },
+
+  // Alternative spellings and sounds from the school's ELS Phase 5 sheet.
+  // 'c_soft' is the /s/ sound of c (kept apart from Phase 2's hard c).
+  { phase: 5, grapheme: 'c_soft', words: ['city', 'cycle', 'cell', 'circus', 'cinema', 'pencil', 'fancy', 'cymbal', 'centre', 'ice'] },
+  { phase: 5, grapheme: 'eigh', words: ['eight', 'weigh', 'weight', 'sleigh', 'neigh', 'neighbour', 'eighty', 'freight', 'eighteen', 'weighed'] },
+  { phase: 5, grapheme: 'al', words: ['walk', 'talk', 'chalk', 'small', 'wall', 'ball', 'tall', 'palm', 'calm', 'balm'] },
+  { phase: 5, grapheme: 'augh', words: ['taught', 'caught', 'daughter', 'naughty', 'haughty', 'fraught', 'naught', 'distraught', 'daughters', 'naughtier'] },
+  { phase: 5, grapheme: 'oul', words: ['boulder', 'shoulder', 'smoulder', 'boulders', 'shoulders', 'smouldering', 'shouldered', 'could', 'would', 'should'] },
+  { phase: 5, grapheme: 've', words: ['have', 'give', 'live', 'love', 'glove', 'above', 'move', 'groove', 'shove', 'dove'] },
+  { phase: 5, grapheme: 'are', words: ['share', 'care', 'scare', 'bare', 'dare', 'fare', 'hare', 'rare', 'stare', 'spare'] },
+  { phase: 5, grapheme: 'ere', words: ['here', 'there', 'where', 'mere', 'sphere', 'severe', 'atmosphere', 'interfere', 'adhere', 'revere'] },
+  { phase: 5, grapheme: 'eer', words: ['deer', 'peer', 'cheer', 'steer', 'beer', 'sheer', 'career', 'engineer', 'volunteer', 'reindeer'] },
+  { phase: 5, grapheme: 'tch', words: ['catch', 'latch', 'match', 'patch', 'watch', 'witch', 'ditch', 'fetch', 'stitch', 'hutch'] },
+  { phase: 5, grapheme: 'ge', words: ['age', 'cage', 'page', 'huge', 'stage', 'change', 'orange', 'large', 'charge', 'barge'] },
+  { phase: 5, grapheme: 'dge', words: ['bridge', 'edge', 'fudge', 'badge', 'hedge', 'judge', 'ledge', 'lodge', 'budge', 'dodge'] },
+  { phase: 5, grapheme: 'st', words: ['whistle', 'listen', 'castle', 'fasten', 'hasten', 'glisten', 'moisten', 'Christmas', 'wrestle', 'thistle'] },
+  { phase: 5, grapheme: 'ce', words: ['fence', 'dance', 'face', 'mice', 'nice', 'place', 'race', 'rice', 'voice', 'ice'] },
+  { phase: 5, grapheme: 'se', words: ['mouse', 'house', 'horse', 'goose', 'loose', 'cheese', 'please', 'tease', 'blouse', 'noise'] },
+  { phase: 5, grapheme: 'gn', words: ['gnome', 'gnat', 'gnaw', 'gnash', 'gnu', 'sign', 'design', 'reign', 'resign', 'campaign'] },
+  { phase: 5, grapheme: 'kn', words: ['knee', 'knit', 'knot', 'know', 'knock', 'knife', 'knight', 'kneel', 'knew', 'knob'] },
+  { phase: 5, grapheme: 'wr', words: ['write', 'wrap', 'wrist', 'wrong', 'wren', 'wreck', 'wrote', 'wrestle', 'wrinkle', 'wrench'] },
+  { phase: 5, grapheme: 'mb', words: ['lamb', 'comb', 'climb', 'thumb', 'crumb', 'limb', 'bomb', 'tomb', 'numb', 'plumber'] },
+  { phase: 5, grapheme: 'ze', words: ['freeze', 'breeze', 'sneeze', 'squeeze', 'size', 'prize', 'maze', 'gaze', 'blaze', 'doze'] },
+  { phase: 5, grapheme: 'ti', words: ['station', 'nation', 'action', 'motion', 'lotion', 'potion', 'caution', 'fiction', 'patient', 'nutritious'] },
+  { phase: 5, grapheme: 'si', words: ['vision', 'television', 'decision', 'collision', 'illusion', 'division', 'revision', 'explosion', 'invasion', 'confusion'] },
+  { phase: 5, grapheme: 'ci', words: ['special', 'precious', 'official', 'delicious', 'suspicious', 'social', 'magician', 'musician', 'vicious', 'politician'] },
 ];
 
 // Tricky/exception words (high-frequency, not fully phonetically decodable

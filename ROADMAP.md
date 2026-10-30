@@ -35,3 +35,8 @@ Needs device and orientation info from the user before fixing.
 
 - Suspected cause: `.content` in `src/screens/shared.module.css` has no scaling below 640px (capped at 460px, 18px base font), then fixed `zoom` steps (1.25x to 1.85x) from 640px up. Large phones, landscape phones and small portrait tablets get the unscaled layout.
 - Likely fix: replace the fixed `zoom` breakpoints with a fluid scale (`clamp()` on viewport width, limited by viewport height so landscape phones don't overflow).
+
+## Content gaps vs the school's ELS sheet
+
+- Done: the 24 graphemes missing from the bank (`nk`, soft `c` as `c_soft`, and 22 Phase 5 spellings).
+- Still open: alternative pronunciations of graphemes the bank already has (`a`, `e`, `i`, `o`, `u`, `y`, `ch`, `ea`, `ie`, `or`, `ear`, `ou`, `ey`, `ow`, `ss`, `g`). The bank holds one word list per grapheme, so these need a pronunciation tag per entry (as `oo_long` / `oo_short` do today).
