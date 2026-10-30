@@ -47,8 +47,6 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
           <div className={styles.topSpacer} />
         </div>
 
-        <p className={styles.banner}>Tap a sound to trace it.</p>
-
         <div className={styles.tabs} role="tablist" aria-label="Year group">
           {YEAR_TABS.map((t, i) => (
             <button

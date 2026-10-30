@@ -221,16 +221,3 @@
   font-size: 12px;
   color: var(--ink-body-2);
 }
-
-.banner {
-  margin: 0;
-  padding: 10px 12px;
-  border-radius: var(--radius-m);
-  border: 1.5px solid var(--selected-edge);
-  background: var(--selected-bg);
-  color: var(--selected-fg);
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 15px;
-  text-align: center;
-}
