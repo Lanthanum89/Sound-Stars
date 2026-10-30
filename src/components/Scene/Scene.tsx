@@ -515,8 +515,30 @@ function MatchDay() {
       </div>
       <div className={styles.ball}>
         <svg viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="50" r="46" fill="#fffffb" stroke="#15305a" strokeWidth="6" />
-          <polygon points="50,28 71,43 63,68 37,68 29,43" fill="#15305a" />
+          <defs>
+            <clipPath id="ball-clip">
+              <circle cx="50" cy="50" r="46" />
+            </clipPath>
+          </defs>
+          <circle cx="50" cy="50" r="46" fill="#fffffb" />
+          <g clipPath="url(#ball-clip)" fill="#15305a" stroke="#15305a" strokeWidth="3" strokeLinejoin="round">
+            <polygon points="50,33 66,45 60,63 40,63 34,45" />
+            {[0, 1, 2, 3, 4].map((k) => {
+              const a = ((-90 + k * 72) * Math.PI) / 180;
+              const b = ((-54 + k * 72) * Math.PI) / 180;
+              const patch = Array.from({ length: 5 }, (_, n) => {
+                const t = b + (n * 2 * Math.PI) / 5;
+                return `${50 + 50 * Math.cos(b) + 14 * Math.cos(t)},${50 + 50 * Math.sin(b) + 14 * Math.sin(t)}`;
+              }).join(' ');
+              return (
+                <g key={k}>
+                  <line x1={50 + 17 * Math.cos(a)} y1={50 + 17 * Math.sin(a)} x2={50 + 40 * Math.cos(a)} y2={50 + 40 * Math.sin(a)} fill="none" />
+                  <polygon points={patch} />
+                </g>
+              );
+            })}
+          </g>
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#15305a" strokeWidth="5" />
         </svg>
       </div>
     </>
