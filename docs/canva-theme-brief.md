@@ -1,5 +1,8 @@
 # Sound Stars: theme art brief for Canva
 
+> Status: the mascot artwork has been delivered and is in the app (see `docs/mascots.md`).
+> This brief is kept as the design reference and for making replacements or the optional scene art.
+
 Six themes, each a small flat-colour place with one hero character. The app already
 draws a first version of all of them in code (see `src/components/Scene` and
 `src/components/Mascot/MascotArt.tsx`), so Canva art replaces the mascots first and

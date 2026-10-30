@@ -71,7 +71,7 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
       <Scene />
 
       <div className={`${shared.content} ${styles.content}`}>
-        <Mascot expression="happy" size={118} />
+        <Mascot expression="happy" size={134} />
 
         <div className={styles.headline}>
           <div className={styles.title}>You did it!</div>

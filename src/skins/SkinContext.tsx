@@ -16,6 +16,9 @@ export function SkinProvider({ children }: { children: ReactNode }) {
     for (const [name, value] of entries) root.style.setProperty(name, value);
     root.dataset.skin = skin.id;
 
+    // Both expressions, so the first card of a round never shows an empty gap.
+    for (const src of Object.values(skin.mascotSrc ?? {})) new Image().src = src;
+
     return () => {
       for (const [name] of entries) root.style.removeProperty(name);
       delete root.dataset.skin;

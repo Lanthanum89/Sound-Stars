@@ -76,7 +76,7 @@ export function SetupScreen({
 
       <div className={shared.content}>
         <div className={styles.header}>
-          <Mascot expression="neutral" size={92} />
+          <Mascot expression="neutral" size={106} />
           <h1 className={styles.title}>Sound Stars</h1>
           <p className={styles.subtitle}>Ready to read?</p>
         </div>
