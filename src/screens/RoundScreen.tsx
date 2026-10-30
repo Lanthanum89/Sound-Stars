@@ -83,7 +83,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
         <div className={styles.body}>
           <div className={styles.card}>
             <div className={styles.mascotSlot}>
-              <Mascot expression="happy" size={74} />
+              <Mascot expression="happy" size={88} />
             </div>
             <div className={styles.eyebrow}>{getEyebrowLabel(current)}</div>
             <div className={styles.prompt} data-long={displayPrompt.length > 4}>

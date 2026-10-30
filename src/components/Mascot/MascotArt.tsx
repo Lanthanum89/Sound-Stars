@@ -8,7 +8,7 @@ interface FaceProps {
   cx: number;
   cy: number;
   expression: MascotExpression;
-  /** Skip the eyes where the character supplies its own (the boombox speakers). */
+  /** Skip the eyes where a character supplies its own. */
   eyes?: boolean;
 }
 
@@ -120,30 +120,36 @@ function Egg({ expression }: { expression: MascotExpression }) {
   );
 }
 
-function Boombox({ expression }: { expression: MascotExpression }) {
+function Microphone({ expression }: { expression: MascotExpression }) {
+  const clip = useId();
   const happy = expression === 'happy';
   return (
     <>
-      <path d="M78 36 L90 12" stroke="#1b1f5c" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="90" cy="12" r="3.6" fill="#ff7a1a" stroke="#1b1f5c" strokeWidth="2" />
-      <path d="M28 36 V25 H64 V36" stroke="#1b1f5c" strokeWidth="5.5" strokeLinejoin="round" strokeLinecap="round" fill="none" />
-      <rect x="10" y="34" width="80" height="54" rx="9" fill="#2536b8" stroke="#1b1f5c" strokeWidth="3.4" />
-      <rect x="39" y="42" width="22" height="9" rx="2" fill="#fff7e6" stroke="#1b1f5c" strokeWidth="2" />
-      <path d="M43 46.5 H57" stroke="#ff7a1a" strokeWidth="2.4" strokeLinecap="round" />
-      <circle cx="21" cy="43" r="2.4" fill="#ffd23f" />
-      <circle cx="79" cy="43" r="2.4" fill="#ffd23f" />
-      {[30, 70].map((x) => (
-        <g key={x}>
-          <circle cx={x} cy="65" r="14.5" fill="#fff7e6" stroke="#1b1f5c" strokeWidth="3" />
-          <circle cx={x} cy="65" r={happy ? 8.6 : 7.2} fill="#1b1f5c" />
-          <circle cx={x - 2.4} cy="62.4" r="2.4" fill="#fff" />
+      <defs>
+        <clipPath id={clip}>
+          <circle cx="50" cy="35" r="27" />
+        </clipPath>
+      </defs>
+      {happy && (
+        <g stroke="#1b1f5c" strokeWidth="3" strokeLinecap="round" fill="none">
+          <path d="M14 26 Q8 35 14 44" />
+          <path d="M6 20 Q-4 35 6 50" />
+          <path d="M86 26 Q92 35 86 44" />
+          <path d="M94 20 Q104 35 94 50" />
         </g>
-      ))}
-      {happy ? (
-        <path d="M44 78 Q50 87 56 78 Q50 82 44 78 Z" fill="#a8341a" stroke="#1b1f5c" strokeWidth="2.2" strokeLinejoin="round" />
-      ) : (
-        <path d="M44 78 Q50 83 56 78" stroke="#1b1f5c" strokeWidth="3" strokeLinecap="round" fill="none" />
       )}
+      <path d="M36 62 L64 62 L58 93 Q50 99 42 93 Z" fill="#2536b8" stroke="#1b1f5c" strokeWidth="3.4" strokeLinejoin="round" />
+      <path d="M44 72 H56" stroke="#1b1f5c" strokeWidth="2.6" strokeLinecap="round" />
+      <circle cx="50" cy="82" r="3.4" fill="#ffd23f" stroke="#1b1f5c" strokeWidth="2" />
+      <circle cx="50" cy="35" r="27" fill="#fff7e6" />
+      <g clipPath={`url(#${clip})`} stroke="#1b1f5c" strokeWidth="1.8" opacity=".13">
+        {[-30, -18, -6, 6, 18, 30, 42, 54, 66, 78].map((o) => (
+          <path key={o} d={`M${o} 0 L${o + 70} 70 M${o + 70} 0 L${o} 70`} />
+        ))}
+      </g>
+      <circle cx="50" cy="35" r="27" fill="none" stroke="#1b1f5c" strokeWidth="3.4" />
+      <path d="M30 59 Q50 69 70 59 L67 68 Q50 76 33 68 Z" fill="#ff7a1a" stroke="#1b1f5c" strokeWidth="3" strokeLinejoin="round" />
+      <Face cx={50} cy={31} expression={expression} />
     </>
   );
 }
@@ -202,7 +208,7 @@ const ART: Record<string, (props: { expression: MascotExpression }) => ReactNode
   classic: Star,
   flowers: Bee,
   dinosaurs: Egg,
-  kpop: Boombox,
+  kpop: Microphone,
   trains: Loco,
   football: Ball,
 };
