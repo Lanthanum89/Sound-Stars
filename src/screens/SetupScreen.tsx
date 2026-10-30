@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Icon } from '../components/Icon/Icon';
 import { Mascot } from '../components/Mascot/Mascot';
-import { SkyDecor } from '../components/SkyDecor/SkyDecor';
+import { Scene } from '../components/Scene/Scene';
 import { SkinPicker } from '../skins/SkinPicker';
-import { useSkin } from '../skins/context';
 import type { Phase } from '../content/phonicsGraphemeBank';
 import type { DeckKind } from '../content/types';
 import type { SessionSize } from './types';
@@ -67,19 +67,18 @@ export function SetupScreen({
   onOpenParentView,
   onOpenSoundSheet,
 }: SetupScreenProps) {
-  const { skin } = useSkin();
   const [fineTune, setFineTune] = useState(false);
   const canStart = roundSize > 0;
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <SkyDecor />
+      <Scene />
 
       <div className={shared.content}>
         <div className={styles.header}>
-          <Mascot expression="neutral" size={92} emoji={skin.id === 'classic' ? undefined : skin.emoji} />
+          <Mascot expression="neutral" size={92} />
           <h1 className={styles.title}>Sound Stars</h1>
-          <p className={styles.subtitle}>Ready to shine? ⭐</p>
+          <p className={styles.subtitle}>Ready to read?</p>
         </div>
 
         <div className={styles.card}>
@@ -98,7 +97,7 @@ export function SetupScreen({
                     onClick={() => onPhasesChange(group.phases)}
                     aria-pressed={active}
                   >
-                    <span className={styles.pillMain}>{active ? '✓ ' : ''}{group.label}</span>
+                    <span className={styles.pillMain}>{active && <Icon name="check" />} {group.label}</span>
                     <span className={styles.pillSub}>({group.sub})</span>
                   </button>
                 );
@@ -124,7 +123,7 @@ export function SetupScreen({
                     onClick={() => onTogglePhase(phase)}
                     aria-pressed={phases.includes(phase)}
                   >
-                    <span className={styles.pillMain}>{phases.includes(phase) ? '✓ ' : ''}Phase {phase}</span>
+                    <span className={styles.pillMain}>{phases.includes(phase) && <Icon name="check" />} Phase {phase}</span>
                     <span className={styles.pillSub}>({PHASE_YEAR[phase]})</span>
                   </button>
                 ))}
@@ -143,7 +142,7 @@ export function SetupScreen({
                 onClick={() => onDeckKindChange('grapheme')}
                 aria-pressed={deckKind === 'grapheme'}
               >
-                <span className={styles.pillMain}>🔤 Sounds</span>
+                <span className={styles.pillMain}>Sounds</span>
                 <span className={styles.pillSub}>(sound them out)</span>
               </button>
               <button
@@ -154,7 +153,7 @@ export function SetupScreen({
                 onClick={() => onDeckKindChange('tricky')}
                 aria-pressed={deckKind === 'tricky'}
               >
-                <span className={styles.pillMain}>🌟 Tricky</span>
+                <span className={styles.pillMain}>Tricky</span>
                 <span className={styles.pillSub}>(learn by heart)</span>
               </button>
             </div>
@@ -216,7 +215,9 @@ export function SetupScreen({
                 onClick={() => onTimedModeChange(!timedMode)}
                 aria-pressed={timedMode}
               >
-                ⏱ Timed rounds
+                <span className={styles.pillMain}>
+                  <Icon name="timer" /> Timed rounds
+                </span>
               </button>
             </div>
             {timedMode && (
@@ -238,15 +239,15 @@ export function SetupScreen({
         <SkinPicker />
 
         <button type="button" className={styles.cta} onClick={onStart} disabled={!canStart}>
-          {canStart ? "Let's go! ✨" : 'Pick a phase first'}
+          {canStart ? "Let's go!" : 'Pick a year group first'}
         </button>
 
         <button type="button" className={styles.soundSheetButton} onClick={onOpenSoundSheet}>
-          📖 Sound sheet
+          <Icon name="book" /> Sound sheet
         </button>
 
         <button type="button" className={styles.parentLink} onClick={onOpenParentView}>
-          👪 Grown-ups
+          Grown-ups
         </button>
       </div>
     </div>

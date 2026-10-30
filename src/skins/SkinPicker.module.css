@@ -2,33 +2,50 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 8px;
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.85rem;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 0.85rem;
+  border: 2px solid var(--edge);
+  background: var(--card-white);
+  color: var(--ink-body);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .chip[data-active='true'] {
-  border-color: var(--accent-border);
-  background: var(--accent-bg);
-  color: var(--text-h);
-  font-weight: 600;
+  border-color: var(--ink-heading);
+  color: var(--ink-heading);
+  box-shadow: 0 3px 0 var(--ink-heading);
 }
 
 .chip:has(:focus-visible) {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Three overlapping dots: the theme's inks at a glance. */
+.swatch {
+  display: inline-flex;
+}
+
+.swatch > span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--card-white);
+  margin-left: -5px;
+}
+
+.swatch > span:first-child {
+  margin-left: 0;
 }
 
 .radioInput {

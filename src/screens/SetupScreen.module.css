@@ -13,7 +13,7 @@
   font-size: 30px;
   line-height: 1;
   color: var(--ink-heading);
-  text-shadow: 0 2px 0 #fff;
+  text-shadow: 0 2px 0 var(--card-white);
 }
 
 .subtitle {
@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 8px 18px -8px rgba(28, 90, 140, 0.35);
+  box-shadow: 0 8px 18px -8px rgba(var(--shadow-rgb), 0.35);
 }
 
 .groupLabel {
@@ -74,18 +74,19 @@
   font-weight: 800;
   font-size: 16px;
   cursor: pointer;
-  background: #fff;
+  background: var(--card-white);
   color: var(--ink-muted);
-  box-shadow: 0 3px 0 #dce7ee;
+  box-shadow: 0 3px 0 var(--edge-soft);
 }
 
 .pill .pillMain {
+  white-space: nowrap;
   font-size: 13px;
 }
 
 .pill[data-variant='gold'][data-active='true'] {
   background: var(--yellow-chip);
-  color: #5a3d00;
+  color: var(--on-gold);
   box-shadow: 0 4px 0 var(--yellow-chip-shadow);
 }
 
@@ -110,12 +111,13 @@
   font-weight: 800;
   font-size: 14px;
   cursor: pointer;
-  background: #fff;
-  color: #7d97a8;
-  box-shadow: 0 3px 0 #dce7ee;
+  background: var(--card-white);
+  color: var(--ink-body-2);
+  box-shadow: 0 3px 0 var(--edge-soft);
 }
 
 .pillMain {
+  white-space: nowrap;
   font-size: 14px;
 }
 
@@ -155,7 +157,7 @@
 .customSizeInput {
   width: 4rem;
   border-radius: 10px;
-  border: 1.5px solid #dce7ee;
+  border: 1.5px solid var(--edge-soft);
   padding: 4px 8px;
   font-family: var(--body);
   font-weight: 700;
@@ -167,12 +169,12 @@
   border-radius: 24px;
   border: none;
   font-family: var(--sans);
-  color: #5a3d00;
+  color: var(--on-gold);
   font-weight: 800;
   font-size: 22px;
   cursor: pointer;
   background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
-  box-shadow: 0 7px 0 var(--cta-gold-shadow), 0 14px 22px -6px rgba(224, 145, 0, 0.5);
+  box-shadow: 0 7px 0 var(--cta-gold-shadow), 0 14px 22px -6px rgba(var(--glow-rgb), 0.5);
   animation: floaty 3s ease-in-out infinite;
 }
 
@@ -189,7 +191,7 @@
   font-family: var(--body);
   font-weight: 700;
   font-size: 12.5px;
-  color: rgba(28, 58, 82, 0.45);
+  color: rgba(var(--scrim-rgb), 0.45);
   cursor: pointer;
   padding: 4px 10px;
 }
@@ -204,5 +206,5 @@
   color: var(--ink-heading);
   cursor: pointer;
   background: var(--card-white);
-  box-shadow: 0 4px 0 #d3e2ec;
+  box-shadow: 0 4px 0 var(--edge);
 }

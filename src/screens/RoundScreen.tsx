@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { Icon } from '../components/Icon/Icon';
 import { Mascot } from '../components/Mascot/Mascot';
-import { SkyDecor } from '../components/SkyDecor/SkyDecor';
-import { useSkin } from '../skins/context';
+import { Scene } from '../components/Scene/Scene';
 import { useRound } from '../hooks/useRound';
 import { getDisplayPrompt, getEyebrowLabel, highlightGrapheme } from '../content/highlightGrapheme';
 import type { FlashcardItem } from '../content/types';
@@ -21,7 +21,6 @@ interface RoundScreenProps {
 }
 
 export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose, onComplete }: RoundScreenProps) {
-  const { skin } = useSkin();
   const answersRef = useRef<RoundAnswer[]>([]);
 
   const handleAnswer = useCallback((item: FlashcardItem, correct: boolean) => {
@@ -45,16 +44,15 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
 
   const segments = highlightGrapheme(current);
   const displayPrompt = getDisplayPrompt(current);
-  const mascotEmoji = skin.id === 'classic' ? undefined : skin.emoji;
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <SkyDecor />
+      <Scene />
 
       <div className={shared.content}>
         <div className={styles.topBar}>
           <button type="button" className={shared.roundButton} onClick={onClose} aria-label="Close round">
-            ✕
+            <Icon name="cross" />
           </button>
 
           <div className={styles.progress} role="status" aria-label={`Card ${position + 1} of ${total}`}>
@@ -75,7 +73,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
 
           {timeLeft !== null ? (
             <div className={styles.timer} data-low={timeLeft <= 1}>
-              ⏱ {timeLeft}
+              <Icon name="timer" /> {timeLeft}
             </div>
           ) : (
             <div className={styles.timerSpacer} />
@@ -85,7 +83,7 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
         <div className={styles.body}>
           <div className={styles.card}>
             <div className={styles.mascotSlot}>
-              <Mascot expression="happy" size={74} emoji={mascotEmoji} />
+              <Mascot expression="happy" size={74} />
             </div>
             <div className={styles.eyebrow}>{getEyebrowLabel(current)}</div>
             <div className={styles.prompt} data-long={displayPrompt.length > 4}>
@@ -104,10 +102,10 @@ export function RoundScreen({ items, timed, secondsPerCard, sessionSize, onClose
 
           <div className={styles.answers}>
             <button type="button" className={styles.incorrect} onClick={() => mark(false)}>
-              ✗
+              <Icon name="cross" />
             </button>
             <button type="button" className={styles.correct} onClick={() => mark(true)}>
-              ✓ Yes!
+              <Icon name="check" /> Yes!
             </button>
           </div>
         </div>

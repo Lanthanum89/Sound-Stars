@@ -17,7 +17,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--card-white);
 }
 
 .dot[data-state='done'] {
@@ -49,7 +49,7 @@
 .timer {
   padding: 7px 12px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--card-white);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 13px;
@@ -59,7 +59,7 @@
 }
 
 .timer[data-low='true'] {
-  color: #d63b1f;
+  color: var(--coral-shadow);
   box-shadow: 0 3px 0 #ffc4b0;
 }
 
@@ -85,7 +85,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 16px 30px -12px rgba(28, 90, 140, 0.45);
+  box-shadow: 0 16px 30px -12px rgba(var(--shadow-rgb), 0.45);
   margin-top: 14px;
 }
 

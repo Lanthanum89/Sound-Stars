@@ -9,13 +9,13 @@
 }
 
 :root {
-  --text: #7a6f4e;
-  --text-h: #1f2430;
-  --bg: #fffbef;
-  --border: #f2e1a8;
-  --accent: #1cade9;
-  --accent-bg: rgba(28, 173, 233, 0.12);
-  --accent-border: rgba(28, 173, 233, 0.5);
+  --text: #4f6b7c;
+  --text-h: #17506f;
+  --bg: #fffdf7;
+  --border: #d9e4e6;
+  --accent: #167e9e;
+  --accent-bg: rgba(22, 126, 158, 0.12);
+  --accent-border: rgba(22, 126, 158, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -28,42 +28,57 @@
      --accent-* vars above (which still drive the skin picker), these don't
      vary with the active skin: the child-facing screens are always this
      bright, sunny palette by design — there is no dark mode. */
-  --sky-1: #8fd0ff;
-  --sky-2: #cdedff;
-  --sky-3: #e9f7df;
-  --parent-1: #dceefa;
-  --parent-2: #eaf5fb;
-  --parent-3: #f4f8f2;
-  --gold-1: #ffe594;
-  --gold-2: #ffb01f;
-  --gold-stroke: #f19a0e;
-  --cta-gold-1: #ffd84d;
-  --cta-gold-2: #ffb01f;
-  --cta-gold-shadow: #e09100;
-  --cta-blue-1: #1cade9;
-  --cta-blue-2: #0e97cf;
-  --cta-blue-shadow: #0b7ba8;
-  --green: #5dbb63;
-  --green-shadow: #429248;
-  --coral: #ff7a59;
-  --coral-2: #ff8a73;
-  --coral-shadow: #d85c3e;
-  --yellow-chip: #ffcb2b;
-  --yellow-chip-shadow: #e0a81e;
-  --ink-heading: #0e5c8a;
-  --ink-body: #3f6a88;
-  --ink-body-2: #5a7488;
-  --ink-muted: #9bb4c5;
-  --ink-parent: #294a63;
-  --card-white: #fff;
-  --card-translucent: rgba(255, 255, 255, 0.72);
-  --sparkle-bg: #e4f5e6;
-  --sparkle-text: #2f8a45;
-  --sparkle-border: #bfe6c8;
-  --practice-text: #e07800;
-  --practice-track: #f3e7d2;
-  --practice-fill: #ffb01f;
-  --practice-count: #9a8b63;
+  --sky-1: #9fd5ea;
+  --sky-2: #cfeaf1;
+  --sky-3: #f3efc8;
+  --parent-1: #d6e9f2;
+  --parent-2: #e6f1f3;
+  --parent-3: #f6f5e6;
+  --gold-1: #ffe08a;
+  --gold-2: #f5b21b;
+  --gold-stroke: #d98e04;
+  --cta-gold-1: #ffd24a;
+  --cta-gold-2: #f5a90f;
+  --cta-gold-shadow: #c47f00;
+  --cta-blue-1: #2698b8;
+  --cta-blue-2: #167e9e;
+  --cta-blue-shadow: #0f6580;
+  --green: #2a8040;
+  --green-shadow: #1f6232;
+  --coral: #cf4020;
+  --coral-2: #e8583a;
+  --coral-shadow: #a8341a;
+  --yellow-chip: #ffc933;
+  --yellow-chip-shadow: #d79f12;
+  --ink-heading: #17506f;
+  --ink-body: #2f5870;
+  --ink-body-2: #4a6678;
+  --ink-muted: #647f90;
+  --ink-parent: #27495f;
+  --card-white: #fffdf7;
+  --card-translucent: rgba(255, 253, 247, 0.94);
+  --sparkle-bg: #e1f1e2;
+  --sparkle-text: #2a7a40;
+  --sparkle-border: #b6dcbc;
+  --practice-text: #b35f00;
+  --practice-track: #f1e6cb;
+  --practice-fill: #f5b21b;
+  --practice-count: #7d6f48;
+
+  /* Neutrals and shadow colours that used to be hard-coded in the screen
+     stylesheets, so a theme can tint them instead of leaving cold blue-grey
+     edges on a warm palette. The *-rgb tokens are "r, g, b" triples. */
+  --edge: #d6e1e3;
+  --edge-soft: #e0e8e8;
+  --wash: #edf3f2;
+  --on-gold: #4a2e00;
+  --tint-1: #fdeecb;
+  --tint-1-edge: #eed49a;
+  --tint-2: #e3f1e0;
+  --tint-2-edge: #bddcb7;
+  --shadow-rgb: 23, 80, 111;
+  --glow-rgb: 245, 169, 15;
+  --scrim-rgb: 23, 80, 111;
 
   /* Unitless line-height (not a percentage): a percentage computes to a fixed
      px value on :root and inherits as that px value into every descendant
