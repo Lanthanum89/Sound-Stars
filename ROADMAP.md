@@ -21,24 +21,22 @@ Stylus and finger drawing to trace each letter over a guideline.
 - Per-letter guide paths stored as stroke data (ordered strokes with direction), not images.
 - Needs palm rejection and `touch-action: none` on the canvas for tablet use.
 
-## 3. Tracing score (guidelines removed)
+## 3. Tracing score (guidelines removed) - done
 
-Hide the guideline and score how closely the drawn letter matches the target.
+A "Write it" mode on the trace screen hides the guide, shows only the writing lines and letter boxes, and scores the result on Check (stars, a 0-100 score and one hint). The scoring is `src/content/scoring.ts`; `npm run check:scoring` calibrates it on synthetic handwriting (good, fair and messy attempts, wrong letters, backwards strokes, scribbles). Shape is judged after fitting to the letter's box, so size and position are scored separately and weigh less; mirror images are never accepted.
 
-- Reuse the stroke data from (2): compare drawn strokes to reference strokes (resample, normalise, distance-based score).
-- Consider stroke order and direction, not just shape overlap.
-- Score should be forgiving and encouraging for a Year 1 child; thresholds need tuning on real handwriting.
+Open:
+- Thresholds are calibrated on synthetic handwriting, not real children. Try Freddie's attempts and adjust `STAR_THRESHOLDS` and `D_MAX` if it is too harsh or too kind.
+- Near-twin letters (g/q, d/a) can still reach 2 stars when written as each other.
+- Scores are not saved or shown in the parent view yet.
 
 ## Suggested order
 
 1 then 2 then 3. Each depends on the previous: the sheet defines the letter set, tracing needs stroke data for it, scoring reuses the same data.
 
-## Bug: layout looks zoomed out on smaller screens
+## Bug: layout looks zoomed out on smaller screens - fixed
 
-Needs device and orientation info from the user before fixing.
-
-- Suspected cause: `.content` in `src/screens/shared.module.css` has no scaling below 640px (capped at 460px, 18px base font), then fixed `zoom` steps (1.25x to 1.85x) from 640px up. Large phones, landscape phones and small portrait tablets get the unscaled layout.
-- Likely fix: replace the fixed `zoom` breakpoints with a fluid scale (`clamp()` on viewport width, limited by viewport height so landscape phones don't overflow).
+Zoom tiers are now height-aware and landscape phones lay the round screen out side by side (stage 1). If it still looks small on the S26 Ultra, the real CSS viewport size is needed to tune the tiers.
 
 ## Content gaps vs the school's ELS sheet
 

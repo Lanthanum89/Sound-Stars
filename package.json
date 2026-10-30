@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "check:palettes": "node --experimental-strip-types scripts/check-palettes.mjs",
+    "check:scoring": "node --experimental-strip-types scripts/check-scoring.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

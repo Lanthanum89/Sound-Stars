@@ -12,14 +12,16 @@ const PATHS = {
   undo: 'M8 8 L4 12 L8 16 M4 12 H15 A5 5 0 0 1 15 22 H10',
   trash: 'M5 7 H19 M9 7 V4 H15 V7 M7 7 L8 20 H16 L17 7 M10 11 V16 M14 11 V16',
   play: 'M8 5 L19 12 L8 19 Z',
+  star: 'M12 3.5 L14.6 9.3 L20.9 9.9 L16.2 14.1 L17.6 20.3 L12 17 L6.4 20.3 L7.8 14.1 L3.1 9.9 L9.4 9.3 Z',
 } as const;
 
 export type IconName = keyof typeof PATHS;
 
-export function Icon({ name }: { name: IconName }) {
+/** Solid by default for shapes that read as a block (play, star); `filled` overrides, e.g. an empty star. */
+export function Icon({ name, filled = name === 'play' || name === 'star' }: { name: IconName; filled?: boolean }) {
   return (
     <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true">
-      <path d={PATHS[name]} fill={name === 'play' ? 'currentColor' : 'none'} />
+      <path d={PATHS[name]} fill={filled ? 'currentColor' : 'none'} />
     </svg>
   );
 }

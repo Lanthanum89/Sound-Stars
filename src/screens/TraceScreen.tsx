@@ -3,12 +3,34 @@ import { Icon } from '../components/Icon/Icon';
 import { Scene } from '../components/Scene/Scene';
 import { PhraseText } from '../components/PhraseText/PhraseText';
 import { CELL_HEIGHT, CELL_WIDTH, LINES, letterStrokes, type Point, type Stroke } from '../content/letterStrokes';
+import { scoreWriting, type Hint, type WritingScore } from '../content/scoring';
 import shared from './shared.module.css';
 import styles from './TraceScreen.module.css';
 
 // Touches this soon after a stylus event are treated as a resting palm.
 const PALM_WINDOW_MS = 1500;
 const DEMO_SPEED = 60; // viewBox units per second
+
+type Mode = 'trace' | 'write';
+
+const VERDICTS = ['Have another go', 'Good try', 'Nearly there', 'Lovely writing'] as const;
+
+function hintText(hint: Hint, letter: string): string {
+  switch (hint) {
+    case 'empty':
+      return `Nothing in the “${letter}” box yet.`;
+    case 'missing':
+      return `Part of the “${letter}” is missing. Press Watch to see every stroke.`;
+    case 'shape':
+      return `The “${letter}” doesn't look quite right yet. Press Watch, then have another go.`;
+    case 'direction':
+      return `The “${letter}” is going the wrong way round. Press Watch to see which way.`;
+    case 'start':
+      return `Start the “${letter}” at the green dot. Press Watch to see where.`;
+    case 'size':
+      return `Make the “${letter}” fit the lines: not too big, not too small.`;
+  }
+}
 
 const toPath = (points: Stroke) => points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
 
@@ -50,6 +72,8 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
   const lastPenAt = useRef(-Infinity);
   const [ink, setInk] = useState<Stroke[]>([]);
   const [demoLength, setDemoLength] = useState<number | null>(null);
+  const [mode, setMode] = useState<Mode>('trace');
+  const [result, setResult] = useState<WritingScore | null>(null);
 
   const width = letters.length * CELL_WIDTH;
 
@@ -65,6 +89,7 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
       ),
     [letters],
   );
+  const references = useMemo(() => letters.map((letter) => letterStrokes[letter]), [letters]);
   const totalLength = useMemo(() => guide.reduce((sum, s) => sum + pathLength(s.points), 0), [guide]);
 
   const demoRunning = demoLength !== null;
@@ -94,6 +119,7 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
     if (activePointer.current !== null) return;
     activePointer.current = e.pointerId;
     setDemoLength(null);
+    setResult(null);
     setInk((strokes) => [...strokes, [toPoint(e)]]);
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
@@ -113,6 +139,15 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
   const onPointerEnd = (e: PointerEvent<SVGSVGElement>) => {
     if (e.pointerId === activePointer.current) activePointer.current = null;
   };
+
+  const chooseMode = (next: Mode) => {
+    setMode(next);
+    setInk([]);
+    setResult(null);
+    setDemoLength(null);
+  };
+
+  const showGuide = mode === 'trace' || result !== null;
 
   // Demo: strokes are drawn one after another, each finishing before the next starts.
   const demoStrokes: Stroke[] = [];
@@ -136,8 +171,17 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
             <button type="button" className={shared.roundButton} onClick={onClose} aria-label="Back to the sound sheet">
               <Icon name="back" />
             </button>
-            <h1 className={styles.title}>Trace “{label}”</h1>
+            <h1 className={styles.title}>{mode === 'trace' ? 'Trace' : 'Write'} “{label}”</h1>
             <div className={styles.topSpacer} />
+          </div>
+
+          <div className={styles.modes} role="group" aria-label="Mode">
+            <button type="button" className={styles.mode} data-active={mode === 'trace'} aria-pressed={mode === 'trace'} onClick={() => chooseMode('trace')}>
+              Trace
+            </button>
+            <button type="button" className={styles.mode} data-active={mode === 'write'} aria-pressed={mode === 'write'} onClick={() => chooseMode('write')}>
+              Write it
+            </button>
           </div>
 
           <div className={styles.paper}>
@@ -157,21 +201,24 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
               <line className={styles.lineHint} x1={0} x2={width} y1={LINES.xHeight} y2={LINES.xHeight} />
               <line className={styles.baseline} x1={0} x2={width} y1={LINES.baseline} y2={LINES.baseline} />
               <line className={styles.lineHint} x1={0} x2={width} y1={LINES.descender} y2={LINES.descender} />
+              {mode === 'write' &&
+                letters.slice(1).map((_, i) => (
+                  <line key={`cell-${i}`} className={styles.cellDivider} x1={(i + 1) * CELL_WIDTH} x2={(i + 1) * CELL_WIDTH} y1={LINES.ascender - 10} y2={LINES.descender + 6} />
+                ))}
 
-              {guide.map((s) => (
-                <path key={s.key} className={styles.guideRoad} d={toPath(s.points)} />
-              ))}
-              {guide.map((s) => (
-                <path key={`d-${s.key}`} className={styles.guideDash} d={toPath(s.points)} />
-              ))}
-              {guide.map((s) => (
-                <g key={`n-${s.key}`}>
-                  <circle className={styles.startDot} cx={s.points[0].x} cy={s.points[0].y} r={6} />
-                  <text className={styles.startNumber} x={s.points[0].x} y={s.points[0].y}>
-                    {s.number}
-                  </text>
-                </g>
-              ))}
+              {showGuide &&
+                guide.map((s) => <path key={s.key} className={result ? styles.revealRoad : styles.guideRoad} d={toPath(s.points)} />)}
+              {showGuide &&
+                guide.map((s) => <path key={`d-${s.key}`} className={styles.guideDash} d={toPath(s.points)} />)}
+              {showGuide &&
+                guide.map((s) => (
+                  <g key={`n-${s.key}`}>
+                    <circle className={styles.startDot} cx={s.points[0].x} cy={s.points[0].y} r={6} />
+                    <text className={styles.startNumber} x={s.points[0].x} y={s.points[0].y}>
+                      {s.number}
+                    </text>
+                  </g>
+                ))}
 
               {ink.map((stroke, i) => (
                 <path key={i} className={styles.ink} d={toPath(stroke.length > 1 ? stroke : [...stroke, stroke[0]])} />
@@ -182,10 +229,39 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
             </svg>
           </div>
 
-          {phrase && (
+          {result && (
+            <div className={styles.result} role="status">
+              <div className={styles.stars} aria-label={`${result.stars} out of 3 stars`}>
+                {[1, 2, 3].map((n) => (
+                  <span key={n} className={styles.star} data-earned={n <= result.stars}>
+                    <Icon name="star" filled={n <= result.stars} />
+                  </span>
+                ))}
+              </div>
+              <div className={styles.verdict}>
+                {VERDICTS[result.stars]} <span className={styles.score}>{result.score}/100</span>
+              </div>
+              {result.hint && result.stars < 3 && (
+                <p className={styles.hint}>{hintText(result.hint.hint, letters[result.hint.letterIndex])}</p>
+              )}
+            </div>
+          )}
+
+          {phrase && !result && (
             <p className={styles.phrase}>
               <PhraseText phrase={phrase} />
             </p>
+          )}
+
+          {mode === 'write' && (
+            <button
+              type="button"
+              className={styles.check}
+              disabled={ink.length === 0 && result === null}
+              onClick={() => (result ? chooseMode('write') : setResult(scoreWriting(ink, references, CELL_WIDTH)))}
+            >
+              {result ? 'Try again' : 'Check my writing'}
+            </button>
           )}
 
           <div className={styles.actions}>
@@ -195,12 +271,20 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
             <button
               type="button"
               className={styles.action}
-              onClick={() => setInk((strokes) => strokes.slice(0, -1))}
+              onClick={() => {
+                setResult(null);
+                setInk((strokes) => strokes.slice(0, -1));
+              }}
               disabled={ink.length === 0}
             >
               <Icon name="undo" /> Undo
             </button>
-            <button type="button" className={styles.action} onClick={() => setInk([])} disabled={ink.length === 0}>
+            <button type="button" className={styles.action} onClick={() => {
+                setResult(null);
+                setInk([]);
+              }}
+              disabled={ink.length === 0}
+            >
               <Icon name="trash" /> Clear
             </button>
           </div>
