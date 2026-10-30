@@ -1,14 +1,16 @@
 import type { Skin } from './types';
+import { classic, dinosaurs, flowers, football, kpop, trains } from './palettes';
 
-// Skins are a thin decorative layer (accent colour + emoji motif) over the
-// same phonics content — see src/content for the data/logic they never touch.
+// A skin is a full palette plus a drawn scene and mascot (see components/Scene
+// and components/Mascot, both keyed by skin id) over the same phonics content,
+// which skins never touch (see src/content).
 export const skins: Skin[] = [
-  { id: 'classic', name: 'Classic', emoji: '⭐', accent: '#1cade9', accentRgb: '28, 173, 233' },
-  { id: 'flowers', name: 'Flower Garden', emoji: '🌸', accent: '#ec4899', accentRgb: '236, 72, 153' },
-  { id: 'dinosaurs', name: 'Dino Dig', emoji: '🦕', accent: '#22c55e', accentRgb: '34, 197, 94' },
-  { id: 'kpop', name: 'K-Pop Stage', emoji: '🎤', accent: '#d946ef', accentRgb: '217, 70, 239' },
-  { id: 'trains', name: 'Railway', emoji: '🚂', accent: '#2563eb', accentRgb: '37, 99, 235' },
-  { id: 'football', name: 'Football', emoji: '⚽', accent: '#f97316', accentRgb: '249, 115, 22' },
+  { id: 'classic', name: 'Sunny Day', swatch: ['#9fd5ea', '#f5b21b', '#cf4020'], tokens: classic },
+  { id: 'flowers', name: 'Hedgerow', swatch: ['#cf3a22', '#f2b705', '#4562b3'], tokens: flowers },
+  { id: 'dinosaurs', name: 'Dino Dig', swatch: ['#bf4526', '#3c7a33', '#e6cfa0'], tokens: dinosaurs },
+  { id: 'kpop', name: 'Main Stage', swatch: ['#2536b8', '#ff7a1a', '#ffd23f'], tokens: kpop },
+  { id: 'trains', name: 'Railway', swatch: ['#1f5b3f', '#c43620', '#cf9522'], tokens: trains },
+  { id: 'football', name: 'Match Day', swatch: ['#15305a', '#cc2f2c', '#ffd23f'], tokens: football },
 ];
 
 export const defaultSkin = skins[0];

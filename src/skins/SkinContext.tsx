@@ -12,14 +12,13 @@ export function SkinProvider({ children }: { children: ReactNode }) {
   // of <html> — CSS custom properties inherit through the DOM tree.
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--accent', skin.accent);
-    root.style.setProperty('--accent-bg', `rgba(${skin.accentRgb}, 0.12)`);
-    root.style.setProperty('--accent-border', `rgba(${skin.accentRgb}, 0.5)`);
+    const entries = Object.entries(skin.tokens);
+    for (const [name, value] of entries) root.style.setProperty(name, value);
+    root.dataset.skin = skin.id;
 
     return () => {
-      root.style.removeProperty('--accent');
-      root.style.removeProperty('--accent-bg');
-      root.style.removeProperty('--accent-border');
+      for (const [name] of entries) root.style.removeProperty(name);
+      delete root.dataset.skin;
     };
   }, [skin]);
 

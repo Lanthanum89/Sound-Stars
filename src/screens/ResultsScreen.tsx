@@ -1,7 +1,6 @@
 import { useId } from 'react';
 import { Mascot } from '../components/Mascot/Mascot';
-import { SkyDecor } from '../components/SkyDecor/SkyDecor';
-import { useSkin } from '../skins/context';
+import { Scene } from '../components/Scene/Scene';
 import shared from './shared.module.css';
 import styles from './ResultsScreen.module.css';
 
@@ -45,7 +44,7 @@ function starsEarned(pct: number): number {
 }
 
 function captionFor(stars: number, incorrect: number): string {
-  if (stars === 3) return "Perfect round — you're a superstar! 🌟";
+  if (stars === 3) return "Perfect round — you're a superstar!";
   if (stars === 2) {
     return incorrect === 1
       ? 'Almost a full house — try that tricky sound again!'
@@ -63,21 +62,20 @@ interface ResultsScreenProps {
 }
 
 export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: ResultsScreenProps) {
-  const { skin } = useSkin();
   const pct = total === 0 ? 0 : Math.round((correct / total) * 100);
   const stars = starsEarned(pct);
   const incorrect = total - correct;
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <SkyDecor />
+      <Scene />
 
       <div className={`${shared.content} ${styles.content}`}>
-        <Mascot expression="happy" size={118} emoji={skin.id === 'classic' ? undefined : skin.emoji} />
+        <Mascot expression="happy" size={118} />
 
         <div className={styles.headline}>
           <div className={styles.title}>You did it!</div>
-          <div className={styles.subtitle}>Brilliant reading, superstar ⭐</div>
+          <div className={styles.subtitle}>Brilliant reading, superstar</div>
         </div>
 
         <div className={styles.scoreCard}>
@@ -97,7 +95,7 @@ export function ResultsScreen({ correct, total, onPlayAgain, onBackHome }: Resul
 
         <div className={styles.buttons}>
           <button type="button" className={styles.playAgain} onClick={onPlayAgain}>
-            Play again ✨
+            Play again
           </button>
           <button type="button" className={styles.backHome} onClick={onBackHome}>
             Back home

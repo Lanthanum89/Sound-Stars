@@ -15,7 +15,7 @@
   font-weight: 800;
   font-size: 22px;
   color: var(--ink-heading);
-  text-shadow: 0 2px 0 #fff;
+  text-shadow: 0 2px 0 var(--card-white);
 }
 
 .topSpacer {
@@ -37,14 +37,14 @@
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
-  background: #fff;
+  background: var(--card-white);
   color: var(--ink-muted);
-  box-shadow: 0 3px 0 #dce7ee;
+  box-shadow: 0 3px 0 var(--edge-soft);
 }
 
 .tab[data-active='true'] {
   background: var(--yellow-chip);
-  color: #5a3d00;
+  color: var(--on-gold);
   box-shadow: 0 4px 0 var(--yellow-chip-shadow);
 }
 
@@ -75,7 +75,7 @@
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-heading);
-  box-shadow: 0 4px 0 #d3e2ec;
+  box-shadow: 0 4px 0 var(--edge);
   transition: transform 0.12s ease;
 }
 
@@ -84,13 +84,13 @@
 }
 
 .tile[data-phase='3'] {
-  background: #fff3e0;
-  box-shadow: 0 4px 0 #f1d9b0;
+  background: var(--tint-1);
+  box-shadow: 0 4px 0 var(--tint-1-edge);
 }
 
 .tile[data-phase='5'] {
-  background: #e9f7ee;
-  box-shadow: 0 4px 0 #c4e5cf;
+  background: var(--tint-2);
+  box-shadow: 0 4px 0 var(--tint-2-edge);
 }
 
 .tileGrapheme {
@@ -115,7 +115,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: rgba(28, 58, 82, 0.45);
+  background: rgba(var(--scrim-rgb), 0.45);
 }
 
 .sheet {
@@ -128,7 +128,7 @@
   padding: 36px 22px 24px;
   border-radius: 30px;
   background: var(--card-white);
-  box-shadow: 0 16px 30px -12px rgba(28, 90, 140, 0.55);
+  box-shadow: 0 16px 30px -12px rgba(var(--shadow-rgb), 0.55);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -155,7 +155,7 @@
   height: 36px;
   border-radius: 999px;
   border: none;
-  background: #eef4f8;
+  background: var(--wash);
   color: var(--ink-body-2);
   font-size: 15px;
   cursor: pointer;
@@ -186,7 +186,7 @@
   font-family: var(--sans);
   font-weight: 800;
   font-size: 17px;
-  color: #5a3d00;
+  color: var(--on-gold);
   cursor: pointer;
   background: linear-gradient(180deg, var(--cta-gold-1), var(--cta-gold-2));
   box-shadow: 0 5px 0 var(--cta-gold-shadow);

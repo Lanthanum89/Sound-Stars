@@ -1,12 +1,12 @@
+import type { ThemeTokens } from './palettes';
+
 export interface Skin {
   id: string;
   name: string;
-  /** Decorative emoji used on the skin picker chip and as backdrop motifs. */
-  emoji: string;
-  /** Accent colour as a hex string, used for buttons, borders, and highlights. */
-  accent: string;
-  /** Same colour as an "r, g, b" triple, for building rgba() tints in CSS. */
-  accentRgb: string;
-  /** Hero mascot image, shown on the flashcard in place of the emoji once designed. */
-  mascotSrc?: string;
+  /** Three inks that sum the theme up, shown on the picker chip. */
+  swatch: [string, string, string];
+  /** Every colour token the screens read; applied to the root element. */
+  tokens: ThemeTokens;
+  /** Mascot artwork (e.g. made in Canva), one image per expression, replacing the drawn mascot. */
+  mascotSrc?: { neutral: string; happy: string };
 }

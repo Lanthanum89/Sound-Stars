@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from 'react';
-import { SkyDecor } from '../components/SkyDecor/SkyDecor';
+import { Icon } from '../components/Icon/Icon';
+import { Scene } from '../components/Scene/Scene';
 import { PhraseText } from '../components/PhraseText/PhraseText';
 import { CELL_HEIGHT, CELL_WIDTH, LINES, letterStrokes, type Point, type Stroke } from '../content/letterStrokes';
 import shared from './shared.module.css';
@@ -128,12 +129,12 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
   return (
     <div className={styles.overlay}>
       <div className={`${shared.screen} ${shared.childSky}`}>
-        <SkyDecor />
+        <Scene />
 
         <div className={`${shared.content} ${styles.content}`}>
           <div className={styles.topBar}>
             <button type="button" className={shared.roundButton} onClick={onClose} aria-label="Back to the sound sheet">
-              ←
+              <Icon name="back" />
             </button>
             <h1 className={styles.title}>Trace “{label}”</h1>
             <div className={styles.topSpacer} />
@@ -189,7 +190,7 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
 
           <div className={styles.actions}>
             <button type="button" className={styles.action} onClick={() => setDemoLength(0)}>
-              ▶ Watch
+              <Icon name="play" /> Watch
             </button>
             <button
               type="button"
@@ -197,10 +198,10 @@ export function TraceScreen({ label, letters, phrase, onClose }: TraceScreenProp
               onClick={() => setInk((strokes) => strokes.slice(0, -1))}
               disabled={ink.length === 0}
             >
-              ↩ Undo
+              <Icon name="undo" /> Undo
             </button>
             <button type="button" className={styles.action} onClick={() => setInk([])} disabled={ink.length === 0}>
-              🗑 Clear
+              <Icon name="trash" /> Clear
             </button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { SkyDecor } from '../components/SkyDecor/SkyDecor';
+import { Icon } from '../components/Icon/Icon';
+import { Scene } from '../components/Scene/Scene';
 import { graphemeBank } from '../content/phonicsGraphemeBank';
 import { getGraphemeLabel } from '../content/highlightGrapheme';
 import { soundSheet, type SoundSheetEntry } from '../content/soundSheet';
@@ -36,12 +37,12 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
-      <SkyDecor />
+      <Scene />
 
       <div className={`${shared.content} ${styles.content}`}>
         <div className={styles.topBar}>
           <button type="button" className={shared.roundButton} onClick={onBack} aria-label="Back">
-            ←
+            <Icon name="back" />
           </button>
           <h1 className={styles.title}>Sound sheet</h1>
           <div className={styles.topSpacer} />
@@ -104,18 +105,18 @@ export function SoundSheetScreen({ onBack, onPractise }: SoundSheetScreenProps) 
             onClick={(e) => e.stopPropagation()}
           >
             <button type="button" className={styles.close} onClick={() => setOpen(null)} aria-label="Close">
-              ✕
+              <Icon name="cross" />
             </button>
             <div className={styles.bigGrapheme}>{getGraphemeLabel(open.key)}</div>
             <p className={styles.phrase}>
               <PhraseText phrase={open.phrase} />
             </p>
             <button type="button" className={styles.practise} onClick={() => onPractise(open.key)}>
-              Practise this sound ✨
+              Practise this sound
             </button>
             {traceableLetters(getGraphemeLabel(open.key)) && (
               <button type="button" className={styles.trace} onClick={() => setTracing(open)}>
-                ✏️ Trace it
+                <Icon name="pencil" /> Trace it
               </button>
             )}
           </div>

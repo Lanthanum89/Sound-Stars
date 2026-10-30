@@ -5,7 +5,7 @@ export function SkinPicker() {
   const { skin, skins, setSkinId } = useSkin();
 
   return (
-    <div className={styles.picker} role="radiogroup" aria-label="Choose a skin">
+    <div className={styles.picker} role="radiogroup" aria-label="Pick a look">
       {skins.map((s) => (
         <label key={s.id} className={styles.chip} data-active={s.id === skin.id}>
           <input
@@ -16,7 +16,12 @@ export function SkinPicker() {
             onChange={() => setSkinId(s.id)}
             className={styles.radioInput}
           />
-          <span aria-hidden="true">{s.emoji}</span> {s.name}
+          <span className={styles.swatch} aria-hidden="true">
+            {s.swatch.map((colour) => (
+              <span key={colour} style={{ background: colour }} />
+            ))}
+          </span>
+          {s.name}
         </label>
       ))}
     </div>

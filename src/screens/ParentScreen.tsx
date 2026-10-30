@@ -107,7 +107,7 @@ export function ParentScreen({
 
         {sparkling.length > 0 && (
           <div>
-            <div className={styles.sectionHeading}>✨ Sparkling</div>
+            <div className={styles.sectionHeading}>Sparkling</div>
             <div className={styles.sparklingWrap}>
               {sparkling.map((g) => (
                 <span key={g.grapheme} className={styles.sparklingPill}>
@@ -120,7 +120,7 @@ export function ParentScreen({
 
         {needsPractice.length > 0 && (
           <div>
-            <div className={styles.sectionHeading}>🌱 Needs practice</div>
+            <div className={styles.sectionHeading}>Needs practice</div>
             <div className={styles.needsPracticeList}>
               {needsPractice.map((g) => (
                 <div key={g.grapheme} className={styles.needsPracticeRow}>
@@ -157,7 +157,6 @@ export function ParentScreen({
           )}
 
           <div className={styles.backupRow}>
-            <span aria-hidden="true">☁️</span>
             <div className={styles.backupText}>
               <div className={styles.backupTitle}>Progress saved on this device</div>
               <div className={styles.backupSubtitle}>
