@@ -76,9 +76,11 @@ export function SetupScreen({
 
       <div className={shared.content}>
         <div className={styles.header}>
-          <Mascot expression="neutral" size={106} />
-          <h1 className={styles.title}>Sound Stars</h1>
-          <p className={styles.subtitle}>Ready to read?</p>
+          <Mascot expression="neutral" size={84} />
+          <div>
+            <h1 className={styles.title}>Sound Stars</h1>
+            <p className={styles.subtitle}>Pick a year group, then press Let’s go.</p>
+          </div>
         </div>
 
         <div className={styles.card}>
@@ -92,7 +94,6 @@ export function SetupScreen({
                     key={group.label}
                     type="button"
                     className={styles.pill}
-                    data-variant="gold"
                     data-active={active}
                     onClick={() => onPhasesChange(group.phases)}
                     aria-pressed={active}
@@ -118,7 +119,6 @@ export function SetupScreen({
                     key={phase}
                     type="button"
                     className={styles.pill}
-                    data-variant="gold"
                     data-active={phases.includes(phase)}
                     onClick={() => onTogglePhase(phase)}
                     aria-pressed={phases.includes(phase)}
@@ -137,23 +137,21 @@ export function SetupScreen({
               <button
                 type="button"
                 className={styles.wideButton}
-                data-variant="coral"
                 data-active={deckKind === 'grapheme'}
                 onClick={() => onDeckKindChange('grapheme')}
                 aria-pressed={deckKind === 'grapheme'}
               >
-                <span className={styles.pillMain}>Sounds</span>
+                <span className={styles.pillMain}>{deckKind === 'grapheme' && <Icon name="check" />} Sounds</span>
                 <span className={styles.pillSub}>(sound them out)</span>
               </button>
               <button
                 type="button"
                 className={styles.wideButton}
-                data-variant="coral"
                 data-active={deckKind === 'tricky'}
                 onClick={() => onDeckKindChange('tricky')}
                 aria-pressed={deckKind === 'tricky'}
               >
-                <span className={styles.pillMain}>Tricky</span>
+                <span className={styles.pillMain}>{deckKind === 'tricky' && <Icon name="check" />} Tricky</span>
                 <span className={styles.pillSub}>(learn by heart)</span>
               </button>
             </div>
@@ -167,23 +165,25 @@ export function SetupScreen({
                   key={n}
                   type="button"
                   className={styles.pill}
-                  data-variant="green"
                   data-active={sessionSize === n}
                   onClick={() => onSessionSizeChange(n)}
                   aria-pressed={sessionSize === n}
                 >
-                  {n}
+                  <span className={styles.pillMain}>
+                    {sessionSize === n && <Icon name="check" />} {n}
+                  </span>
                 </button>
               ))}
               <button
                 type="button"
                 className={styles.pill}
-                data-variant="green"
                 data-active={sessionSize === 'all'}
                 onClick={() => onSessionSizeChange('all')}
                 aria-pressed={sessionSize === 'all'}
               >
-                All
+                <span className={styles.pillMain}>
+                  {sessionSize === 'all' && <Icon name="check" />} All
+                </span>
               </button>
             </div>
             <label className={styles.customSizeRow}>
@@ -210,13 +210,12 @@ export function SetupScreen({
               <button
                 type="button"
                 className={styles.wideButton}
-                data-variant="blue"
                 data-active={timedMode}
                 onClick={() => onTimedModeChange(!timedMode)}
                 aria-pressed={timedMode}
               >
                 <span className={styles.pillMain}>
-                  <Icon name="timer" /> Timed rounds
+                  {timedMode ? <Icon name="check" /> : <Icon name="timer" />} Timed rounds
                 </span>
               </button>
             </div>
@@ -242,13 +241,14 @@ export function SetupScreen({
           {canStart ? "Let's go!" : 'Pick a year group first'}
         </button>
 
-        <button type="button" className={styles.soundSheetButton} onClick={onOpenSoundSheet}>
-          <Icon name="book" /> Sound sheet
-        </button>
-
-        <button type="button" className={styles.parentLink} onClick={onOpenParentView}>
-          Grown-ups
-        </button>
+        <div className={styles.secondaryRow}>
+          <button type="button" className={styles.secondary} onClick={onOpenSoundSheet}>
+            <Icon name="book" /> Sound sheet
+          </button>
+          <button type="button" className={styles.secondary} onClick={onOpenParentView}>
+            Grown-ups
+          </button>
+        </div>
       </div>
     </div>
   );

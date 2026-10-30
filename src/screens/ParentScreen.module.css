@@ -22,12 +22,12 @@
 
 .weekCard {
   background: var(--card-white);
-  border-radius: 22px;
+  border-radius: var(--radius-l);
   padding: 18px;
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 8px 18px -10px rgba(var(--shadow-rgb), 0.35);
+  border: 1.5px solid var(--edge);
 }
 
 .weekHeading {
@@ -97,9 +97,9 @@
   align-items: center;
   gap: 11px;
   background: var(--card-white);
-  border-radius: 16px;
+  border-radius: var(--radius-l);
   padding: 10px 12px;
-  box-shadow: 0 4px 12px -8px rgba(var(--shadow-rgb), 0.3);
+  border: 1.5px solid var(--edge);
 }
 
 .needsPracticeGrapheme {
@@ -158,8 +158,8 @@
   font-weight: 800;
   font-size: 16px;
   cursor: pointer;
-  background: linear-gradient(180deg, var(--cta-blue-1), var(--cta-blue-2));
-  box-shadow: 0 6px 0 var(--cta-blue-shadow), 0 12px 20px -6px rgba(var(--shadow-rgb), 0.45);
+  background: var(--cta-blue-2);
+  box-shadow: 0 5px 0 var(--cta-blue-shadow);
 }
 
 .backupRow {
@@ -196,14 +196,13 @@
 
 .backupChip {
   padding: 7px 12px;
-  border-radius: 12px;
+  border-radius: var(--radius-m);
   background: var(--card-white);
-  border: none;
+  border: 1.5px solid var(--edge);
   font-size: 12px;
   font-weight: 800;
   color: var(--ink-heading);
   cursor: pointer;
-  box-shadow: 0 2px 0 var(--edge);
   flex-shrink: 0;
 }
 

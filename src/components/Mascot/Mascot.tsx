@@ -5,6 +5,8 @@ import { MascotArt, type MascotExpression } from './MascotArt';
 export type { MascotExpression };
 
 interface MascotProps {
+  /** Draw this theme's character instead of the active one (for the theme picker). */
+  skinId?: string;
   expression?: MascotExpression;
   size?: number;
   animate?: boolean;
@@ -17,8 +19,9 @@ interface MascotProps {
  * when it has none or the image fails to load (for example offline, before that
  * theme's art has been fetched once).
  */
-export function Mascot({ expression = 'neutral', size = 92, animate = true, className, style }: MascotProps) {
-  const { skin } = useSkin();
+export function Mascot({ skinId, expression = 'neutral', size = 92, animate = true, className, style }: MascotProps) {
+  const { skin: active, skins } = useSkin();
+  const skin = (skinId && skins.find((s) => s.id === skinId)) || active;
   const [failed, setFailed] = useState<string[]>([]);
   const animation = animate ? 'bobB 3s ease-in-out infinite' : undefined;
 

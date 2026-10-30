@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Icon } from '../components/Icon/Icon';
 import { getGraphemeLabel, getSoundCue } from '../content/highlightGrapheme';
 import { formatRelativeTime, type WeeklySummary, type GraphemeProgress } from '../progress/derive';
 import shared from './shared.module.css';
@@ -59,7 +60,7 @@ export function ParentScreen({
       <div className={`${shared.content} ${styles.content}`}>
         <div className={styles.topBar}>
           <button type="button" className={shared.roundButton} onClick={onBack} aria-label="Back">
-            ‹
+            <Icon name="back" />
           </button>
           <button
             type="button"

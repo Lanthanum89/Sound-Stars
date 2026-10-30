@@ -54,8 +54,8 @@
   font-weight: 800;
   font-size: 13px;
   color: var(--practice-text);
-  box-shadow: 0 3px 0 #ffe0a0;
   flex-shrink: 0;
+  border: 1.5px solid var(--edge);
 }
 
 .timer[data-low='true'] {
@@ -79,14 +79,14 @@
 .card {
   position: relative;
   background: var(--card-white);
-  border-radius: 30px;
+  border-radius: var(--radius-l);
   padding: 34px 20px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 16px 30px -12px rgba(var(--shadow-rgb), 0.45);
   margin-top: 14px;
+  border: 1.5px solid var(--edge);
 }
 
 .mascotSlot {
@@ -145,7 +145,7 @@
   flex: 1;
   text-align: center;
   padding: 18px 0;
-  border-radius: 22px;
+  border-radius: var(--radius-m);
   border: none;
   background: var(--coral-2);
   color: #fff;
@@ -159,7 +159,7 @@
   flex: 1.4;
   text-align: center;
   padding: 18px 0;
-  border-radius: 22px;
+  border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
   background: var(--green);

@@ -29,11 +29,6 @@
   height: auto;
 }
 
-.twinkle {
-  position: absolute;
-  animation: twinkle 3.4s ease-in-out infinite;
-}
-
 .fall {
   position: absolute;
   top: -6vh;

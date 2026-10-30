@@ -53,24 +53,14 @@ const CLOUDS: DriftSpec[] = [
 
 /* ---------------------------------------------------------------- Sunny Day */
 
-const SPARKLE = 'M8 0 C8.6 5 11 7.4 16 8 C11 8.6 8.6 11 8 16 C7.4 11 5 8.6 0 8 C5 7.4 7.4 5 8 0 Z';
-
-const SPARKLES: { top: string; left: string; size: number; delay: number }[] = [
-  { top: '5%', left: '12%', size: 16, delay: 0 },
-  { top: '22%', left: '5%', size: 11, delay: 1.2 },
-  { top: '41%', left: '91%', size: 14, delay: 0.5 },
-  { top: '58%', left: '7%', size: 10, delay: 2 },
-  { top: '14%', left: '58%', size: 10, delay: 1.7 },
-];
-
 function SunnyDay() {
   return (
     <>
       <span
         style={{
           position: 'absolute',
-          top: '4%',
-          right: '7%',
+          top: '10%',
+          right: '4%',
           width: 'clamp(54px, 9vw, 112px)',
           aspectRatio: '1',
           borderRadius: '50%',
@@ -81,17 +71,6 @@ function SunnyDay() {
       <Drifters specs={CLOUDS}>
         <Cloud fill="#fffdf7" />
       </Drifters>
-      {SPARKLES.map((s, i) => (
-        <svg
-          key={i}
-          viewBox="0 0 16 16"
-          className={styles.twinkle}
-          style={{ top: s.top, left: s.left, width: s.size, animationDelay: `${s.delay}s` }}
-          aria-hidden="true"
-        >
-          <path d={SPARKLE} fill="#f5b21b" />
-        </svg>
-      ))}
       <svg className={styles.ground} style={{ height: 'clamp(110px, 20vw, 34vh)' }} viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <path d="M0 240 V120 C150 60 300 70 450 112 C600 154 760 80 900 84 C1040 88 1130 120 1200 100 V240 Z" fill="#b6dc99" />
         <path d="M0 240 V170 C170 120 330 150 520 168 C700 186 860 128 1040 140 C1120 146 1170 160 1200 156 V240 Z" fill="#86c077" />
@@ -180,7 +159,7 @@ const PETALS: { left: string; size: number; duration: number; delay: number; fil
 function Hedgerow() {
   return (
     <>
-      {PETALS.map((p, i) => (
+      {PETALS.slice(0, 4).map((p, i) => (
         <svg
           key={i}
           className={styles.fall}
@@ -301,7 +280,7 @@ function MainStage() {
       <div className={styles.rays} />
       <div className={`${styles.halftone} ${styles.halftoneA}`} />
       <div className={`${styles.halftone} ${styles.halftoneB}`} />
-      {CONFETTI.map((c, i) => {
+      {CONFETTI.slice(0, 5).map((c, i) => {
         const shape: CSSProperties =
           c.shape === 'dot'
             ? { borderRadius: '50%' }
