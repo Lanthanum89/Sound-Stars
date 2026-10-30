@@ -241,7 +241,13 @@ export function SetupScreen({
         <SkinPicker />
 
         <button type="button" className={styles.cta} onClick={onStart} disabled={!canStart}>
-          {canStart ? "Let's go!" : 'Pick a year group first'}
+          {canStart ? (
+            <>
+              <Icon name="play" /> Let's go!
+            </>
+          ) : (
+            'Pick a year group first'
+          )}
         </button>
 
         <button type="button" className={styles.trace} onClick={onOpenTrace}>
