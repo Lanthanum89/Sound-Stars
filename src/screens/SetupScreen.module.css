@@ -178,6 +178,10 @@
 
 /* The one chunky control on the screen. */
 .cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   text-align: center;
   padding: 14px 0;
   border-radius: var(--radius-m);
@@ -222,20 +226,26 @@
   text-decoration: underline;
   cursor: pointer;
 }
-
-/* Second big action: tracing is a main activity, not a hidden extra. */
+/* Tracing is a second mode with the same weight as playing: a raised button in
+   a different colour. */
 .trace {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 14px 0;
+  gap: 10px;
+  padding: 16px 0;
   border-radius: var(--radius-m);
-  border: 2px solid var(--selected-edge);
-  background: var(--card-white);
-  color: var(--ink-heading);
+  border: none;
+  background: var(--green);
+  color: #fff;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 19px;
+  font-size: 21px;
   cursor: pointer;
+  box-shadow: 0 5px 0 var(--green-shadow);
+}
+
+.trace:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--green-shadow);
 }

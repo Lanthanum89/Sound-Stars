@@ -44,7 +44,7 @@
 .canvas {
   display: block;
   width: 100%;
-  max-height: 52vh;
+  max-height: 44vh;
   /* The page must not scroll or zoom while a child is writing. */
   touch-action: none;
   user-select: none;
@@ -165,8 +165,18 @@
   stroke-dasharray: 4 4;
 }
 
-.linkButton {
+.links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
   align-self: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-m);
+  background: var(--card-white);
+}
+
+.linkButton {
   min-height: 40px;
   padding: 6px 14px;
   border: none;
