@@ -15,7 +15,7 @@ const DEFAULT_SECONDS_PER_CARD = 5;
 
 // Letters and Sounds phases map onto school year groups: Phases 2-4 are taught
 // in Reception, Phase 5 in Year 1. Parents and teachers talk in year groups, so
-// that is the main choice; the raw phases sit behind "Fine-tune".
+// that is the main choice; the raw phases sit behind "Choose phases".
 const PHASE_YEAR: Record<Phase, string> = {
   2: 'Reception',
   3: 'Reception',
@@ -45,6 +45,7 @@ interface SetupScreenProps {
   secondsPerCard: number;
   onSecondsPerCardChange: (seconds: number) => void;
   roundSize: number;
+  availableCount: number;
   onStart: () => void;
   onOpenParentView: () => void;
   onOpenSoundSheet: () => void;
@@ -63,12 +64,16 @@ export function SetupScreen({
   secondsPerCard,
   onSecondsPerCardChange,
   roundSize,
+  availableCount,
   onStart,
   onOpenParentView,
   onOpenSoundSheet,
 }: SetupScreenProps) {
-  const [fineTune, setFineTune] = useState(false);
+  const [showPhases, setShowPhases] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const canStart = roundSize > 0;
+  const noun = deckKind === 'tricky' ? 'words' : 'sounds';
+  const presets = SESSION_SIZE_PRESETS.filter((n) => n < availableCount);
 
   return (
     <div className={`${shared.screen} ${shared.childSky}`}>
@@ -76,16 +81,13 @@ export function SetupScreen({
 
       <div className={shared.content}>
         <div className={styles.header}>
-          <Mascot expression="neutral" size={84} />
-          <div>
-            <h1 className={styles.title}>Sound Stars</h1>
-            <p className={styles.subtitle}>Pick a year group, then press Let’s go.</p>
-          </div>
+          <Mascot expression="neutral" size={64} />
+          <h1 className={styles.title}>Sound Stars</h1>
         </div>
 
         <div className={styles.card}>
-          <div>
-            <div className={styles.groupLabel}>Which year group?</div>
+          <section aria-labelledby="setup-year">
+            <div id="setup-year" className={styles.groupLabel}>Which year group?</div>
             <div className={styles.pillRow}>
               {YEAR_GROUPS.map((group) => {
                 const active = samePhases(phases, group.phases);
@@ -99,21 +101,22 @@ export function SetupScreen({
                     aria-pressed={active}
                   >
                     <span className={styles.pillMain}>{active && <Icon name="check" />} {group.label}</span>
-                    <span className={styles.pillSub}>({group.sub})</span>
+                    <span className={styles.pillSub}>{group.sub}</span>
                   </button>
                 );
               })}
             </div>
             <button
               type="button"
-              className={styles.fineTuneLink}
-              onClick={() => setFineTune((open) => !open)}
-              aria-expanded={fineTune}
+              className={styles.disclosure}
+              onClick={() => setShowPhases((open) => !open)}
+              aria-expanded={showPhases}
+              aria-controls="setup-phases"
             >
-              {fineTune ? 'Hide phases' : 'Fine-tune phases'}
+              <Icon name="sliders" /> Choose phases <Icon name={showPhases ? 'chevronUp' : 'chevronDown'} />
             </button>
-            {fineTune && (
-              <div className={styles.pillRow}>
+            {showPhases && (
+              <div id="setup-phases" className={styles.pillRow}>
                 {ALL_PHASES.map((phase) => (
                   <button
                     key={phase}
@@ -124,43 +127,43 @@ export function SetupScreen({
                     aria-pressed={phases.includes(phase)}
                   >
                     <span className={styles.pillMain}>{phases.includes(phase) && <Icon name="check" />} Phase {phase}</span>
-                    <span className={styles.pillSub}>({PHASE_YEAR[phase]})</span>
+                    <span className={styles.pillSub}>{PHASE_YEAR[phase]}</span>
                   </button>
                 ))}
               </div>
             )}
-          </div>
+          </section>
 
-          <div>
-            <div className={styles.groupLabel}>What shall we play?</div>
+          <section aria-labelledby="setup-game">
+            <div id="setup-game" className={styles.groupLabel}>What shall we play?</div>
             <div className={styles.pillRow}>
               <button
                 type="button"
-                className={styles.wideButton}
+                className={styles.pill}
                 data-active={deckKind === 'grapheme'}
                 onClick={() => onDeckKindChange('grapheme')}
                 aria-pressed={deckKind === 'grapheme'}
               >
                 <span className={styles.pillMain}>{deckKind === 'grapheme' && <Icon name="check" />} Sounds</span>
-                <span className={styles.pillSub}>(sound them out)</span>
+                <span className={styles.pillSub}>Sound them out</span>
               </button>
               <button
                 type="button"
-                className={styles.wideButton}
+                className={styles.pill}
                 data-active={deckKind === 'tricky'}
                 onClick={() => onDeckKindChange('tricky')}
                 aria-pressed={deckKind === 'tricky'}
               >
-                <span className={styles.pillMain}>{deckKind === 'tricky' && <Icon name="check" />} Tricky</span>
-                <span className={styles.pillSub}>(learn by heart)</span>
+                <span className={styles.pillMain}>{deckKind === 'tricky' && <Icon name="check" />} Tricky words</span>
+                <span className={styles.pillSub}>Learn by heart</span>
               </button>
             </div>
-          </div>
+          </section>
 
-          <div>
-            <div className={styles.groupLabel}>How long?</div>
+          <section aria-labelledby="setup-size">
+            <div id="setup-size" className={styles.groupLabel}>How many {noun}?</div>
             <div className={styles.pillRow}>
-              {SESSION_SIZE_PRESETS.map((n) => (
+              {presets.map((n) => (
                 <button
                   key={n}
                   type="button"
@@ -169,9 +172,7 @@ export function SetupScreen({
                   onClick={() => onSessionSizeChange(n)}
                   aria-pressed={sessionSize === n}
                 >
-                  <span className={styles.pillMain}>
-                    {sessionSize === n && <Icon name="check" />} {n}
-                  </span>
+                  <span className={styles.pillMain}>{sessionSize === n && <Icon name="check" />} {n}</span>
                 </button>
               ))}
               <button
@@ -182,57 +183,69 @@ export function SetupScreen({
                 aria-pressed={sessionSize === 'all'}
               >
                 <span className={styles.pillMain}>
-                  {sessionSize === 'all' && <Icon name="check" />} All
+                  {sessionSize === 'all' && <Icon name="check" />} All{availableCount > 0 ? ` (${availableCount})` : ''}
                 </span>
               </button>
             </div>
-            <label className={styles.customSizeRow}>
-              Custom
-              <input
-                type="number"
-                min={1}
-                step={1}
-                placeholder="e.g. 15"
-                aria-label="Custom number of cards"
-                value={sessionSize === 'all' ? '' : sessionSize}
-                onChange={(e) => {
-                  const value = Math.floor(Number(e.target.value));
-                  onSessionSizeChange(value > 0 ? value : 'all');
-                }}
-                className={styles.customSizeInput}
-              />
-            </label>
-          </div>
+          </section>
 
-          <div>
-            <div className={styles.groupLabel}>Timing</div>
-            <div className={styles.pillRow}>
-              <button
-                type="button"
-                className={styles.wideButton}
-                data-active={timedMode}
-                onClick={() => onTimedModeChange(!timedMode)}
-                aria-pressed={timedMode}
-              >
-                <span className={styles.pillMain}>
-                  {timedMode ? <Icon name="check" /> : <Icon name="timer" />} Timed rounds
-                </span>
-              </button>
-            </div>
-            {timedMode && (
-              <label className={styles.customSizeRow}>
-                Seconds per card
-                <input
-                  type="number"
-                  min={2}
-                  max={30}
-                  value={secondsPerCard}
-                  onChange={(e) => onSecondsPerCardChange(Number(e.target.value) || DEFAULT_SECONDS_PER_CARD)}
-                  className={styles.customSizeInput}
-                />
-              </label>
+          <section>
+            <button
+              type="button"
+              className={styles.disclosure}
+              onClick={() => setShowMore((open) => !open)}
+              aria-expanded={showMore}
+              aria-controls="setup-more"
+            >
+              More options <Icon name={showMore ? 'chevronUp' : 'chevronDown'} />
+            </button>
+            {showMore && (
+              <div id="setup-more" className={styles.more}>
+                <label className={styles.optionRow}>
+                  <span>Custom number of {noun}</span>
+                  <input
+                    type="number"
+                    min={1}
+                    step={1}
+                    placeholder="e.g. 15"
+                    value={sessionSize === 'all' ? '' : sessionSize}
+                    onChange={(e) => {
+                      const value = Math.floor(Number(e.target.value));
+                      onSessionSizeChange(value > 0 ? value : 'all');
+                    }}
+                    className={styles.numberInput}
+                  />
+                </label>
+                <div className={styles.optionRow}>
+                  <span id="setup-timed">Timed round</span>
+                  <button
+                    type="button"
+                    role="switch"
+                    aria-checked={timedMode}
+                    aria-labelledby="setup-timed"
+                    className={styles.switch}
+                    data-on={timedMode}
+                    onClick={() => onTimedModeChange(!timedMode)}
+                  >
+                    <span className={styles.switchKnob} />
+                  </button>
+                </div>
+                {timedMode && (
+                  <label className={styles.optionRow}>
+                    <span>Seconds per card</span>
+                    <input
+                      type="number"
+                      min={2}
+                      max={30}
+                      value={secondsPerCard}
+                      onChange={(e) => onSecondsPerCardChange(Number(e.target.value) || DEFAULT_SECONDS_PER_CARD)}
+                      className={styles.numberInput}
+                    />
+                  </label>
+                )}
+              </div>
             )}
-          </div>
+          </section>
         </div>
 
         <SkinPicker />
@@ -241,11 +254,11 @@ export function SetupScreen({
           {canStart ? "Let's go!" : 'Pick a year group first'}
         </button>
 
-        <div className={styles.secondaryRow}>
-          <button type="button" className={styles.secondary} onClick={onOpenSoundSheet}>
+        <div className={styles.links}>
+          <button type="button" className={styles.link} onClick={onOpenSoundSheet}>
             <Icon name="book" /> Sound sheet
           </button>
-          <button type="button" className={styles.secondary} onClick={onOpenParentView}>
+          <button type="button" className={styles.link} onClick={onOpenParentView}>
             Grown-ups
           </button>
         </div>

@@ -72,6 +72,8 @@
   --radius-l: 16px;
   /* Picked = a pale tint with a dark outline and a tick, so it never competes
      with the warm main button. */
+  /* Outline for anything you can press: dark enough to see (3:1 or better on a card). */
+  --control-line: var(--ink-muted);
   --selected-bg: var(--tint-2);
   --selected-fg: var(--ink-heading);
   --selected-edge: var(--ink-heading);
@@ -104,6 +106,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink-heading);
+  outline-offset: 2px;
 }
 
 body {

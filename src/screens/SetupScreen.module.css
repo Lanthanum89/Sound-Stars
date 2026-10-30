@@ -2,36 +2,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 2px;
+  gap: 10px;
 }
 
 .title {
   margin: 0;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 28px;
+  font-size: 26px;
   line-height: 1.05;
   color: var(--ink-heading);
-}
-
-.subtitle {
-  margin: 4px 0 0;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 1.3;
-  color: var(--ink-body);
 }
 
 .card {
   background: var(--card-white);
   border: 1.5px solid var(--edge);
   border-radius: var(--radius-l);
-  padding: 14px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Instructions are a quieter voice than the buttons they sit above. */
@@ -41,8 +31,8 @@
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink-body-2);
-  margin-bottom: 6px;
+  color: var(--ink-body);
+  margin-bottom: 5px;
 }
 
 .pillRow {
@@ -50,22 +40,98 @@
   gap: 6px;
 }
 
-.fineTuneLink {
-  background: none;
-  border: none;
-  padding: 6px 0 0;
+.pillRow + .disclosure,
+.disclosure + .pillRow {
+  margin-top: 8px;
+}
+
+/* Secondary button that reveals more controls. */
+.disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-heading);
+  cursor: pointer;
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
   font-family: var(--body);
   font-weight: 700;
-  font-size: 12.5px;
-  color: var(--ink-body-2);
-  text-decoration: underline;
+  font-size: 14px;
+  color: var(--ink-body);
+}
+
+.numberInput {
+  width: 4.5rem;
+  min-height: 36px;
+  box-sizing: border-box;
+  border-radius: var(--radius-s);
+  border: 1.5px solid var(--control-line);
+  padding: 4px 8px;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 14px;
+  background: var(--card-white);
+  color: var(--ink-heading);
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--control-line);
+  background: var(--card-white);
   cursor: pointer;
+  padding: 0;
+}
+
+.switch[data-on='true'] {
+  background: var(--selected-bg);
+  border-color: var(--selected-edge);
+}
+
+.switchKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--control-line);
+  transition: transform 0.15s ease;
+}
+
+.switch[data-on='true'] .switchKnob {
+  transform: translateX(22px);
+  background: var(--selected-edge);
 }
 
 /* Every choice looks the same: an outlined tile that fills and gets a tick
    when picked. */
-.pill,
-.wideButton {
+.pill {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -73,9 +139,10 @@
   justify-content: center;
   gap: 2px;
   text-align: center;
-  padding: 9px 4px;
+  padding: 8px 4px;
+  min-height: 44px;
   border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   cursor: pointer;
@@ -83,8 +150,7 @@
   color: var(--ink-body);
 }
 
-.pill[data-active='true'],
-.wideButton[data-active='true'] {
+.pill[data-active='true'] {
   background: var(--selected-bg);
   color: var(--selected-fg);
   border-color: var(--selected-edge);
@@ -99,37 +165,15 @@
 .pillSub {
   font-family: var(--body);
   font-weight: 700;
-  font-size: 10px;
-  opacity: 0.8;
+  font-size: 11px;
   text-transform: none;
   letter-spacing: 0;
-}
-
-.customSizeRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 8px;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 12.5px;
-  color: var(--ink-body-2);
-}
-
-.customSizeInput {
-  width: 4rem;
-  border-radius: var(--radius-s);
-  border: 1.5px solid var(--edge);
-  padding: 4px 8px;
-  font-family: var(--body);
-  font-weight: 700;
 }
 
 /* The one chunky control on the screen. */
 .cta {
   text-align: center;
-  padding: 16px 0;
+  padding: 14px 0;
   border-radius: var(--radius-m);
   border: none;
   font-family: var(--sans);
@@ -151,20 +195,24 @@
   cursor: not-allowed;
 }
 
-.secondaryRow {
+.links {
   display: flex;
+  justify-content: center;
   gap: 8px;
 }
 
-.secondary {
-  flex: 1;
-  padding: 11px 0;
-  border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: none;
+  background: none;
   font-family: var(--sans);
   font-weight: 800;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--ink-heading);
+  text-decoration: underline;
   cursor: pointer;
-  background: var(--card-white);
 }

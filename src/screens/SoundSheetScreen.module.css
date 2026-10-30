@@ -32,7 +32,7 @@
   flex: 1;
   padding: 10px 4px;
   border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 15px;
@@ -71,7 +71,7 @@
   min-height: 78px;
   padding: 8px 4px;
   border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+  border: 1.5px solid var(--control-line);
   cursor: pointer;
   background: var(--card-white);
   color: var(--ink-heading);
@@ -202,7 +202,7 @@
   width: 100%;
   padding: 12px 0;
   border-radius: var(--radius-m);
-  border: 1.5px solid var(--edge);
+  border: 1.5px solid var(--control-line);
   font-family: var(--sans);
   font-weight: 800;
   font-size: 16px;
