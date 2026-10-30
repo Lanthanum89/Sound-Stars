@@ -49,6 +49,7 @@ interface SetupScreenProps {
   onStart: () => void;
   onOpenParentView: () => void;
   onOpenSoundSheet: () => void;
+  onOpenTrace: () => void;
 }
 
 export function SetupScreen({
@@ -68,6 +69,7 @@ export function SetupScreen({
   onStart,
   onOpenParentView,
   onOpenSoundSheet,
+  onOpenTrace,
 }: SetupScreenProps) {
   const [showMore, setShowMore] = useState(false);
   const canStart = roundSize > 0;
@@ -242,6 +244,10 @@ export function SetupScreen({
 
         <button type="button" className={styles.cta} onClick={onStart} disabled={!canStart}>
           {canStart ? "Let's go!" : 'Pick a year group first'}
+        </button>
+
+        <button type="button" className={styles.trace} onClick={onOpenTrace}>
+          <Icon name="pencil" /> Trace letters
         </button>
 
         <div className={styles.links}>

@@ -188,20 +188,6 @@
 
 .practise {
   width: 100%;
-  padding: 14px 0;
-  border-radius: var(--radius-m);
-  border: none;
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 17px;
-  color: var(--on-gold);
-  cursor: pointer;
-  background: var(--cta-gold-1);
-  box-shadow: 0 5px 0 var(--cta-gold-shadow);
-}
-
-.trace {
-  width: 100%;
   padding: 12px 0;
   border-radius: var(--radius-m);
   border: 1.5px solid var(--control-line);
@@ -210,7 +196,25 @@
   font-size: 16px;
   color: var(--ink-heading);
   cursor: pointer;
-  background: #eef4f8;
+  background: var(--card-white);
+}
+
+.trace {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px 0;
+  border-radius: var(--radius-m);
+  border: none;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 21px;
+  color: var(--on-gold);
+  cursor: pointer;
+  background: var(--cta-gold-1);
+  box-shadow: 0 5px 0 var(--cta-gold-shadow);
 }
 
 @media (orientation: landscape) and (max-height: 520px) {
@@ -221,4 +225,29 @@
   .bigGrapheme {
     font-size: 3.5rem;
   }
+}
+
+.tile {
+  position: relative;
+}
+
+.tilePencil {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  font-size: 12px;
+  color: var(--ink-body-2);
+}
+
+.banner {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid var(--selected-edge);
+  background: var(--selected-bg);
+  color: var(--selected-fg);
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
 }

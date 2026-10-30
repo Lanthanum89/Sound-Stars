@@ -99,7 +99,7 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
   const activePointer = useRef<number | null>(null);
   const lastPenAt = useRef(-Infinity);
   const [ink, setInk] = useState<Stroke[]>([]);
-  const [demoLength, setDemoLength] = useState<number | null>(null);
+  const [demoLength, setDemoLength] = useState<number | null>(0); // the letter is demonstrated as soon as the screen opens
   const [mode, setMode] = useState<Mode>('trace');
   const [result, setResult] = useState<WritingScore | null>(null);
   const [feedback, setFeedback] = useState<Feedback>({});
@@ -218,18 +218,15 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
             <button type="button" className={shared.roundButton} onClick={onClose} aria-label="Back to the sound sheet">
               <Icon name="back" />
             </button>
-            <h1 className={styles.title}>{mode === 'trace' ? 'Trace' : 'Write'} “{label}”</h1>
+            <h1 className={styles.title}>{mode === 'trace' ? 'Trace' : 'Now write'} “{label}”</h1>
             <div className={styles.topSpacer} />
           </div>
 
-          <div className={styles.modes} role="group" aria-label="Mode">
-            <button type="button" className={styles.mode} data-active={mode === 'trace'} aria-pressed={mode === 'trace'} onClick={() => chooseMode('trace')}>
-              Trace
-            </button>
-            <button type="button" className={styles.mode} data-active={mode === 'write'} aria-pressed={mode === 'write'} onClick={() => chooseMode('write')}>
-              Write it
-            </button>
-          </div>
+          {phrase && !result && (
+            <p className={styles.phrase}>
+              <PhraseText phrase={phrase} />
+            </p>
+          )}
 
           <div className={styles.paper}>
             <svg
@@ -249,8 +246,8 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
               <line className={styles.baseline} x1={0} x2={width} y1={LINES.baseline} y2={LINES.baseline} />
               <line className={styles.lineHint} x1={0} x2={width} y1={LINES.descender} y2={LINES.descender} />
               {mode === 'write' &&
-                cells.slice(1).map((_, i) => (
-                  <line key={`cell-${i}`} className={styles.cellDivider} x1={(i + 1) * CELL_WIDTH} x2={(i + 1) * CELL_WIDTH} y1={LINES.ascender - 10} y2={LINES.descender + 6} />
+                cells.map((_, i) => (
+                  <rect key={`box-${i}`} className={styles.writeBox} x={i * CELL_WIDTH + 4} y={LINES.ascender - 12} width={CELL_WIDTH - 8} height={LINES.descender - LINES.ascender + 24} rx={10} />
                 ))}
 
               {cells.map((letter, i) =>
@@ -270,7 +267,7 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
               {showGuide &&
                 guide.map((s) => (
                   <g key={`n-${s.key}`}>
-                    <circle className={styles.startDot} cx={s.points[0].x} cy={s.points[0].y} r={6} />
+                    <circle className={styles.startDot} cx={s.points[0].x} cy={s.points[0].y} r={9} />
                     <text className={styles.startNumber} x={s.points[0].x} y={s.points[0].y}>
                       {s.number}
                     </text>
@@ -310,13 +307,11 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
             </div>
           )}
 
-          {phrase && !result && (
-            <p className={styles.phrase}>
-              <PhraseText phrase={phrase} />
-            </p>
-          )}
-
-          {mode === 'write' && (
+          {mode === 'trace' ? (
+            <button type="button" className={styles.check} onClick={() => chooseMode('write')}>
+              Now you write it!
+            </button>
+          ) : (
             <button
               type="button"
               className={styles.check}
@@ -329,7 +324,7 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
 
           <div className={styles.actions}>
             <button type="button" className={styles.action} onClick={() => setDemoLength(0)}>
-              <Icon name="play" /> Watch
+              <Icon name="play" /> Watch me
             </button>
             <button
               type="button"
@@ -348,9 +343,15 @@ export function TraceScreen({ soundKey, label, cells, phrase, onClose }: TraceSc
               }}
               disabled={ink.length === 0}
             >
-              <Icon name="trash" /> Clear
+              <Icon name="trash" /> Start again
             </button>
           </div>
+
+          {mode === 'write' && (
+            <button type="button" className={styles.linkButton} onClick={() => chooseMode('trace')}>
+              Trace it again
+            </button>
+          )}
         </div>
       </div>
     </div>
