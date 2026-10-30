@@ -82,16 +82,31 @@ Paper `#FFFFFB`, sky `#CFE8F3`, grass `#A3D490` and `#B3DC9F`, kit red `#CC2F2C`
 Mascot: a football with a face, navy pentagon panels, white body.
 Scene: striped pitch, white chalk lines and centre circle, a row of crowd dots, a ball rolling across.
 
-## Master prompt (paste into Canva)
+## Ready-to-paste prompts (one per mascot)
 
-> Flat vector children's book illustration, risograph print look, limited ink palette
-> on cream paper, one dark outline colour with even weight and round joins, hard
-> offset shadow, no gradients, no glow, no gloss. Cute but not generic: a simple
-> geometric character with a minimal face (two eyes, small smile, flat round
-> cheeks). Transparent background, centred, bold silhouette that reads at 80px.
-> No text, no sparkles, no stars, no emoji, no purple-pink gradients, no 3D.
-> Character: [PASTE THE THEME'S MASCOT LINE AND PALETTE]. Make two versions:
-> neutral (dot eyes, small smile) and happy (closed arc eyes, open smiling mouth).
+Each prompt is complete, with the colours filled in. Run it once, then ask for the
+second expression (the line at the end of each prompt covers both), remove the
+background with Canva's Background Remover, and export PNG at 1024 x 1024 (and SVG
+if offered). If a result is too glossy or too detailed, add: "flatter, simpler,
+fewer details, like a screen print".
+
+**Sunny Day (star)**
+> Flat vector children's book mascot, screen-print look, one dark outline of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A smiling five-point star with slightly rounded points, mustard yellow #F5B21B with a deeper amber outline #D98E04, flat coral cheeks #E8583A. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (two round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth with dark red inside #A8341A).
+
+**Hedgerow (bumblebee)**
+> Flat vector children's book mascot, screen-print look, one dark outline #2B2118 of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no pink. A round bumblebee seen from the front: body yellow #F2B705, two dark stripes #2B2118 low on the belly, two small cream wings #FFFDF4 outlined in bluebell blue #4562B3, two antennae with round tips, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth with dark red inside #A8341A).
+
+**Dino Dig (dinosaur egg)**
+> Flat vector children's book mascot, screen-print look, one dark outline of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A speckled dinosaur egg: cream shell #F6E7C8 with terracotta speckles #BF4526, brown outline #8A6A3B, a zigzag crack in dark brown #2B2118 across the upper third, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth, and three fern-green #3C7A33 dinosaur plates poking out of the top of the egg).
+
+**Main Stage (boombox)**
+> Flat vector children's book mascot, screen-print look, one dark navy outline #1B1F5C of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple, no pink, no neon. A friendly boombox seen front-on: cobalt blue body #2536B8, a tangerine #FF7A1A stripe along the top, a flat carry handle, a short antenna with a tangerine tip, a small cream cassette window #FFF7E6 in the middle. The two big cream speakers are the eyes, each with a dark navy cone and a white highlight, and a small smile beneath them. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (normal cones, small closed smile) and happy (larger cones, open smiling mouth with dark red inside #A8341A, a small sound-wave arc on each side).
+
+**Railway (steam locomotive)**
+> Flat vector children's book mascot, screen-print look, one dark outline of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A little steam locomotive seen from the front: round boiler in Brunswick green #1F5B3F with a brass ring #CF9522, tall dark chimney #12261C with a flared top, a small cream headlamp above the face, a red buffer beam #C43620 with two round buffers, black wheels at the sides, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth with dark red inside #A8341A).
+
+**Match Day (football)**
+> Flat vector children's book mascot, screen-print look, one dark navy outline #15305A of even weight with round joins, hard offset shadow, no gradients, no glow, no gloss, no text, no sparkles, not 3D, no purple or pink. A football with a face: white ball #FFFFFB with navy #15305A pentagon panels and seams, flat coral cheeks. Bold silhouette that reads at 80px, centred on a plain white square. Two versions: neutral (round dot eyes with a tiny white highlight, small closed smile) and happy (closed arc eyes, open smiling mouth with dark red inside #A8341A).
 
 ## Putting the art in
 
