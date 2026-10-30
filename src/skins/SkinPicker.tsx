@@ -49,6 +49,8 @@ export function SkinPicker() {
         </span>
       </button>
 
+      {open && <div className={styles.scrim} aria-hidden="true" onClick={() => setOpen(false)} />}
+
       {open && (
         <div className={styles.menu} role="radiogroup" aria-label="Theme">
           {skins.map((s) => (
