@@ -138,7 +138,7 @@ export const graphemeBank: GraphemeEntry[] = [
   { phase: 5, grapheme: 'a_ar', words: ['father', 'after', 'rather', 'grass', 'path', 'bath', 'fast', 'last', 'past', 'class'] },
   { phase: 5, grapheme: 'a_o', words: ['swan', 'was', 'want', 'wash', 'watch', 'wasp', 'wallet', 'what', 'swamp', 'squash'] },
   { phase: 5, grapheme: 'a_ay', words: ['apron', 'apricot', 'baby', 'paper', 'table', 'lady', 'acorn', 'April', 'bacon', 'angel'] },
-  { phase: 5, grapheme: 'e_ee', words: ['she', 'he', 'me', 'we', 'be', 'secret', 'evil', 'even', 'equal', 'begin'] },
+  { phase: 5, grapheme: 'e_ee', words: ['she', 'he', 'me', 'we', 'be', 'secret', 'evil', 'even', 'equal', 'fever'] },
   { phase: 5, grapheme: 'i_igh', words: ['tiger', 'find', 'mind', 'kind', 'child', 'wild', 'pilot', 'behind', 'blind', 'spider'] },
   { phase: 5, grapheme: 'o_oa', words: ['host', 'both', 'most', 'post', 'gold', 'cold', 'old', 'told', 'hold', 'open'] },
   { phase: 5, grapheme: 'o_u', words: ['monkey', 'mother', 'brother', 'other', 'month', 'money', 'honey', 'come', 'some', 'oven'] },
@@ -159,7 +159,7 @@ export const graphemeBank: GraphemeEntry[] = [
   { phase: 5, grapheme: 'ou_oo', words: ['soup', 'you', 'group', 'youth', 'through', 'coupon', 'routine', 'toucan', 'cougar', 'souvenir'] },
   { phase: 5, grapheme: 'ey_ay', words: ['grey', 'they', 'prey', 'obey', 'survey', 'convey', 'hey', 'whey', 'greyhound', 'greying'] },
   { phase: 5, grapheme: 'ow_oa', words: ['snow', 'slow', 'show', 'grow', 'blow', 'throw', 'yellow', 'window', 'pillow', 'rainbow'] },
-  { phase: 5, grapheme: 'ss_sh', words: ['mission', 'permission', 'session', 'passion', 'impression', 'discussion', 'profession', 'expression', 'possession', 'admission'] },
+  { phase: 5, grapheme: 'ss_sh', words: ['mission', 'permission', 'session', 'passion', 'impression', 'discussion', 'profession', 'expression', 'concession', 'admission'] },
   { phase: 5, grapheme: 'g_j', words: ['giraffe', 'giant', 'gentle', 'gym', 'magic', 'energy', 'ginger', 'gem', 'germ', 'danger'] },
 ];
 
