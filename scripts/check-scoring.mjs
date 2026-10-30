@@ -164,6 +164,30 @@ check(full.stars === 3, 'igh written well should earn 3 stars');
 check(gap.stars === 1 && gap.hint?.letterIndex === 1 && gap.hint?.hint === 'empty', 'igh with a missing g should earn 1 star and suggest adding the g');
 check(gap.praise.kind === 'best' && gap.praise.letterIndex !== 1, 'igh with a missing g should still praise a letter that was written');
 
+// Split digraphs (a-e): vowel, an open box for any consonant, then the e. The open
+// box must never count for or against the score, whatever is written in it.
+{
+  const vowelAndE = [letterStrokes.a, letterStrokes.e];
+  const boxes = [0, 2];
+  const place = (strokes, box) => strokes.map((s) => s.map((p) => ({ x: p.x + box * CELL_WIDTH, y: p.y })));
+  const writeA = () => place(handwrite(letterStrokes.a, STYLES.good), 0);
+  const writeE = () => place(handwrite(letterStrokes.e, STYLES.good), 2);
+  const writeK = () => place(handwrite(letterStrokes.k, STYLES.good), 1);
+  const scribbleInGap = [place([[{ x: 5, y: 40 }, { x: 60, y: 115 }, { x: 8, y: 118 }, { x: 62, y: 35 }]], 1)][0];
+  const plain = scoreWriting([...writeA(), ...writeE()], vowelAndE, CELL_WIDTH, boxes);
+  const withConsonant = scoreWriting([...writeA(), ...writeK(), ...writeE()], vowelAndE, CELL_WIDTH, boxes);
+  const withScribble = scoreWriting([...writeA(), ...scribbleInGap, ...writeE()], vowelAndE, CELL_WIDTH, boxes);
+  const noE = scoreWriting([...writeA(), ...writeK()], vowelAndE, CELL_WIDTH, boxes);
+  console.log(`a-e: vowel and e ${plain.stars} stars; with a k in the middle ${withConsonant.stars}; with a scribble in the middle ${withScribble.stars}; e missing ${noE.stars} star, tip ${noE.hint?.hint} on letter ${noE.hint?.letterIndex}`);
+  check(plain.stars === 3, 'a-e written well should earn 3 stars');
+  check(withConsonant.stars === 3, 'a consonant in the middle box should not change a-e from 3 stars');
+  check(withScribble.stars === 3, 'a scribble in the middle box should be ignored');
+  check(noE.stars === 1 && noE.hint?.hint === 'empty' && noE.hint?.letterIndex === 1, 'a-e with the e missing should earn 1 star and ask for the e');
+  const good3 = Array.from({ length: 100 }, () => scoreWriting([...writeA(), ...writeK(), ...writeE()], vowelAndE, CELL_WIDTH, boxes).stars === 3).filter(Boolean).length;
+  console.log(`a-e: ${good3}% of good attempts earn 3 stars`);
+  check(good3 >= 85, `a-e: at least 85% of good attempts should earn 3 stars (got ${good3}%)`);
+}
+
 // Whole words: good writing should mostly earn 3 stars, fair writing mostly 2.
 for (const word of [['i', 'g', 'h'], ['s', 'h'], ['a', 'u', 'g', 'h'], ['o', 'a']]) {
   const refs = word.map((l) => letterStrokes[l]);

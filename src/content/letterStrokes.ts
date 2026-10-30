@@ -84,8 +84,18 @@ export const letterStrokes: Record<string, Stroke[]> = {
   z: [join(line(18, 50, 52, 50), line(52, 50, 18, 90), line(18, 90, 52, 90))],
 };
 
-/** The letters to trace for a grapheme label, or null if any can't be traced (e.g. "a-e"). */
-export function traceableLetters(label: string): string[] | null {
-  const letters = label.toLowerCase().split('');
+const SPLIT_DIGRAPH = /^([aeiou])-e$/;
+
+/**
+ * What to put in each letter box when tracing a grapheme label, or null if it
+ * can't be traced. A letter per box, with null for a gap: a split digraph such
+ * as "a-e" is the vowel, any consonant, then the e (cake), so the middle box is
+ * left open and not scored.
+ */
+export function traceCells(label: string): (string | null)[] | null {
+  const lower = label.toLowerCase();
+  const split = SPLIT_DIGRAPH.exec(lower);
+  if (split) return [split[1], null, 'e'];
+  const letters = lower.split('');
   return letters.length > 0 && letters.every((letter) => letter in letterStrokes) ? letters : null;
 }

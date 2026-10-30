@@ -249,16 +249,26 @@ export function scoreLetter(drawnStrokes: Stroke[], reference: Stroke[]): Letter
 }
 
 /**
- * Scores whatever was drawn across `references.length` letter cells, each
- * `cellWidth` wide. A stroke belongs to the cell its middle falls in.
+ * Scores whatever was drawn across the letter boxes, each `cellWidth` wide. A
+ * stroke belongs to the box its middle falls in. `references[i]` is the letter
+ * in box `cellOf[i]` (default: box i); anything drawn in a box with no letter,
+ * such as the middle of a split digraph, is ignored.
  */
-export function scoreWriting(ink: Stroke[], references: Stroke[][], cellWidth: number): WritingScore {
+export function scoreWriting(
+  ink: Stroke[],
+  references: Stroke[][],
+  cellWidth: number,
+  cellOf: number[] = references.map((_, i) => i),
+): WritingScore {
   const cells: Stroke[][] = references.map(() => []);
+  const lastCell = Math.max(...cellOf);
   for (const stroke of ink) {
     if (stroke.length === 0) continue;
     const middle = stroke.reduce((sum, p) => sum + p.x, 0) / stroke.length;
-    const cell = Math.min(references.length - 1, Math.max(0, Math.floor(middle / cellWidth)));
-    cells[cell].push(stroke.map((p) => ({ x: p.x - cell * cellWidth, y: p.y })));
+    const cell = Math.min(lastCell, Math.max(0, Math.floor(middle / cellWidth)));
+    const index = cellOf.indexOf(cell);
+    if (index === -1) continue;
+    cells[index].push(stroke.map((p) => ({ x: p.x - cell * cellWidth, y: p.y })));
   }
   const letters = references.map((reference, i) => scoreLetter(cells[i], reference));
   // Half the average, half the weakest letter: one missing or backwards letter

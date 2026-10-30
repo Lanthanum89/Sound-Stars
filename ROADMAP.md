@@ -13,7 +13,7 @@ Display the official sounds and the class "remember it" phrases from Freddie's t
 
 ## 2. Letter tracing - done
 
-Built as a "Trace it" screen reached from a sound's card on the sound sheet. Stroke data for a-z is in `src/content/letterStrokes.ts` (own hand-built shapes, not the school's font) and is what stage 3 scores against. Split digraphs (`a-e`) are not traceable yet.
+Built as a "Trace it" screen reached from a sound's card on the sound sheet. Stroke data for a-z is in `src/content/letterStrokes.ts` (own hand-built shapes, not the school's font) and is what stage 3 scores against. Split digraphs (`a-e`, `e-e`, `i-e`, `o-e`, `u-e`) trace as vowel, an open box for any consonant, then `e`; the open box is not scored.
 
 Stylus and finger drawing to trace each letter over a guideline.
 
