@@ -128,7 +128,7 @@ const rows: [key: string, phase: Phase, phrase: string][] = [
   ['ve', 5, 'mo[ve] and groo[ve]'],
   ['y_i', 5, 'a c[y]gnet under the s[y]camore'],
   ['are', 5, 'sh[are] the f[are]'],
-  ['ere', 5, "Wh[ere]? 'Over th[ere]!'"],
+  ['ere_air', 5, "Wh[ere]? 'Over th[ere]!'"],
   ['ear_air', 5, 'a b[ear] ate the p[ear]'],
   ['tch', 5, 'ca[tch] on the la[tch]'],
   ['o_u', 5, 'the m[o]nkey and his m[o]ther'],
@@ -137,15 +137,15 @@ const rows: [key: string, phase: Phase, phrase: string][] = [
   ['dge', 5, 'squi[dge] on the bri[dge]'],
   ['st', 5, 'li[st]en to the whi[st]le'],
   ['ce', 5, 'dan[ce] on the fen[ce]'],
-  ['se', 5, 'a mou[se] in the hou[se]!'],
+  ['se_s', 5, 'a mou[se] in the hou[se]!'],
   ['gn', 5, 'a [gn]ome with a si[gn]'],
   ['kn', 5, '[kn]eel on your [kn]ees'],
   ['wr', 5, '[wr]ap it round your [wr]ist'],
   ['mb', 5, 'the la[mb] cli[mb]ed up'],
-  ['se', 5, 'pass the chee[se], plea[se]'],
+  ['se_z', 5, 'pass the chee[se], plea[se]'],
   ['ze', 5, 'free[ze] in the bree[ze]!'],
   ['eer', 5, 'p[eer] at the d[eer]'],
-  ['ere', 5, 'h[ere] is the sph[ere]'],
+  ['ere_ear', 5, 'h[ere] is the sph[ere]'],
   ['ti', 5, 'waiting pa[ti]ently at the sta[ti]on'],
   ['al', 5, 'b[al]m on your p[al]m'],
   ['augh', 5, 'she t[augh]t her d[augh]ter'],
@@ -155,7 +155,7 @@ const rows: [key: string, phase: Phase, phrase: string][] = [
   ['ci', 5, 'a spe[ci]al and pre[ci]ous relic'],
 ];
 
-// Ids must be stable and unique even where a key appears twice (al, se, ere, ti).
+// Ids must be stable and unique even where a key appears twice (al, ti).
 const seen = new Map<string, number>();
 
 export const soundSheet: SoundSheetEntry[] = rows.map(([key, phase, phrase]) => {

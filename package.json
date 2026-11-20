@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "check:palettes": "node --experimental-strip-types scripts/check-palettes.mjs",
     "check:scoring": "node --experimental-strip-types scripts/check-scoring.mjs",
+    "check:content": "node --experimental-strip-types scripts/check-content.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
